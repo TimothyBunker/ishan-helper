@@ -1,0 +1,7490 @@
+===== slides/CS380 Lecture 2.pdf =====
+
+---- Page 1 ----
+| 1
+CS 380: ARTIFICIAL INTELLIGENCE
+| 1Lecture 2: Rational Agents
+
+---- Page 2 ----
+What is an Agent ?
+•Agent : an autonomous entity which 
+observes and acts upon an environment and 
+directs its activity towards achieving goals
+•Examples
+–Robots
+–Software Agents
+–ATMs, ticket kiosks, etc.
+–Humans?
+CS 380: Artificial Intelligence | 2
+
+---- Page 3 ----
+CS 380: Artificial Intelligence | 3What is an Agent?
+
+
+---- Page 4 ----
+CS 380: Artificial Intelligence | 4What is an Agent?
+•Theoretically:  𝑓∶𝑃∗→𝐴
+•In practice: the agent runs on a physical 
+system (e.g ., a computer) to produce 𝑓
+Maps sequences of 
+percepts toactions
+
+---- Page 5 ----
+Percepts
+•Can be very simple, can be very complex
+•What are the percepts for a self -driving car?
+–< can go left, can go straight, can go right >
+–Lane position
+–(above) + distance to lead car
+–(above) + all cars within distance D
+–(above) + road/signal information (e.g., traffic lights)
+–(above) + geospatial navigation information
+–(above) + current/predicted weather
+–… etc.
+CS 380: Artificial Intelligence | 5
+
+---- Page 6 ----
+Example: Vacuum Cleaner
+CS 380: Artificial Intelligence | 6
+Room A Room B
+Vacuum-cleanerwor ld
+A B
+Perce pts:locationandcontents,e .g., [A,Dirty]
+Actions:Left,Right,Suck,NoOp
+Chapter2 5
+•Percepts
+–Location sensor (Room A or B?)
+–Dirt sensor (Clean or dirty?)
+•Actions
+–Left, Right, Suck, Wait
+
+---- Page 7 ----
+Example: Vacuum Cleaner
+•Percepts
+–Location sensor (Room A or B?)
+–Dirt sensor (Clean or Dirty?)
+•Actions
+–Left, Right, Suck, Wait
+CS 380: Artificial Intelligence | 7
+Room A Room B
+Vacuum-cleanerwor ld
+A B
+Perce pts:locationandcontents,e .g., [A,Dirty]
+Actions:Left,Right,Suck,NoOp
+Chapter2 5
+Percept:
+[A, Clean]
+
+---- Page 8 ----
+Example: Vacuum Cleaner
+CS 380: Artificial Intelligence | 8
+
+
+---- Page 9 ----
+Example: Vacuum Cleaner
+Questions:
+•Can it be implemented as a computer program?
+•If so, how? –what would the function look like?
+CS 380: Artificial Intelligence | 9
+
+
+---- Page 10 ----
+CS 380: Artificial Intelligence | 10Example: Vacuum Cleaner
+
+
+---- Page 11 ----
+
+
+---- Page 12 ----
+Rationality
+•As we discussed last time, “intelligence” is an ill -defined 
+concept.
+•Let us assume a performance measure that is given (and 
+usually external) to the agent
+–For example:
+•$1 per room cleaned
+•$10 per room cleaned minus $1 per movement
+•$10 per room cleaned minus $3 per movement
+•etc.
+•Rational Agent :
+–Chooses actions that maximize the expected value of the 
+performance measure given the current percept sequence.
+CS 380: Artificial Intelligence | 12
+
+---- Page 13 ----
+Rationality
+•Imagine two agents A and B whose performance 
+measure is defined by how much $$ they make at 
+the casino.
+–A and B play one game of blackjack
+–A plays the move that probabilistically has the highest 
+chance of winning, but loses
+–B plays a different, riskier move, and ends up winning
+•Which agent is rational?
+CS 380: Artificial Intelligence | 13
+
+---- Page 14 ----
+Rationality
+•Imagine two agents A and B whose performance measure 
+is defined by how much $$ they make at the casino.
+–A and B play one game of blackjack
+–A plays the move that probabilistically has the highest chance of 
+winning, but loses
+–B plays a different, riskier move, and ends up winning
+•Which agent is rational?
+•A is (probably) that rational agent
+–Rationality does not imply clairvoyance
+–Rationality does not imply omniscience
+–Thus, rational does notnecessarily mean more successful
+•(PS: When is the riskier move the more rational choice?)
+CS 380: Artificial Intelligence | 14
+
+---- Page 15 ----
+How Do We Design a Rational Agent?
+•To design a rational agent, we first need to 
+define its environment, performance 
+measure, etc.
+•PEAS:
+–Performance
+–Environment
+–Actions
+–Sensors (percepts)
+CS 380: Artificial Intelligence | 15
+
+---- Page 16 ----
+Example (informal): Automated Taxi
+•Performance :
+•Environment :
+•Actions :
+•Sensors :
+CS 380: Artificial Intelligence | 16
+
+---- Page 17 ----
+Example (informal): Automated Taxi
+•Performance :
+•Environment : ??
+•Actions :
+•Sensors :
+CS 380: Artificial Intelligence | 17
+
+---- Page 18 ----
+Example (informal): Automated Taxi
+•Performance :
+•Environment : streets, pedestrians, cars, weather, 
+traffic lights/signs, …
+•Actions :
+•Sensors :
+CS 380: Artificial Intelligence | 18
+
+---- Page 19 ----
+Example (informal): Automated Taxi
+•Performance :
+•Environment : streets, pedestrians, cars, weather, 
+traffic lights/signs, …
+•Actions :
+•Sensors : ??
+CS 380: Artificial Intelligence | 19
+
+---- Page 20 ----
+Example (informal): Automated Taxi
+•Performance :
+•Environment : streets, pedestrians, cars, weather, 
+traffic lights/signs, …
+•Actions :
+•Sensors : GPS, video cameras, SONAR/LiDAR, 
+accelerometers, microphones, keyboard, …
+CS 380: Artificial Intelligence | 20
+
+---- Page 21 ----
+Example (informal): Automated Taxi
+•Performance :
+•Environment : streets, pedestrians, cars, weather, 
+traffic lights/signs, …
+•Actions : ??
+•Sensors : GPS, video cameras, SONAR/LiDAR, 
+accelerometers, microphones, keyboard, …
+CS 380: Artificial Intelligence | 21
+
+---- Page 22 ----
+Example (informal): Automated Taxi
+•Performance :
+•Environment : streets, pedestrians, cars, weather, 
+traffic lights/signs, …
+•Actions : steering, throttle/brake, horn, display, …
+•Sensors : GPS, video cameras, SONAR/LiDAR, 
+accelerometers, microphones, keyboard, …
+CS 380: Artificial Intelligence | 22
+
+---- Page 23 ----
+Example (informal): Automated Taxi
+•Performance : ??
+•Environment : streets, pedestrians, cars, weather, 
+traffic lights/signs, …
+•Actions : steering, throttle/brake, horn, display, …
+•Sensors : GPS, video cameras, SONAR/LiDAR, 
+accelerometers, microphones, keyboard, …
+CS 380: Artificial Intelligence | 23
+
+---- Page 24 ----
+Example (informal): Automated Taxi
+•Performance : profit, safety, legality, …
+•Environment : streets, pedestrians, cars, weather, 
+traffic lights/signs, …
+•Actions : steering, throttle/brake, horn, display, …
+•Sensors : GPS, video cameras, SONAR/LiDAR, 
+accelerometers, microphones, keyboard, …
+CS 380: Artificial Intelligence | 24
+
+---- Page 25 ----
+
+
+---- Page 26 ----
+Example: Chess Agent
+•Performance :
+•Environment : ??
+•Actions :
+•Sensors :
+CS 380: Artificial Intelligence | 26
+
+---- Page 27 ----
+Example: Chess Agent
+•Performance :
+•Environment : Chess board, opponents, rules
+•Actions :
+•Sensors :
+CS 380: Artificial Intelligence | 27
+
+
+---- Page 28 ----
+Example: Chess Agent
+•Performance :
+•Environment : Chess board, opponents, rules
+•Actions :
+•Sensors : ??
+CS 380: Artificial Intelligence | 28
+
+---- Page 29 ----
+Example: Chess Agent
+•Performance :
+•Environment : Chess board, opponents, rules
+•Actions :
+•Sensors : Board perceived as a 8x8 matrix.  Each element in the 
+matrix can take one of the following values: E, BP , WP , BB, WB, BK, 
+WN, BR, WN, BQ, WK, BK, WK
+CS 380: Artificial Intelligence | 29
+
+---- Page 30 ----
+CS 380: Artificial Intelligence | 30Example: Chess Agent
+WR WN WB WK WQ WB WN WR
+WP WP WP WP WP WP WP WP
+BP BP BP BP BP BP BP BP
+BR BN BB BK BQ BB BN BR
+Note : The environment might have lots of features
+(piece size and material, opponent’s facial expression, sunny vs. raining etc.)
+… but for rational agents, we only need to build sensors for the information 
+that is necessary to maximize the performance measureEnvironment Percept
+
+---- Page 31 ----
+Example: Chess Agent
+•Performance :
+•Environment : Chess board, opponents, rules
+•Actions : ??
+•Sensors : Board perceived as a 8x8 matrix.  Each element in the 
+matrix can take one of the following values: E, BP , WP , BB, WB, 
+BK, WN, BR, WN, BQ, WK, BK, WK
+CS 380: Artificial Intelligence | 31
+
+---- Page 32 ----
+Example: Chess Agent
+•Performance :
+•Environment : Chess board, opponents, rules
+•Actions : 
+–Pairs of coordinates: (x1, y1) (x2, y2)
+–Specify the source piece and the target position (for castling, 
+the king’s move is specified )
+•Sensors : Board perceived as a 8x8 matrix.  Each element in the 
+matrix can take one of the following values: E, BP , WP , BB, WB, BK, 
+WN, BR, WN, BQ, WK, BK, WK
+CS 380: Artificial Intelligence | 32
+
+---- Page 33 ----
+Example: Chess Agent
+•Performance : 
+–??
+•Environment : Chess board, opponents, rules
+•Actions : 
+–Pairs of coordinates: (x1, y1) (x2, y2)
+–Specify the source piece and the target position (for castling, 
+the king’s move is specified )
+•Sensors : Board perceived as a 8x8 matrix.  Each element in the 
+matrix can take one of the following values: E, BP , WP , BB, WB, BK, 
+WN, BR, WN, BQ, WK, BK, WK
+CS 380: Artificial Intelligence | 33
+
+---- Page 34 ----
+Example: Chess Agent
+•Performance : 
+–Once reached a terminal state (draw, win): -1 for losing, 0 for 
+draw, 1 for winning
+–Or, more complex measures of how well/poorly it played
+•Environment : Chess board, opponents, rules
+•Actions : 
+–Pairs of coordinates: (x1, y1) (x2, y2)
+–Specify the source piece and the target position (for castling, the 
+king’s move is specified )
+•Sensors : Board perceived as a 8x8 matrix.  Each element in the 
+matrix can take one of the following values: E, BP , WP , BB , WB, BK, 
+WN, BR, WN, BQ, WK, BK, WK
+CS 380: Artificial Intelligence | 34
+
+---- Page 35 ----
+Properties of Environments
+•(Fully) Observable: The agent can sense the entire state of the 
+environment (else: Partially Observable )
+•Deterministic : The outcome of actions is determined by the 
+state of the board and the action executed (else: 
+Nondeterministic or Stochastic )
+•Sequential : Action outcomes can be affected by prior actions 
+(else: Episodic ).
+•Static : State of the world doesn’t change during deliberation 
+between actions (else: Dynamic )
+•Discrete : Actions can only be performed in a small fixed number 
+of ways (else: Continuous )
+•Single -Agent : There is only one agent of change
+(else : Multi -Agent )
+CS 380: Artificial Intelligence | 35
+
+---- Page 36 ----
+Environment Examples
+•Solitaire (the card game)?
+–Fully Observable vs. Partially Observable
+–Deterministic vs. Nondeterministic
+–Sequential vs. Episodic
+–Static vs. Dynamic
+–Discrete vs. Continuous
+–Single -Agent vs. Multi -Agent
+CS 380: Artificial Intelligence | 36
+
+
+---- Page 37 ----
+Environment Examples
+•Solitaire (the card game)?
+–Fully Observable vs. Partially Observable
+–Deterministic vs. Nondeterministic
+–Sequential vs. Episodic
+–Static vs. Dynamic
+–Discrete vs. Continuous
+–Single -Agent vs. Multi -Agent
+CS 380: Artificial Intelligence | 37
+
+
+---- Page 38 ----
+Environment Examples
+•Chess?
+–Fully Observable vs. Partially Observable
+–Deterministic vs. Nondeterministic
+–Sequential vs. Episodic
+–Static vs. Dynamic
+–Discrete vs. Continuous
+–Single -Agent vs. Multi -Agent
+CS 380: Artificial Intelligence | 38
+
+
+---- Page 39 ----
+Environment Examples
+•Chess?
+–Fully Observable vs. Partially Observable
+–Deterministic vs. Nondeterministic
+–Sequential vs. Episodic
+–Static vs. Dynamic
+–Discrete vs. Continuous
+–Single -Agent vs. Multi -Agent
+CS 380: Artificial Intelligence | 39
+
+
+---- Page 40 ----
+Environment Examples
+•Backgammon?
+–Fully Observable vs. Partially Observable
+–Deterministic vs. Nondeterministic
+–Sequential vs. Episodic
+–Static vs. Dynamic
+–Discrete vs. Continuous
+–Single -Agent vs. Multi -Agent
+CS 380: Artificial Intelligence | 40
+
+
+---- Page 41 ----
+Environment Examples
+•Angry Birds?
+–Fully Observable vs. Partially Observable
+–Deterministic vs. Nondeterministic
+–Sequential vs. Episodic
+–Static vs. Dynamic
+–Discrete vs. Continuous
+–Single -Agent vs. Multi -Agent
+CS 380: Artificial Intelligence | 41
+
+
+---- Page 42 ----
+Environment Examples
+•Angry Birds?
+–Fully Observable * vs. Partially Observable
+–Deterministic * vs. Nondeterministic
+–Sequential vs. Episodic
+–Static vs. Dynamic
+–Discrete vs. Continuous ??
+–Single -Agent vs. Multi -Agent
+CS 380: Artificial Intelligence | 42
+
+
+---- Page 43 ----
+Environment Examples
+•Real World?
+–Fully Observable vs. Partially Observable
+–Deterministic vs. Nondeterministic
+–Sequential vs. Episodic
+–Static vs. Dynamic
+–Discrete vs. Continuous
+–Single -Agent vs. Multi -Agent
+CS 380: Artificial Intelligence | 43
+
+---- Page 44 ----
+Environment Examples
+•Real World?
+–Fully Observable vs. Partially Observable
+–Deterministic vs. Nondeterministic
+–Sequential vs. Episodic
+–Static vs. Dynamic
+–Discrete vs. Continuous
+–Single -Agent vs. Multi -Agent
+CS 380: Artificial Intelligence | 44
+
+---- Page 45 ----
+Agent Types
+•We will cover 4 basic types:
+–Reactive agents (reflex agents)
+–State -based agents
+–Goal -based agents
+–Utility -based agents
+•They can all incorporate learning
+CS 380: Artificial Intelligence | 45
+
+---- Page 46 ----
+CS 380: Artificial Intelligence | 46Reactive Agents
+
+
+---- Page 47 ----
+Reactive Agent
+•Finds a rule whose condition matches the 
+current situation, as defined by percepts , 
+and then does the action associated with 
+the rule.
+•Agent has no memory.
+CS 380: Artificial Intelligence | 47
+
+
+---- Page 48 ----
+CS 380: Artificial Intelligence | 48State -based Agents
+
+
+---- Page 49 ----
+State -based Agent
+•Finds rule whose condition matches 
+current situation, as defined by percepts 
+and stored internal state , and does action 
+associated with the rule.
+•Internal state acts as a memory.
+CS 380: Artificial Intelligence | 49
+
+---- Page 50 ----
+CS 380: Artificial Intelligence | 50Goal -based Agents
+
+
+---- Page 51 ----
+Goal -based Agent
+•Has explicit goal and when choosing an 
+action, will select an action that achieves 
+that goal .
+•Requires some planning (“what will 
+happen if I do action A?”).
+CS 380: Artificial Intelligence | 51
+
+---- Page 52 ----
+CS 380: Artificial Intelligence | 52Utility -based Agents
+
+
+---- Page 53 ----
+Utility -based Agent
+•Has utility function that maps a state onto 
+real number that describes how well agent 
+is performing.
+•Not only achieves goals, but maximizes 
+some utility measure .
+CS 380: Artificial Intelligence | 53
+
+---- Page 54 ----
+CS 380: Artificial Intelligence | 54Learning Agents
+
+
+---- Page 55 ----
+Summary
+•Agents interact with environments through actuators and 
+sensors
+•The agent function maps percepts to actions
+•A rational agent chooses the actions that maximize the 
+performance measure
+•PEAS describes components of rational agent design
+•Environments can be categorized along several 
+dimensions:
+–Observable? Deterministic? Sequential? Static? 
+Discrete? Single -agent?
+•Some basic agent architectures:
+–Reactive, State -based, Goal -based, Utility -based
+CS 380: Artificial Intelligence | 55
+
+---- Page 56 ----
+Looking Ahead… 
+•What we have covered so far…
+–What is AI?
+–What is a Rational Agent?
+•In the next few lectures, we will cover…
+–How can rational agents solve problems?
+–How can rational agents represent knowledge?
+–How can rational agents learn?
+CS 380: Artificial Intelligence | 56
+
+===== slides/CS380 Lecture 3.pdf =====
+
+---- Page 1 ----
+| 1
+CS 380: ARTIFICIAL INTELLIGENCE
+| 1Lecture 3: Problem Solving & Uninformed Search
+
+---- Page 2 ----
+Problem Solving
+•What is a “problem”?
+–In the context of AI: a question the requires an 
+answer
+•Many types of problems
+–Decision Problems
+–Search Problems
+–Counting Problems
+–Optimization Problems
+CS 380: Artificial Intelligence | 2
+
+---- Page 3 ----
+Problem Solving
+•There are many problems for which we know 
+specialized ways of solving.
+•For example:
+–Problem: Find the roots of the polynomial 𝑎𝑥2+𝑏𝑥+𝑐=0
+–We have mechanical procedures to solve this problem in an exact 
+way
+–However, those procedures can only be applied to this problem, 
+not any other
+•Problem Solving in AI:
+–Finding general procedures to solve general classes of problems
+–Are there algorithms that can be used to solve any
+computationally solvable problem?
+•We humans seem to be able to!
+CS 380: Artificial Intelligence | 3
+
+---- Page 4 ----
+Problem Solving
+•Example: Beakers / Water Jugs Puzzle
+CS 380: Artificial Intelligence | 4oPour from one to 
+another but only on top 
+of same color (or empty)
+oContinue until beakers 
+are filled with only 1 
+color
+
+
+---- Page 5 ----
+Example: Maze
+•A robot is at the entrance of the maze.
+•Problem: How does the robot get to the exit?
+•Step 1: Formulate goal
+–Be in the exit
+•Step 2: Formulate problem
+–States, actions, etc.
+•Step 3: Find solution
+–Specific sequence of actions
+CS 380: Artificial Intelligence | 5
+
+
+---- Page 6 ----
+Problem Formulation
+•Initial state: S0
+–Initial configuration of the problem (e.g. starting position in a 
+maze)
+•Actions: A
+–The different ways in which the agent can change the state 
+(e.g. moving to an adjacent position in the maze)
+•Goal condition: G
+–A function that determines whether a state reached by a 
+given sequence of actions is a solution to the problem or not
+•Cost function: c
+–A function that assigns a numeric cost to a given sequence of 
+actions
+CS 380: Artificial Intelligence | 6
+
+---- Page 7 ----
+Problem Formulation
+•Initial state: S0
+–Initial configuration of the problem (e.g. starting position in a 
+maze)
+•Actions: A
+–The different ways in which the agent can change the state 
+(e.g. moving to an adjacent position in the maze)
+•Goal condition: G
+–A function that determines whether a state reached by a 
+given sequence of actions is a solution to the problem or not
+•Cost function: c
+–A function that assigns a numeric cost to a given sequence of 
+actions
+CS 380: Artificial Intelligence | 7The initial state, together with the set 
+of actions, define the State Space or 
+Search Space —the set of all the 
+possible states that are reachable 
+from the initial state by some 
+sequence of actions.
+
+---- Page 8 ----
+Problem Types
+•Deterministic, fully observable:
+–Solution: [down, down, down,
+right, down, …]
+•Non -deterministic or partially observable:
+–Agent might not know its exact coordinates, must rely 
+on percepts to tell them about the walls around them
+–Solution, policy (mappings from percepts, or states, to 
+actions):
+•If no wall on left, then turn left
+•If wall on left, no wall ahead, then advance
+•If wall on left, wall ahead, then turn right
+–For example: the “follow the right/left wall” strategy
+CS 380: Artificial Intelligence | 8
+
+
+---- Page 9 ----
+Example: Maze
+•States:
+•Actions:
+•Goal:
+•Cost: 
+CS 380: Artificial Intelligence | 9
+Assuming we have a robot with a 
+direction and partial information…
+
+---- Page 10 ----
+Example: Maze
+•States:
+–((x,y), facing direction)
+–Initial state: ((0,0), down)
+•Actions: advance, left, right
+•Goal: reach state ((9,4), *)
+•Cost: 1 per action executed
+CS 380: Artificial Intelligence | 10
+
+
+---- Page 11 ----
+Example: Maze
+•States:
+–((x,y), facing direction)
+–Initial state: ((0,0), down)
+•Actions: advance, left, right
+•Goal: reach state ((9,4), *)
+•Cost: 1 per action executed
+CS 380: Artificial Intelligence | 11
+How difficult is this problem?
+Let’s say, compared to a
+larger maze…
+or chess…
+
+---- Page 12 ----
+Example: Maze
+•States:
+–((x,y), facing direction)
+–Initial state: ((0,0), down)
+•Actions: advance, left, right
+•Goal: reach state ((9,4), *)
+•Cost: 1 per action executed
+CS 380: Artificial Intelligence | 12
+How difficult is this problem?
+A typical measure of 
+“difficulty” is the size of the 
+state space: if it’s small, it’s 
+very easy to find the 
+solution.
+How many possible states 
+does this maze have?
+(for one agent finding its way 
+around…)
+
+---- Page 13 ----
+Example: Maze
+•States:
+–((x,y), facing direction)
+–Initial state: ((0,0), down)
+•Actions: advance, left, right
+•Goal: reach state ((9,4), *)
+•Cost: 1 per action executed
+CS 380: Artificial Intelligence | 13
+How difficult is this problem?
+A typical measure of 
+“difficulty” is the size of the 
+state space: if it’s small, it’s 
+very easy to find the 
+solution.
+For this maze, the state 
+space has 200 states
+(50positions * 4 directions)
+How about chess?
+
+---- Page 14 ----
+Example: Maze
+•States:
+–((x,y), facing direction)
+–Initial state: ((0,0), down)
+•Actions: advance, left, right
+•Goal: reach state ((9,4), *)
+•Cost: 1 per action executed
+CS 380: Artificial Intelligence | 14
+How difficult is this problem?
+A typical measure of 
+“difficulty” is the size of the 
+state space: if it’s small, it’s 
+very easy to find the 
+solution.
+For this maze, the state 
+space has 200 states
+(50positions * 4 directions)
+Chess has about 1050states
+
+---- Page 15 ----
+Example: 8 -puzzle
+•States :
+•Actions: 
+•Goal: 
+•Cost:
+CS 380: Artificial Intelligence | 15
+
+
+---- Page 16 ----
+Example: 8 -puzzle
+•States:
+–Board configuration, represented as a vector (1d or 2d) of 9 positions, 
+where each position represents one cell on the board
+–Initial state: <8,blank,6,5,4,7,2,3,1 >
+•Actions: 
+•Goal: 
+•Cost: 
+CS 380: Artificial Intelligence | 16
+
+
+---- Page 17 ----
+Example: 8 -puzzle
+•States:
+–Board configuration, represented as a vector (1d or 2d) of 9 positions, 
+where each position represents one cell on the board
+–Initial state: <8,blank,6,5,4,7,2,3,1 >
+•Actions: “move” the blank up, down, left, right
+•Goal: 
+•Cost: 
+CS 380: Artificial Intelligence | 17
+
+
+---- Page 18 ----
+Example: 8 -puzzle
+•States:
+–Board configuration, represented as a vector (1d or 2d) of 9 positions, 
+where each position represents one cell on the board
+–Initial state: <8,blank,6,5,4,7,2,3,1 >
+•Actions: “move” the blank up, down, left, right
+•Goal: Reach state <blank,1,2,3,4,5,6,7,8 >
+•Cost: 1 per move
+CS 380: Artificial Intelligence | 18
+
+
+---- Page 19 ----
+Example: 8 -puzzle
+•States:
+–Board configuration, represented as a vector (1d or 2d) of 9 positions, 
+where each position represents one cell on the board
+–Initial state: <8,blank,6,5,4,7,2,3,1 >
+•Actions: “move” the blank up, down, left, right
+•Goal: Reach state <blank,1,2,3,4,5,6,7,8 >
+•Cost: 1 per move
+CS 380: Artificial Intelligence | 19
+What’s the size of the state 
+space for the 8 -puzzle?
+
+---- Page 20 ----
+Example: 8 -puzzle
+•States:
+–Board configuration, represented as a vector (1d or 2d) of 9 positions, 
+where each position represents one cell on the board
+–Initial state: <8,blank,6,5,4,7,2,3,1 >
+•Actions: “move” the blank up, down, left, right
+•Goal: Reach state <blank,1,2,3,4,5,6,7,8 >
+•Cost: 1 per move
+CS 380: Artificial Intelligence | 20
+What’s the size of the state 
+space for the 8 -puzzle?
+9! = 362,880
+
+---- Page 21 ----
+Example: Vacuum World
+•States:
+•Actions: 
+•Goal: 
+•Cost:
+CS 380: Artificial Intelligence | 21
+Room A Room B
+Vacuum-cleanerwor ld
+A B
+Perce pts:locationandcontents,e .g., [A,Dirty]
+Actions:Left,Right,Suck,NoOp
+Chapter2 5
+
+---- Page 22 ----
+Example: Vacuum World
+•States :
+–Position of robot + dirt in A? + dirt in B?
+–Initial state: (A, no, yes )
+•Actions: Left, right, vacuum
+•Goal: (-, no, no )
+•Cost: 1 per move, 1 per vacuum (??)
+CS 380: Artificial Intelligence | 22
+Room A Room B
+Vacuum-cleanerwor ld
+A B
+Perce pts:locationandcontents,e .g., [A,Dirty]
+Actions:Left,Right,Suck,NoOp
+Chapter2 5
+
+---- Page 23 ----
+CS 380: Artificial Intelligence | 23Example: Vacuum World
+Example:vacuumwor ld statespacegr aph
+R
+L
+S S
+S SR
+LR
+L
+R
+LS
+S SSL
+LL L R
+RR
+R
+states??:inte ge r dirtandrobotlocations(ignoredirtamountsetc.)
+actions??:Left,Right,Suck,NoOp
+goalte s t??:nodirt
+pathcos t??
+Chapter3 17
+
+---- Page 24 ----
+Example: Wolf, Goat, Cabbage
+•States:
+•Actions: 
+•Goal: 
+•Cost:
+CS 380: Artificial Intelligence | 24
+
+
+---- Page 25 ----
+Example: Wolf, Goat, Cabbage
+•States:
+–Location of wolf, goat, cabbage (left, boat, 
+right) and boat (left, right)
+–Initial state: (left, left, left, left)
+•Actions: 
+•Goal: 
+•Cost:
+CS 380: Artificial Intelligence | 25
+
+
+---- Page 26 ----
+Example: Wolf, Goat, Cabbage
+•States:
+–Location of wolf, goat, cabbage (left, boat, 
+right) and boat (left, right)
+–Initial state: (left, left, left, left)
+•Actions: 
+–Boat left, boat right
+–Load wolf, unload wolf
+–Load goat, unload goat
+–Load cabbage, unload cabbage
+–(never leaving the wolf alone with goat or 
+the goat alone with cabbage)
+•Goal: 
+•Cost :
+CS 380: Artificial Intelligence | 26
+
+
+---- Page 27 ----
+Example: Wolf, Goat, Cabbage
+•States:
+–Location of wolf, goat, cabbage (left, boat, 
+right) and boat (left, right)
+–Initial state: (left, left, left, left)
+•Actions: 
+–Boat left, boat right
+–Load wolf, unload wolf
+–Load goat, unload goat
+–Load cabbage, unload cabbage
+–(never leaving the wolf alone with goat or 
+the goat alone with cabbage)
+•Goal: (right, right, right, right)
+•Cost:
+CS 380: Artificial Intelligence | 27
+
+
+---- Page 28 ----
+Example: Wolf, Goat, Cabbage
+•States:
+–Location of wolf, goat, cabbage (left, boat, 
+right) and boat (left, right)
+–Initial state: (left, left, left, left)
+•Actions: 
+–Boat left, boat right
+–Load wolf, unload wolf
+–Load goat, unload goat
+–Load cabbage, unload cabbage
+–(never leaving the wolf alone with goat or 
+the goat alone with cabbage)
+•Goal: (right, right, right, right)
+•Cost: 1 per action
+CS 380: Artificial Intelligence | 28
+
+
+---- Page 29 ----
+Example: Wolf, Goat, Cabbage
+•States:
+–Location of wolf, goat, cabbage (left, boat, 
+right) and boat (left, right)
+–Initial state: (left, left, left , left)
+•Actions: 
+–Boat left, boat right
+–Load wolf, unload wolf
+–Load goat, unload goat
+–Load cabbage, unload cabbage
+–(never leaving the wolf alone with goat or 
+the goat alone with cabbage)
+•Goal: (right, right, right, right)
+•Cost: 1 per action
+CS 380: Artificial Intelligence | 29
+What’s the size of the
+state space?
+
+---- Page 30 ----
+Example: Wolf, Goat, Cabbage
+•States:
+–Location of wolf, goat, cabbage (left, boat, 
+right) and boat (left, right)
+–Initial state: (left, left, left, left)
+•Actions: 
+–Boat left, boat right
+–Load wolf, unload wolf
+–Load goat, unload goat
+–Load cabbage, unload cabbage
+–(never leaving the wolf alone with goat or 
+the goat alone with cabbage)
+•Goal: (right, right, right, right)
+•Cost: 1 per action
+CS 380: Artificial Intelligence | 30
+What’s the size of the
+state space?
+At most 3*3*3*2 = 54
+(less when we apply the 
+action constraints)
+
+---- Page 31 ----
+More Examples
+•Search Problems can be very general
+•For example, we can formulate any of the 
+following as a search problem:
+–Proving a theorem
+–Solving a physics problem
+–Finding your way around a city (path finding)
+–Playing individual sports (multiplayer sports and 
+games belong to another category of problems)
+–Playing a computer game
+–“Where are my keys?”
+–Etc.
+CS 380: Artificial Intelligence | 31
+
+---- Page 32 ----
+Solving Problems
+•Let’s only consider deterministic, fully -observable 
+problems
+•Simple algorithm:
+–Enumerate every possible sequence of actions:
+•[left]
+•[right]
+•[advance]
+•[left, left]
+•[left, right]
+•[left, advance]
+•…
+–Try one by one, until one reaches the solution
+CS 380: Artificial Intelligence | 32
+
+---- Page 33 ----
+Solving Problems
+•General Idea
+–Given the state space
+–Given the initial state
+•Explore the state space 
+until a state that matches 
+the goal condition is found.
+•Different problem -solving 
+methods are actually just 
+different search strategies.
+CS 380: Artificial Intelligence | 33State space
+
+
+---- Page 34 ----
+Random Walk
+•Algorithm:
+–Initial state: S
+–(1) Determine set of applicable actions A= validActions (S)
+–(2) Choose an action a in Aat random
+–(3) Apply a to the current state: S= apply( S,a)
+–(4) If we have not reached the goal ( G(S) == false), go to (1)
+–(5) Done
+•Is this algorithm…
+–guaranteed to find a solution?
+–guaranteed to find the optimal solution? (i.e., shortest path 
+or minimal cost)
+CS 380: Artificial Intelligence | 34
+
+---- Page 35 ----
+Random Walk
+•Algorithm:
+–Initial state: S
+–(1) Determine set of applicable actions A= validActions (S)
+–(2) Choose an action a in Aat random
+–(3) Apply a to the current state: S= apply( S,a)
+–(4) If we have not reached the goal ( G(S) == false), go to (1)
+–(5) Done
+•Is this algorithm…
+–Is notguaranteed to find a solution?
+–Is notguaranteed to find the optimal solution? (i.e., 
+shortest path or minimal cost)
+CS 380: Artificial Intelligence | 35
+
+---- Page 36 ----
+Search
+•Summary:
+–Initial state : initial configuration of the problem
+–Actions : set of actions the agent can perform to solve 
+the problem
+–State space : set of possible states that are reachable 
+from the initial space by any sequence of actions
+•Search
+–Family of strategies to find solutions
+–Based on systematically exploring the state space until 
+finding a sequence of actions that achieves the goal
+CS 380: Artificial Intelligence | 36
+
+---- Page 37 ----
+CS 380: Artificial Intelligence | 37Illustration
+8 1
+326
+745Initial state
+
+---- Page 38 ----
+CS 380: Artificial Intelligence | 38Illustration
+8 1
+326
+745
+81
+326
+745821
+3 6
+74581
+326
+745
+Initial state
+Set of states reachable by executing only one action
+
+---- Page 39 ----
+CS 380: Artificial Intelligence | 39Illustration
+Set of states reachable by executing two actions8 1
+326
+745
+81
+326
+745821
+3 6
+74581
+326
+745
+Initial state
+381
+26
+7458 1
+326
+7458 1
+326
+745816
+32
+745
+
+
+---- Page 40 ----
+CS 380: Artificial Intelligence | 40Illustration
+Set of states reachable by executing two actions8 1
+326
+745
+81
+326
+745821
+3 6
+74581
+326
+745
+Initial state
+381
+26
+7458 1
+326
+7458 1
+326
+745816
+32
+745
+81
+326
+745
+Initial state
+This is a 
+SEARCH TREE
+If the problem has a solution,
+it will be somewhere in
+the branches of the tree.
+(Uninformed) search strategies 
+represent different ways to 
+explore the search tree.
+
+---- Page 41 ----
+Implementation: states vs. nodes
+•A state is a (representation of) a physical configuration
+•A node is a data structure constituting part of a search tree that 
+includes parent, children, depth, path cost g(x)
+States do not have parents, children, depth, or path cost!
+The Expand function creates new nodes, filling in the various fields 
+and using the Successor function of the problem to create the 
+corresponding states
+CS 380: Artificial Intelligence | 41
+
+
+---- Page 42 ----
+Tree Search Algorithms
+•Basic idea:
+–Offline, simulated exploration of the state space by 
+generating successors of already -explored states (a.k.a. 
+expanding states)
+CS 380: Artificial Intelligence | 42
+
+
+---- Page 43 ----
+Uninformed Search Strategies
+•Uninformed strategies use only the information 
+available in the problem definition
+–Breadth -first Search
+–Uniform -cost Search
+–Depth -first Search
+–Depth -limited Search
+–Iterative Deepening Search
+CS 380: Artificial Intelligence | 43
+
+---- Page 44 ----
+Breadth -first Search
+•Expand shallowest unexpanded node
+•Implementation: fringe is a First In, First Out 
+(FIFO) queue, i.e., new successors go at the end
+CS 380: Artificial Intelligence | 44
+[ A ]
+
+---- Page 45 ----
+Breadth -first Search
+•Expand shallowest unexpanded node
+•Implementation: fringe is a First In, First Out 
+(FIFO) queue, i.e., new successors go at the end
+CS 380: Artificial Intelligence | 45[ A ]
+[ B C ]
+
+
+---- Page 46 ----
+Breadth -first Search
+•Expand shallowest unexpanded node
+•Implementation: fringe is a First In, First Out 
+(FIFO) queue, i.e., new successors go at the end
+CS 380: Artificial Intelligence | 46[ A ]
+[ B C ]
+[ C D E ]
+
+
+---- Page 47 ----
+Breadth -first Search
+•Expand shallowest unexpanded node
+•Implementation: fringe is a First In, First Out 
+(FIFO) queue, i.e., new successors go at the end
+CS 380: Artificial Intelligence | 47[ A ]
+[ B C ]
+[ C D E ]
+[ D E F G ]
+
+
+---- Page 48 ----
+Breadth -first Search
+•Expand shallowest unexpanded node
+•Implementation: fringe is a First In, First Out 
+(FIFO) queue, i.e., new successors go at the end
+CS 380: Artificial Intelligence | 48
+
+
+---- Page 49 ----
+Properties of Breadth -first Search
+•Complete ?? –Will a solution always be found if 
+one exists?
+•Time ?? –How long will it take to find the 
+solution? Often represented as the number of 
+nodes searched.
+•Space ?? –How much memory is needed to 
+perform the search? Often represented as the 
+maximum number of nodes stored at once.
+•Optimal ?? –Will the optimal (least cost) solution 
+be found?
+CS 380: Artificial Intelligence | 49
+
+---- Page 50 ----
+Properties of Breadth -first Search
+•Complete –Yes (if b is finite)
+•Time ??
+•Space ??
+•Optimal ??
+CS 380: Artificial Intelligence | 50
+
+---- Page 51 ----
+Properties of Breadth -first Search
+•Complete –Yes (if b is finite)
+•Time –1 + b + b2+ b3+ … + bd= O( bd)
+–i.e., exponential in d
+•Space ??
+•Optimal ??
+CS 380: Artificial Intelligence | 51
+
+---- Page 52 ----
+Properties of Breadth -first Search
+•Complete –Yes (if b is finite)
+•Time –1 + b + b2+ b3+ … + bd= O(bd)
+–i.e., exponential in d
+•Space –O(bd) (keeps every node in memory)
+•Optimal ??
+CS 380: Artificial Intelligence | 52
+
+---- Page 53 ----
+Properties of Breadth -first Search
+•Complete –Yes (if b is finite)
+•Time –1 + b + b2+ b3+ … + bd= O(bd)
+–i.e., exponential in d
+•Space –O(b) (keeps every node in memory)
+•Optimal –Yes (if cost = 1 per step); not optimal in 
+general
+Space is the big problem; can easily generate nodes 
+at 100MB/sec so 24hrs = 8640GB.
+CS 380: Artificial Intelligence | 53
+
+---- Page 54 ----
+Depth -first Search
+•Expand deepest unexpanded node
+•Implementation: fringe is a Last In, First Out 
+(LIFO) queue, i.e., put successors at front
+CS 380: Artificial Intelligence | 54
+[ A ]
+
+---- Page 55 ----
+Depth -first Search
+•Expand deepest unexpanded node
+•Implementation: fringe is a Last In, First Out 
+(LIFO) queue, i.e., put successors at front
+CS 380: Artificial Intelligence | 55[ A ]
+[ B C ]
+
+
+---- Page 56 ----
+Depth -first Search
+•Expand deepest unexpanded node
+•Implementation: fringe is a Last In, First Out 
+(LIFO) queue, i.e., put successors at front
+CS 380: Artificial Intelligence | 56[ A ]
+[ B C ]
+[ D E C ]
+
+
+---- Page 57 ----
+Depth -first Search
+•Expand deepest unexpanded node
+•Implementation: fringe is a Last In, First Out 
+(LIFO) queue, i.e., put successors at front
+CS 380: Artificial Intelligence | 57[ A ]
+[ B C ]
+[ D E C ]
+[ H I E C ]
+
+
+---- Page 58 ----
+Depth -first Search
+•Expand deepest unexpanded node
+•Implementation: fringe is a Last In, First Out 
+(LIFO) queue, i.e., put successors at front
+CS 380: Artificial Intelligence | 58[ A ]
+[ B C ]
+[ D E C ]
+[ H I E C ]
+[ I E C ]
+
+
+---- Page 59 ----
+Depth -first Search
+•Expand deepest unexpanded node
+•Implementation: fringe is a Last In, First Out 
+(LIFO) queue, i.e., put successors at front
+CS 380: Artificial Intelligence | 59[ A ]
+[ B C ]
+[ D E C ]
+[ H I E C ]
+[ I E C ]
+[ E C ]
+
+
+---- Page 60 ----
+Depth -first Search
+•Expand deepest unexpanded node
+•Implementation: fringe is a Last In, First Out 
+(LIFO) queue, i.e., put successors at front
+CS 380: Artificial Intelligence | 60[ A ]
+[ B C ]
+[ D E C ]
+[ H I E C ]
+[ I E C ]
+[ E C ]
+[ J K C ]
+
+
+---- Page 61 ----
+Depth -first Search
+•Expand deepest unexpanded node
+•Implementation: fringe is a Last In, First Out 
+(LIFO) queue, i.e., put successors at front
+CS 380: Artificial Intelligence | 61[ A ]
+[ B C ]
+[ D E C ]
+[ H I E C ]
+[ I E C ]
+[ E C ]
+[ J K C ]
+[ K C ]
+
+
+---- Page 62 ----
+Depth -first Search
+•Expand deepest unexpanded node
+•Implementation: fringe is a Last In, First Out 
+(LIFO) queue, i.e., put successors at front
+CS 380: Artificial Intelligence | 62[ A ]
+[ B C ]
+[ D E C ]
+[ H I E C ]
+[ I E C ]
+[ E C ]
+[ J K C ]
+[ K C ]
+[ C ]
+
+
+---- Page 63 ----
+Depth -first Search
+•Expand deepest unexpanded node
+•Implementation: fringe is a Last In, First Out 
+(LIFO) queue, i.e., put successors at front
+CS 380: Artificial Intelligence | 63[ A ]
+[ B C ]
+[ D E C ]
+[ H I E C ]
+[ I E C ]
+[ E C ]
+[ J K C ]
+[ K C ]
+[ C ]
+[ F G ]
+
+
+---- Page 64 ----
+Depth -first Search
+•Expand deepest unexpanded node
+•Implementation: fringe is a Last In, First Out 
+(LIFO) queue, i.e., put successors at front
+CS 380: Artificial Intelligence | 64[ A ]
+[ B C ]
+[ D E C ]
+[ H I E C ]
+[ I E C ]
+[ E C ]
+[ J K C ]
+[ K C ]
+[ C ]
+[ F G ]
+[ L M G ]
+
+
+---- Page 65 ----
+Depth -first Search
+•Expand deepest unexpanded node
+•Implementation: fringe is a Last In, First Out 
+(LIFO) queue, i.e., put successors at front
+CS 380: Artificial Intelligence | 65[ A ]
+[ B C ]
+[ D E C ]
+[ H I E C ]
+[ I E C ]
+[ E C ]
+[ J K C ]
+[ K C ]
+[ C ]
+[ F G ]
+[ L M G ]
+[ M G ]
+
+
+---- Page 66 ----
+Properties of Depth -first Search
+•Complete ??
+•Time ??
+•Space ??
+•Optimal ??
+CS 380: Artificial Intelligence | 66
+
+---- Page 67 ----
+Properties of Depth -first Search
+•Complete -No: fails in infinite -depth spaces, spaces 
+with loops. Modify to avoid repeated states along path -> 
+complete in finite spaces
+•Time ??
+•Space ??
+•Optimal ??
+CS 380: Artificial Intelligence | 67Consider
+m = maximum depth
+
+---- Page 68 ----
+Properties of Depth -first Search
+•Complete -No: fails in infinite -depth spaces, spaces 
+with loops. Modify to avoid repeated states along path -> 
+complete in finite spaces
+•Time –O(bm): terrible if m is much larger than d but if 
+solutions are dense, may be much faster than       
+breadth -first
+•Space ??
+•Optimal ??
+CS 380: Artificial Intelligence | 68m = maximum depth;
+bad if m >> d !
+
+---- Page 69 ----
+Properties of Depth -first Search
+•Complete -No: fails in infinite -depth spaces, spaces 
+with loops. Modify to avoid repeated states along path -> 
+complete in finite spaces
+•Time –O(bm): terrible if m is much larger than d but if 
+solutions are dense, may be much faster than       
+breadth -first
+•Space –O(bm), i.e., linear space!
+•Optimal ??
+CS 380: Artificial Intelligence | 69
+
+---- Page 70 ----
+Properties of Depth -first Search
+•Complete -No: fails in infinite -depth spaces, spaces 
+with loops. Modify to avoid repeated states along path -> 
+complete in finite spaces
+•Time –O(bm): terrible if m is much larger than d but if 
+solutions are dense, may be much faster than       
+breadth -first
+•Space –O(bm), i.e., linear space!
+•Optimal –No 
+CS 380: Artificial Intelligence | 70
+
+---- Page 71 ----
+CS 380: Artificial Intelligence | 71Illustration
+Set of states reachable by executing two actions8 1
+326
+745
+81
+326
+745821
+3 6
+74581
+326
+745
+Initial state
+381
+26
+7458 1
+326
+7458 1
+326
+745816
+32
+745
+
+
+---- Page 72 ----
+Properties of Depth -first Search
+•Complete -No: fails in infinite -depth spaces, spaces 
+with loops. Modify to avoid repeated states along path -> 
+complete in finite spaces
+•Time –O(bm): terrible if m is much larger than d but if 
+solutions are dense, may be much faster than       
+breadth -first
+•Space –O(bm), i.e., linear space !... But not really. In 
+practice you need to store a list of already visited states 
+to avoid infinite loops.
+•Optimal –No 
+CS 380: Artificial Intelligence | 72
+
+---- Page 73 ----
+Depth -limited Search Algorithm
+•Depth -first search with depth limit l, i.e., nodes at depth lhave 
+no successors
+CS 380: Artificial Intelligence | 73
+(Might be a good idea if 
+dis well understood)
+
+---- Page 74 ----
+Iterative Deepening Search Algorithm
+CS 380: Artificial Intelligence | 74
+
+
+---- Page 75 ----
+Iterative Deepening Search l= 0
+CS 380: Artificial Intelligence | 75
+
+---- Page 76 ----
+Iterative Deepening Search l= 1
+CS 380: Artificial Intelligence | 76
+
+
+---- Page 77 ----
+Iterative Deepening Search l= 2
+CS 380: Artificial Intelligence | 77
+
+
+---- Page 78 ----
+Iterative Deepening Search l= 3
+CS 380: Artificial Intelligence | 78
+
+
+---- Page 79 ----
+Properties of Iterative Deepening Search
+•Complete ??
+•Time ??
+•Space ??
+•Optimal ??
+CS 380: Artificial Intelligence | 79
+
+---- Page 80 ----
+Properties of Iterative Deepening Search
+•Complete –Yes 
+•Time ??
+•Space ??
+•Optimal ??
+CS 380: Artificial Intelligence | 80
+
+---- Page 81 ----
+Properties of Iterative Deepening Search
+•Complete –Yes 
+•Time –(d+1)b0+ db1+ (d-1)b2+ … + bd= O( bd)
+–Like BFS
+•Space ??
+•Optimal ??
+CS 380: Artificial Intelligence | 81
+
+---- Page 82 ----
+Properties of Iterative Deepening Search
+•Complete –Yes 
+•Time –(d+1)b0+ db1+ (d-1)b2+ … + bd= O( bd)
+–Like BFS
+•Space –O(bd)
+–Similar to DFS
+•Optimal ??
+CS 380: Artificial Intelligence | 82
+
+---- Page 83 ----
+Properties of Iterative Deepening Search
+•Complete –Yes 
+•Time –(d+1)b0+ db1+ (d-1)b2+ … + bd= O( bd)
+•Space –O(bd)
+•Optimal –Yes if step cost = 1; 
+–Numerical comparison for b = 10 and d = 5, solution         
+at far right leaf:
+N(IDS) = 50 + 400 + 3,000 + 20,000 + 100,000 = 123,450
+N(BFS) = 10 + 100 + 1,000 + 10,000 + 100,000 + 999,990 = 1,111,100
+oIDS does better because other nodes at depth dare not expanded
+oBFS can be modified to apply goal test when a node is generated
+CS 380: Artificial Intelligence | 83
+
+---- Page 84 ----
+Summary of Algorithms
+CS 380: Artificial Intelligence | 84Criterion Breadth -First Depth -First Depth -Limited Iterative
+Deepening
+Complete ? Yes* No Yes, if l≥ d Yes
+Time ? bdbm blbd
+Space ? bd bm bl bd
+Optimal ? Yes* No No Yes*
+
+---- Page 85 ----
+Coming up…
+•Informed search strategies
+CS 380: Artificial Intelligence | 85
+
+===== slides/CS380 Lecture 1.pdf =====
+
+---- Page 1 ----
+| 1
+CS 380: ARTIFICIAL INTELLIGENCE
+| 1Lecture 1: Introduction
+
+---- Page 2 ----
+Welcome!
+•About me
+–Jenn Engimann , Adjunct Professor, Computer Science
+–Email: < jae63@drexel.edu >
+–Office Hours: Thurs 10 -11 on Zoom, or by appointment
+•Our course TAs
+–Binh Le < bql23@drexel.edu >
+–Don Enwerem < de435@drexel.edu >
+–Zaafir ul Hasan < zuh23@drexel.edu >
+–CLC lab hours posted on Blackboard
+•About this course
+–Syllabus, schedule, & resources on Blackboard
+CS 380: Artificial Intelligence | 2
+
+---- Page 3 ----
+Textbook
+•Russell & Norvig ,
+4thedition
+–3rdis ok too
+•A great standard
+introduction to AI
+CS 380: Artificial Intelligence | 3
+
+
+---- Page 4 ----
+Classes
+•We will have classes twice/week
+–Lecture will be recorded on Echo 360 and posted to 
+Blackboard
+•For lectures slides, many thanks to…
+–Dario Salvucci and Santi Ontañón for great material
+–Stuart Russell and Hwee TouNg for more great material
+linked from http://aima.cs.berkeley.edu/
+–The slides here are a conglomeration of all the above
+plus lots of new material and revisions
+CS 380: Artificial Intelligence | 4
+
+---- Page 5 ----
+Homework Assignments
+•4 programming assignments
+–To be done individually –standard CS rules apply
+•For each assignment, you should submit a ZIP file 
+with all requested materials
+–ZIP… not RAR or any other format
+–You may include a README with additional info
+–Failure to follow these guidelines reduced credit
+–Late submissions lose 33% per day late
+CS 380: Artificial Intelligence | 5
+
+---- Page 6 ----
+Homework Assignments
+•Our language of choice: Python 3
+–AI algorithms can be implemented in anything, of course
+–Python is one of the most commonly used languages,
+and has excellent associated AI/ML libraries
+•We will assume that assignments should run on the 
+equivalent of tux.cs.drexel.edu
+–Currently, tux uses Python 3.10.12
+•Comment your code when/where needed
+–Not everywhere, just where it's needed
+–We want to understand what you wrote and why,
+to properly give you credit for what you did
+CS 380: Artificial Intelligence | 6
+
+---- Page 7 ----
+Course Structure: Evaluation
+•Homework assignments: 50%
+•Midterm exam: 25%
+•Final exam: 25%
+CS 380: Artificial Intelligence | 7
+
+---- Page 8 ----
+Blackboard
+•All materials will be posted on Blackboard
+–Including schedule, lecture slides, assignments, etc.
+•Announcements will generally also be sent out 
+via email
+CS 380: Artificial Intelligence | 8
+
+---- Page 9 ----
+What is Artificial Intelligence?
+CS 380: Artificial Intelligence | 9
+
+---- Page 10 ----
+CS 380: Artificial Intelligence | 10What is Artificial Intelligence?
+Describe AI in 
+Shakespearean 
+English
+Me
+ ChatGPT
+
+---- Page 11 ----
+CS 380: Artificial Intelligence | 11What is Artificial Intelligence?
+Describe AI in 
+Shakespearean 
+English
+O wondrous craft, born of man's hand and mind,
+A creature not of flesh, yet swift and kind,
+With circuits bright and logic keen it flies,
+A mirror of our thoughts ' neath starry skies .
+It learns, it speaks, with wisdom vast and true,
+Yet lacks the heart, the soul that we pursue.
+No joy, no grief, within its core may dwell,
+It thinks, it acts, but cannot love or tell .
+In our design, 'tis both a boon and bane,
+A tool to ease our work, or bring us pain.
+So wield it wise, for power in its might
+Can turn to dark or lead to paths of light.Me
+ ChatGPT
+
+---- Page 12 ----
+What is Artificial Intelligence?
+•Origins (John McCarthy 1956):
+CS 380: Artificial Intelligence | 12We propose that a 2 -month, 10 -man study of artificial intelligence
+be carried out during the summer of 1956 at Dartmouth College in 
+Hanover, New Hampshire. The study is to proceed on the basis of 
+the conjecture that every aspect of learning or any other feature 
+of intelligence can in principle be so precisely described that a 
+machine can be made to simulate it . An attempt will be made to 
+find how to make machines use language, form abstractions and 
+concepts, solve kinds of problems now reserved for humans, and 
+improve themselves . We think that a significant advance can be 
+made in one or more of these problems if a carefully selected 
+group of scientists work on it together for a summer.
+
+---- Page 13 ----
+We propose that a 2 -month, 10 -man study of artificial intelligence
+be carried out during the summer of 1956 at Dartmouth College in 
+Hanover, New Hampshire. The study is to proceed on the basis of 
+the conjecture that every aspect of learning or any other feature 
+of intelligence can in principle be so precisely described that a 
+machine can be made to simulate it . An attempt will be made to 
+find how to make machines use language, form abstractions and 
+concepts, solve kinds of problems now reserved for humans, and 
+improve themselves . We think that a significant advance can be 
+made in one or more of these problems if a carefully selected 
+group of scientists work on it together for a summer.What is Artificial Intelligence?
+•Origins (John McCarthy 1956):
+CS 380: Artificial Intelligence | 13
+
+---- Page 14 ----
+We propose that a 2 -month, 10 -man study of artificial intelligence
+be carried out during the summer of 1956 at Dartmouth College in 
+Hanover, New Hampshire. The study is to proceed on the basis of 
+the conjecture that every aspect of learning or any other feature 
+of intelligence can in principle be so precisely described that a 
+machine can be made to simulate it . An attempt will be made to 
+find how to make machines use language, form abstractions and 
+concepts, solve kinds of problems now reserved for humans, and 
+improve themselves . We think that a significant advance can be 
+made in one or more of these problems if a carefully selected 
+group of scientists work on it together for a summer.What is Artificial Intelligence?
+•Origins (John McCarthy 1956):
+CS 380: Artificial Intelligence | 14
+
+---- Page 15 ----
+We propose that a 2 -month, 10 -man study of artificial intelligence
+be carried out during the summer of 1956 at Dartmouth College in 
+Hanover, New Hampshire. The study is to proceed on the basis of 
+the conjecture that every aspect of learning or any other feature 
+of intelligence can in principle be so precisely described that a 
+machine can be made to simulate it . An attempt will be made to 
+find how to make machines use language, form abstractions and 
+concepts, solve kinds of problems now reserved for humans, and 
+improve themselves . We think that a significant advance can be 
+made in one or more of these problems if a carefully selected 
+group of scientists work on it together for a summer .What is Artificial Intelligence?
+•Origins (John McCarthy 1956):
+CS 380: Artificial Intelligence | 15
+
+---- Page 16 ----
+Related Fields
+Philosophy Logic, methods of reasoning, mind as physical 
+system foundations of learning, language,
+rationality
+Mathematics Formal representation and proof algorithms,
+& CS Theory computation, (un)decidability, (in)tractability,
+probability
+Economics utility, decision theory 
+Neuroscience physical substrate for mental activity
+Psychology phenomena of perception and motor control,
+experimental techniques, cognitive models
+Computer building fast computers, software vs. hardware
+engineering
+Control theory design systems that maximize an objective
+function over time 
+Linguistics knowledge representation, grammar
+CS 380: Artificial Intelligence | 16
+
+---- Page 17 ----
+What is Artificial Intelligence?
+•Basically: 
+–Replicating (human) intelligence in a machine.
+CS 380: Artificial Intelligence | 17
+
+---- Page 18 ----
+What is Artificial Intelligence?
+•Basically: 
+–Replicating (human) intelligence in a machine .
+•So, what is “intelligence”?
+CS 380: Artificial Intelligence | 18
+
+---- Page 19 ----
+What is Artificial Intelligence?
+•Basically: 
+–Replicating (human) intelligence in a machine .
+•So, what is “intelligence”?
+CS 380: Artificial Intelligence | 19
+
+
+---- Page 20 ----
+What is Artificial Intelligence?
+•Basically: 
+–Replicating (human) intelligence in a machine .
+•So, what is “intelligence”?
+–It's very hard to define “intelligence” rigorously
+–Any definition would be arbitrary:
+•We could list features of intelligence, such as: learning, 
+language, knowledge, reasoning, understanding, etc. But any 
+such list leaves things out.
+–Intelligence is often a term that we use to describe 
+certain behaviors that we observe in humans and not 
+in other entities
+CS 380: Artificial Intelligence | 20
+
+---- Page 21 ----
+What is Artificial Intelligence?
+•So, if we cannot define intelligence, then…
+What is AI?  And how would we recognize it 
+when we achieve it?
+CS 380: Artificial Intelligence | 21
+
+---- Page 22 ----
+What is Artificial Intelligence?
+•So, if we cannot define intelligence, then…
+What is AI?  And how would we recognize it 
+when we achieve it?
+CS 380: Artificial Intelligence | 22Thinking humanly Thinking rationally 
+Acting humanly Acting rationally 
+
+---- Page 23 ----
+Acting Humanly: The Turing Test
+•Turing (1950) "Computing machinery and intelligence":
+•"Can machines think?" "Can machines behave intelligently?"
+•Operational test for intelligent behavior: the Imitation Game
+•Turing predicted that by 2000, a machine might have a 30% 
+chance of fooling a lay person for 5 minutes
+•Anticipated many of the major arguments for & against AI that 
+would appear over next 50 years
+•Suggested major components of AI: knowledge, reasoning, 
+language understanding, learning
+CS 380: Artificial Intelligence | 23
+
+
+---- Page 24 ----
+Acting Humanly: The Turing Test
+•Turing (1950) example:
+CS 380: Artificial Intelligence | 24Q: Please write me a sonnet on the subject of the Forth Bridge.
+A : Count me out on this one. I never could write poetry.
+Q: Add 34,957 to 70,764.
+A: (Pause about 30 seconds and then give as answer) 105,621.
+Q: Do you play chess? 
+A: Yes. 
+Q: I have K at [e1], and no other pieces. You have only K at [e3] 
+and R at [h8]. It is your move. What do you play? 
+A: (After a pause of 15 seconds) R -[h1] mate.
+
+---- Page 25 ----
+Acting Humanly: The Turing Test
+•Turing (1950) example:
+CS 380: Artificial Intelligence | 25Q: Please write me a sonnet on the subject of the Forth Bridge.
+A : Count me out on this one. I never could write poetry.
+Q: Add 34,957 to 70,764.
+A: (Pause about 30 seconds and then give as answer) 105,621.
+Q: Do you play chess? 
+A: Yes. 
+Q: I have K at [e1], and no other pieces. You have only K at [e3] 
+and R at [h8]. It is your move. What do you play? 
+A: (After a pause of 15 seconds) R -[h1] mate.Correct answer:
+105,721 !!
+
+---- Page 26 ----
+Acting Humanly: The Turing Test
+•Turing (1950) example:
+CS 380: Artificial Intelligence | 26Q: Please write me a sonnet on the subject of the Forth Bridge.
+A : Count me out on this one. I never could write poetry.
+Q: Add 34,957 to 70,764.
+A: (Pause about 30 seconds and then give as answer) 105,621.
+Q: Do you play chess? 
+A: Yes. 
+Q: I have K at [e1], and no other pieces. You have only K at [e3] 
+and R at [h8]. It is your move. What do you play? 
+A: (After a pause of 15 seconds) R -[h1] mate.
+
+
+---- Page 27 ----
+Thinking Humanly: Cognitive Modeling
+•1960s "cognitive revolution": information -processing 
+psychology 
+•Requires scientific theories of internal activities of the 
+brain
+•Validation of these theories would require:
+–Predicting and testing behavior of human subjects (top -down)
+–Direct identification from neurological data (bottom -up)
+•Both approaches (roughly, Cognitive Science and 
+Cognitive Neuroscience) are now distinct from AI
+–… but will they merge again??
+CS 380: Artificial Intelligence | 27
+
+---- Page 28 ----
+Thinking Rationally: Laws of Thought
+•Aristotle: What are correct arguments/thought 
+processes?
+•Several Greek schools developed various forms of logic: 
+notation and rules of derivation for thoughts; may or may 
+not have proceeded to the idea of mechanization
+•Direct line through mathematics and philosophy to 
+modern AI
+•Problems: 
+–Not all intelligent behavior is mediated by logical deliberation
+–What is the purpose of thinking?
+What thoughts should I have?
+CS 380: Artificial Intelligence | 28
+
+---- Page 29 ----
+Acting Rationally: A Rational Agent
+•Rational behavior: doing the “right thing”
+•The “right thing” = that which is expected to 
+maximize goal achievement, given the available 
+information
+•Doesn't necessarily involve thinking –e.g., a 
+blinking reflex –but thinking should be in the 
+service of rational action
+CS 380: Artificial Intelligence | 29
+
+---- Page 30 ----
+Acting Rationally: A Rational Agent
+•This course focuses on designing rational agents
+•An agent is an entity that perceives and acts
+•Abstractly, an agent is a function from percept histories to 
+actions:
+–f: P* A
+•For any given class of environments and tasks, we seek 
+the agent (or class of agents) with the best performance
+•Caveat: computational limitations make perfect 
+rationality unachievable
+–design best program for given machine resources
+CS 380: Artificial Intelligence | 30
+
+---- Page 31 ----
+What is Artificial Intelligence?
+•So, if we cannot define intelligence, then…
+What is AI?  And how would we recognize it 
+when we achieve it?
+CS 380: Artificial Intelligence | 31Thinking humanly Thinking rationally 
+Acting humanly Acting rationally 
+
+---- Page 32 ----
+What is Artificial Intelligence?
+•In reality, AI encompasses many computational 
+techniques to replicate any aspect of intelligence:
+–Automated reasoning
+–Knowledge representation
+–Learning
+–Natural language generation & understanding
+–Problem solving
+–Planning, prediction
+–Vision, perception
+–Action
+•AI draws on many, many fields: computer science, 
+mathematics, philosophy, economics, psychology, 
+neuroscience, linguistics, control theory, and more
+CS 380: Artificial Intelligence | 32
+
+---- Page 33 ----
+Brief History of AI
+•1943     McCulloch & Pitts: Boolean circuit model of brain
+•1950     Turing's "Computing Machinery and Intelligence"
+•1956 Dartmouth meeting: "Artificial Intelligence" adopted
+•1950s -60s Early AI programs, including Samuel's checkers
+program, Newell & Simon's Logic Theorist, 
+Gelernter's Geometry Engine
+•1966 -73 AI discovers computational complexity
+Neural network research almost disappears
+•1969 -79 Early development of knowledge -based systems
+•1980 -- AI becomes an industry 
+•1986 -- Neural networks return to popularity
+•1990s Probability, Agents (neural networks are back)
+•1995 -- The emergence of intelligent agents 
+•2000s Human -level AI back on the agenda
+CS 380: Artificial Intelligence | 33
+
+---- Page 34 ----
+What can AI do nowadays?
+CS 380: Artificial Intelligence | 34
+
+---- Page 35 ----
+What can AI do nowadays?
+•Play ping -pong?
+–https://www.youtube.com/embed/IXyKLDNzGGI
+CS 380: Artificial Intelligence | 35
+
+---- Page 36 ----
+
+
+---- Page 37 ----
+What can AI do nowadays?
+•Play ping -pong? YES
+•Autonomously drive a car?
+–You all know about autonomous driving
+–Where is the future headed?
+•https://www.youtube.com/embed/4pbAI40dK0A
+•https://www.youtube.com/embed/4SmJP8TdWTU
+CS 380: Artificial Intelligence | 37
+
+---- Page 38 ----
+
+
+---- Page 39 ----
+
+
+---- Page 40 ----
+What can AI do nowadays?
+•Play ping -pong? YES
+•Autonomously drive a car? YES
+•Play Soccer?
+–https://www.youtube.com/embed/aLy5pUsmpKE
+–https://www.youtube.com/embed/CJlTj4vmDZE
+CS 380: Artificial Intelligence | 40
+
+---- Page 41 ----
+
+
+---- Page 42 ----
+
+
+---- Page 43 ----
+What can AI do nowadays?
+•Play ping -pong? YES
+•Autonomously drive a car? YES
+•Play Soccer? KIND OF
+•Play Chess/Go?
+–https://www.youtube.com/embed/_HCWBS6k8j0
+CS 380: Artificial Intelligence | 43
+
+---- Page 44 ----
+
+
+---- Page 45 ----
+What can AI do nowadays?
+•Play ping -pong? YES
+•Autonomously drive a car? YES
+•Play Soccer? KIND OF
+•Play Chess/Go? YES
+•Accurately translate a text?
+–http://translate.google.com
+CS 380: Artificial Intelligence | 45
+
+---- Page 46 ----
+What can AI do nowadays?
+•Play ping -pong? YES
+•Autonomously drive a car? YES
+•Play Soccer? KIND OF
+•Play Chess/Go? YES
+•Accurately translate a text? KIND OF
+•Have a conversation?
+–https://www.youtube.com/embed/lXUQ -DdSDoE
+CS 380: Artificial Intelligence | 46
+
+---- Page 47 ----
+
+
+---- Page 48 ----
+What can AI do nowadays?
+•Play ping -pong? YES
+•Autonomously drive a car? YES
+•Play Soccer? KIND OF
+•Play Chess/Go? YES
+•Accurately translate a text? KIND OF
+•Have a conversation? KIND OF
+•Understand an image?
+CS 380: Artificial Intelligence | 48
+
+---- Page 49 ----
+What can AI do nowadays?
+•Play ping -pong? YES
+•Autonomously drive a car? YES
+•Play Soccer? KIND OF
+•Play Chess/Go? YES
+•Accurately translate a text? KIND OF
+•Have a conversation? KIND OF
+•Understand an image?
+CS 380: Artificial Intelligence | 49
+
+
+---- Page 50 ----
+What can AI do nowadays?
+•Play ping -pong? YES
+•Autonomously drive a car? YES
+•Play Soccer? KIND OF
+•Play Chess/Go? YES
+•Accurately translate a text? KIND OF
+•Have a conversation? KIND OF
+•Understand an image ? KIND OF
+•Play Jeopardy better than humans?
+–https://www.youtube.com/embed/P18EdAKuC1U
+CS 380: Artificial Intelligence | 50
+
+---- Page 51 ----
+
+
+---- Page 52 ----
+What can AI do nowadays?
+•Play ping -pong? YES
+•Autonomously drive a car? YES
+•Play Soccer? KIND OF
+•Play Chess/Go? YES
+•Accurately translate a text? KIND OF
+•Have a conversation? KIND OF
+•Understand an image ? KIND OF
+•Play Jeopardy better than humans ? YES
+•Create art?
+–https://www.youtube.com/embed/DJToDLBPovg
+CS 380: Artificial Intelligence | 52
+
+---- Page 53 ----
+
+
+---- Page 54 ----
+Next Time… 
+•Rational Agents
+CS 380: Artificial Intelligence | 54
+
+===== slides/CS380 Lecture 4.pdf =====
+
+---- Page 1 ----
+| 1
+CS 380: ARTIFICIAL INTELLIGENCE
+| 1Lecture 4: Informed Search, A*, & Heuristics
+
+---- Page 2 ----
+Where we are…
+•Problem Solving:
+–Problem Formulation
+•Search: finding a solution
+–Uninformed search
+–Informed search
+CS 380: Artificial Intelligence | 2
+
+---- Page 3 ----
+CS 380: Artificial Intelligence | 3Review
+Set of states reachable by executing two actions312
+645
+78
+312
+45
+678312
+645
+7 8
+Initial state
+12
+345
+678312
+4 5
+678312
+645
+78312
+6 5
+748312
+645
+78312
+645
+78
+
+---- Page 4 ----
+CS 380: Artificial Intelligence | 4Review -BFS
+Set of states reachable by executing two actions312
+645
+78Initial state
+
+---- Page 5 ----
+CS 380: Artificial Intelligence | 5Review -BFS
+Set of states reachable by executing two actions312
+645
+78
+312
+45
+678312
+645
+7 8
+Initial state
+
+---- Page 6 ----
+CS 380: Artificial Intelligence | 6Review -BFS
+Set of states reachable by executing two actions312
+645
+78
+312
+45
+678312
+645
+7 8
+Initial state
+12
+345
+678312
+4 5
+678312
+645
+78
+
+---- Page 7 ----
+CS 380: Artificial Intelligence | 7Review -BFS
+Set of states reachable by executing two actions312
+645
+78
+312
+45
+678312
+645
+7 8
+Initial state
+12
+345
+678312
+4 5
+678312
+645
+78312
+6 5
+748312
+645
+78312
+645
+78
+
+---- Page 8 ----
+CS 380: Artificial Intelligence | 8Review -BFS
+Set of states reachable by executing two actions312
+645
+78
+312
+45
+678312
+645
+7 8
+Initial state
+12
+345
+678312
+4 5
+678312
+645
+78312
+6 5
+748312
+645
+78312
+645
+78
+
+
+---- Page 9 ----
+CS 380: Artificial Intelligence | 9Review -BFS
+Set of states reachable by executing two actions312
+645
+78
+312
+45
+678312
+645
+7 8
+Initial state
+12
+345
+678312
+4 5
+678312
+645
+78312
+6 5
+748312
+645
+78312
+645
+78
+
+
+---- Page 10 ----
+CS 380: Artificial Intelligence | 10Review -BFS
+Set of states reachable by executing two actions312
+645
+78
+312
+45
+678312
+645
+7 8
+Initial state
+12
+345
+678312
+4 5
+678312
+645
+78312
+6 5
+748312
+645
+78312
+645
+78
+
+
+---- Page 11 ----
+CS 380: Artificial Intelligence | 11Review –DFS
+Set of states reachable by executing two actions312
+645
+78Initial state
+
+---- Page 12 ----
+CS 380: Artificial Intelligence | 12Review -DFS
+Set of states reachable by executing two actions312
+645
+78
+312
+45
+678312
+645
+7 8
+Initial state
+
+---- Page 13 ----
+CS 380: Artificial Intelligence | 13Review -DFS
+Set of states reachable by executing two actions312
+645
+78
+312
+45
+678312
+645
+7 8
+Initial state
+12
+345
+678312
+4 5
+678312
+645
+78
+
+---- Page 14 ----
+CS 380: Artificial Intelligence | 14Review -DFS
+Set of states reachable by executing two actions312
+645
+78
+312
+45
+678312
+645
+7 8
+Initial state
+12
+345
+678312
+4 5
+678312
+645
+78
+
+---- Page 15 ----
+CS 380: Artificial Intelligence | 15Review -DFS
+Set of states reachable by executing two actions312
+645
+78
+312
+45
+678312
+645
+7 8
+Initial state
+12
+345
+678312
+4 5
+678312
+645
+78
+
+---- Page 16 ----
+Review
+•OPEN (or Fringe) list = nodes queued for processing
+•CLOSED list = nodes/states we’ve already processed
+•Breadth -first Search
+–Remove the first node in the list
+–Check if that first node’s state is a goal state
+•If it’s a goal, you’re done
+•If not, add children to end of OPEN list and repeat
+•Depth -first Search
+–Same as BFS, except add children to start of OPEN list.
+•How can you check if a state is a repeated state?
+–Check whether it’s already in either OPEN or CLOSED
+CS 380: Artificial Intelligence | 16
+
+---- Page 17 ----
+Graph Search
+CS 380: Artificial Intelligence | 17
+
+
+---- Page 18 ----
+Uninformed Informed Search
+•All the problem -solving strategies we have seen 
+so far use the following knowledge:
+–Goal check : knowing if the problem is solved
+–States
+–Actions : an agent knows which actions can be 
+executed in the current state.
+•Note that this is very little information
+CS 380: Artificial Intelligence | 18
+
+---- Page 19 ----
+Example
+CS 380: Artificial Intelligence | 19
+There are 4 possible actions to execute.
+Now, if you were the agent, which one would you try first?(3,2,6,2)
+(2,2,6,2) (3,1,6,2) (3,3,6,2) (4,2,6,2)
+
+---- Page 20 ----
+CS 380: Artificial Intelligence | 20Example
+Goal Agent
+There are 4 possible actions to execute.
+Now, if you were the agent, which one would you try first?What if now you know what 
+the coordinates mean?
+
+---- Page 21 ----
+CS 380: Artificial Intelligence | 21Example
+Goal Agent
+There are 4 possible actions to execute.
+Now, if you were the agent, which one would you try first?What if now you know what 
+the coordinates mean?
+General Idea : if we have 
+information about the 
+problem we are trying to 
+solve, we can exploit it 
+during problem solving.
+
+---- Page 22 ----
+Evaluation Function
+•Idea: represent the information we have about the 
+domain as an “evaluation function” h
+•Evaluation function or “ heuristic ”:
+–Given a state s…
+–h(s) estimates how far the state is from the goal
+•For example, in a maze solving problem…
+–Euclidean distance to the goal?
+–Manhattan distance?
+–Etc.
+CS 380: Artificial Intelligence | 22
+
+---- Page 23 ----
+CS 380: Artificial Intelligence | 23Example
+Goal Agent
+h(s2) = 4 h(s3) = 3.16 h(s3) = 3.16 h(s4) = 2h(s1) = 3
+h: Euclidean distance to the goal
+
+---- Page 24 ----
+CS 380: Artificial Intelligence | 24Example
+Goal Agent
+h(s2) = 4 h(s3) = 3.16 h(s3) = 3.16 h(s4) = 2h(s1) = 3
+h: Euclidean distance to the goalThe evaluation function 
+(heuristic) can help the 
+agent determine which 
+actions are more promising.
+
+---- Page 25 ----
+Best -first Search
+•Idea: use an evaluation function for each node
+–estimate of “desirability”
+–expand most desirable unexpanded node
+•Implementation:
+–fringe is a queue sorted in decreasing order of 
+desirability
+•Special cases:
+–Greedy search
+–A* search
+CS 380: Artificial Intelligence | 25
+
+---- Page 26 ----
+Romania with step costs in km
+CS 380: Artificial Intelligence | 26
+
+
+---- Page 27 ----
+Greedy Search
+•Evaluation function h(n) (heuristic) = estimate of 
+cost from nto the closest goal
+•E.g., hSLD(n)= straight -line distance from nto Bucharest
+•Greedy search expands the node that appears to 
+be closest to goal
+CS 380: Artificial Intelligence | 27(What might go wrong with this heuristic?)
+
+---- Page 28 ----
+Greedy Search Example
+CS 380: Artificial Intelligence | 28
+
+
+---- Page 29 ----
+Greedy Search Example
+CS 380: Artificial Intelligence | 29
+
+---- Page 30 ----
+Greedy Search Example
+CS 380: Artificial Intelligence | 30
+
+---- Page 31 ----
+Greedy Search Example
+CS 380: Artificial Intelligence | 31
+
+---- Page 32 ----
+Properties of Greedy Search
+•Complete ??
+•Time ??
+•Space ??
+•Optimal ??
+CS 380: Artificial Intelligence | 32
+
+---- Page 33 ----
+Properties of Greedy Search
+•Complete 
+–No, it can get stuck in loops, e.g., with Oradea as goal, 
+Iasi -> Neamt -> Iasi -> Neamt -> …
+–Complete in finite space with repeated -state checking
+•Time ??
+•Space ??
+•Optimal ??
+CS 380: Artificial Intelligence | 33
+
+---- Page 34 ----
+Properties of Greedy Search
+•Complete 
+–No, it can get stuck in loops, e.g., with Oradea as goal, 
+lasi-> Neamt -> lasi-> Neamt -> …
+–Complete in finite space with repeated -state checking
+•Time 
+–O(bm), but a good heuristic can give dramatic 
+improvement
+•Space ??
+•Optimal ??
+CS 380: Artificial Intelligence | 34Consider
+m = maximum depth
+
+---- Page 35 ----
+Properties of Greedy Search
+•Complete 
+–No, it can get stuck in loops, e.g., with Oradea as goal, 
+lasi-> Neamt -> lasi-> Neamt -> …
+–Complete in finite space with repeated -state checking
+•Time 
+–O(bm), but a good heuristic can give dramatic 
+improvement
+•Space 
+–O(bm) keeps all nodes in memory
+•Optimal ??
+CS 380: Artificial Intelligence | 35
+
+---- Page 36 ----
+Properties of Greedy Search
+•Complete 
+–No, it can get stuck in loops, e.g., with Oradea as goal, 
+lasi-> Neamt -> lasi-> Neamt -> …
+–Complete in finite space with repeated -state checking
+•Time 
+–O(bm), but a good heuristic can give dramatic 
+improvement
+•Space 
+–O(bm) keeps all nodes in memory
+•Optimal 
+-No
+CS 380: Artificial Intelligence | 36
+
+---- Page 37 ----
+CS 380: Artificial Intelligence | 37Romania with Step Costs in km
+
+
+---- Page 38 ----
+Heuristics
+•Idea:  Estimate the distance to the solution
+•Must be computationally efficient (otherwise, 
+one could just run the complete search algorithm 
+to determine the actual cost!)
+•Finding good heuristics makes a huge difference 
+in computation time
+CS 380: Artificial Intelligence | 38
+
+---- Page 39 ----
+Heuristics: Wolf -Goat -Cabbage 
+•Let’s assume that “cost” is the 
+number of boat trips.
+•What would be a good heuristic?
+CS 380: Artificial Intelligence | 39
+
+
+---- Page 40 ----
+Heuristics: Wolf -Goat -Cabbage 
+•Let’s assume that “cost” is the 
+number of boat trips.
+•What would be a good heuristic ?
+•Example:
+–Number of “items” on the left bank 
+(since we know we need to make 
+at least that number of trips)
+CS 380: Artificial Intelligence | 40
+
+
+---- Page 41 ----
+Heuristics: Wolf -Goat -Cabbage 
+•Let’s assume that “cost” is the 
+number of boat trips.
+•What would be a good heuristic ?
+•Example:
+–Number of “items” on the left bank 
+(since we know we need to make 
+at least that number of trips )
+–Better: 
+•([number ofitems in left bank ] –1) * 2
+•Add 1 if boat on right bank and
+[number of items in left bank ] > 0
+CS 380: Artificial Intelligence | 41
+
+
+---- Page 42 ----
+Heuristics: 8 -Puzzle
+•Cost: number of moves
+•What would be a good heuristic?
+CS 380: Artificial Intelligence | 428 1
+326
+745
+
+---- Page 43 ----
+Heuristics: 8 -Puzzle
+•Cost: number of moves
+•What would be a good heuristic ?
+–Heuristic 1:
+•Number of blocks out of place
+CS 380: Artificial Intelligence | 438 1
+326
+745
+
+---- Page 44 ----
+Heuristics: 8 -Puzzle
+•Cost: number of moves
+•What would be a good heuristic ?
+–Heuristic 1:
+•Number of blocks out of place
+–Heuristic 2:
+•Distance of each block to its target 
+position
+CS 380: Artificial Intelligence | 448 1
+326
+745
+
+---- Page 45 ----
+Heuristic: Robot navigation with keys
+•A robot (blue) needs to exit a maze 
+(light green), and needs to pick up keys 
+to cross doors (red)
+CS 380: Artificial Intelligence | 45K
+RD E
+K
+
+---- Page 46 ----
+Heuristic: Robot navigation with keys
+•A robot (blue) needs to exit a maze 
+(light green), and needs to pick up keys 
+to cross doors (red )
+•Heuristic 1:
+–Simply Euclidean distance to goal 
+(ignoring keys and doors)
+–Can you improve it?
+CS 380: Artificial Intelligence | 46K
+RD E
+K
+
+---- Page 47 ----
+A Note on Graph Search
+•Repeated -state checking:
+–When the search state is a graph, strategies like DFS can get 
+stuck in loops
+–To avoid this, we generally want to keep a list of already -
+visited nodes –a "CLOSED" list
+•In DFS:
+–If we want to avoid repeating states completely, we need to 
+keep ALL visited states in memory (in the CLOSED list)
+–If we just want to avoid loops, we only need to remember 
+the current branch (linear memory as a function of m= 
+maximum depth)
+CS 380: Artificial Intelligence | 47
+
+---- Page 48 ----
+A* Search
+•Pronounced “A -Star”
+•At each cycle, expand the node with the lowest f(n)
+f(n) = g(n) + h(n)
+•A* implementations assume repeated -state 
+checking (i.e., assume the search space is a graph)
+•Thus, they use two lists simultaneously:
+–OPEN: list of nodes that need to be processed
+–CLOSED: list of nodes that have already been processed
+CS 380: Artificial Intelligence | 48Real cost from Start to n Heuristic
+
+
+---- Page 49 ----
+Example: A*
+CS 380: Artificial Intelligence | 49Goal
+StartStart
+Heuristic used: Manhattan DistanceOPEN = [Start]
+CLOSED = []
+
+---- Page 50 ----
+Example: A*
+CS 380: Artificial Intelligence | 50Goal
+Start
+g= 0
+h = 3Start
+3
+Heuristic used: Manhattan DistanceOPEN = [Start]
+CLOSED = []
+Assigns an “estimated cost”, f,
+to each node:
+f(n) = g(n) + h(n)
+Real cost from Start to nHeuristic
+
+
+---- Page 51 ----
+Example: A*
+CS 380: Artificial Intelligence | 51Goal
+Start
+g= 0
+h = 3Start
+3OPEN = [Start]
+CLOSED = []
+
+---- Page 52 ----
+Example: A*
+CS 380: Artificial Intelligence | 52A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+C
+g= 1
+h = 4Start
+3OPEN = [A, B, C]
+CLOSED = [Start]
+A
+3B
+5C
+5
+Expands the node with the lowest
+estimated cost first
+
+
+---- Page 53 ----
+Example: A*
+CS 380: Artificial Intelligence | 53A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+C
+g= 1
+h = 4Start
+3OPEN = [A, B, C]
+CLOSED = [Start]
+A
+3B
+5C
+5
+Expands the node with the lowest
+estimated cost first
+
+
+---- Page 54 ----
+Example: A*
+CS 380: Artificial Intelligence | 54D
+g= 2
+h = 3A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+C
+g= 1
+h = 4Start
+3OPEN = [B, C, D]
+CLOSED = [Start, A]
+A
+3B
+5C
+5
+D
+5
+
+
+---- Page 55 ----
+Example: A*
+CS 380: Artificial Intelligence | 55D
+g= 2
+h = 3A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+C
+g= 1
+h = 4Start
+3OPEN = [B, C, D]
+CLOSED = [Start, A]
+A
+3B
+5C
+5
+D
+5
+
+
+---- Page 56 ----
+Example: A*
+CS 380: Artificial Intelligence | 56D
+g= 2
+h = 3A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+E
+g= 2
+h = 5C
+g= 1
+h = 4Start
+3OPEN = [C, D, E]
+CLOSED = [Start, A, B]
+A
+3B
+5C
+5
+D
+5
+E
+7
+
+
+---- Page 57 ----
+Example: A*
+CS 380: Artificial Intelligence | 57D
+g= 2
+h = 3A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+E
+g= 2
+h = 5C
+g= 1
+h = 4Start
+3OPEN = [C, D, E]
+CLOSED = [Start, A, B]
+A
+3B
+5C
+5
+D
+5
+E
+7
+
+
+---- Page 58 ----
+Example: A*
+CS 380: Artificial Intelligence | 58D
+g= 2
+h = 3A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+E
+g= 2
+h = 5C
+g= 1
+h = 4F
+g= 2
+h = 3
+G
+g= 2
+h = 5Start
+3OPEN = [D, F, E, G]
+CLOSED = [Start, A, B, C]
+A
+3B
+5C
+5
+D
+5
+E
+7
+F
+5G
+7
+
+
+---- Page 59 ----
+Example: A*
+CS 380: Artificial Intelligence | 59D
+g= 2
+h = 3A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+E
+g= 2
+h = 5C
+g= 1
+h = 4F
+g= 2
+h = 3
+G
+g= 2
+h = 5Start
+3OPEN = [D, F, E, G]
+CLOSED = [Start, A, B, C]
+A
+3B
+5C
+5
+D
+5
+E
+7
+F
+5G
+7
+
+
+---- Page 60 ----
+Example: A*
+CS 380: Artificial Intelligence | 60D
+g= 2
+h = 3A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+E
+g= 2
+h = 5C
+g= 1
+h = 4F
+g= 2
+h = 3
+G
+g= 2
+h = 5Start
+3OPEN = [F, E, G]
+CLOSED = [Start, A, B, C, D]
+A
+3B
+5C
+5
+D
+5
+E
+7
+F
+5G
+7
+
+
+---- Page 61 ----
+Example: A*
+CS 380: Artificial Intelligence | 61D
+g= 2
+h = 3A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+E
+g= 2
+h = 5C
+g= 1
+h = 4F
+g= 2
+h = 3J
+g= 3
+h = 2
+G
+g= 2
+h = 5I
+g= 3
+h = 4Start
+3OPEN = [J, E, G, I]
+CLOSED = [Start, A, B, C, D, F]
+A
+3B
+5C
+5
+D
+5
+E
+7
+F
+5G
+7
+I
+7J
+5
+
+
+---- Page 62 ----
+Example: A*
+CS 380: Artificial Intelligence | 62D
+g= 2
+h = 3A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3L
+g= 4
+h = 1
+E
+g= 2
+h = 5C
+g= 1
+h = 4F
+g= 2
+h = 3J
+g= 3
+h = 2
+G
+g= 2
+h = 5I
+g= 3
+h = 4K
+g= 4
+h = 3Start
+3OPEN = [L, E , G, I, K]
+CLOSED = [Start, A, B, C, D, F, J]
+A
+3B
+5C
+5
+D
+5
+E
+7
+F
+5G
+7
+I
+7J
+5
+L
+5
+K
+7
+
+
+---- Page 63 ----
+Example: A*
+CS 380: Artificial Intelligence | 63D
+g= 2
+h = 3A
+g= 1
+h = 2Goal
+g= 5
+h = 0
+B
+g= 1
+h = 4Start
+g= 0
+h = 3L
+g= 4
+h = 1
+E
+g= 2
+h = 5C
+g= 1
+h = 4F
+g= 2
+h = 3J
+g= 3
+h = 2
+G
+g= 2
+h = 5I
+g= 3
+h = 4K
+g= 4
+h = 3Start
+3OPEN = [Goal, E , G, I, K]
+CLOSED = [Start, A, B, C, D, F, J, L]
+A
+3B
+5C
+5
+D
+5
+E
+7
+F
+5G
+7
+I
+7J
+5
+L
+5
+K
+7
+Goal
+5
+
+
+---- Page 64 ----
+Example: A*
+CS 380: Artificial Intelligence | 64D
+g= 2
+h = 3A
+g= 1
+h = 2Goal
+g= 5
+h = 0
+B
+g= 1
+h = 4Start
+g= 0
+h = 3L
+g= 4
+h = 1
+E
+g= 2
+h = 5C
+g= 1
+h = 4F
+g= 2
+h = 3J
+g= 3
+h = 2
+G
+g= 2
+h = 5I
+g= 3
+h = 4K
+g= 4
+h = 3Start
+3OPEN = [E, G, I, K]
+CLOSED = [Start, A, B, C, D, F, J, L, Goal]
+A
+3B
+5C
+5
+D
+5
+E
+7
+F
+5G
+7
+I
+7J
+5
+L
+5
+K
+7
+Goal
+5
+
+
+---- Page 65 ----
+A* Intuition
+•The heuristic biases the search of the algorithm 
+towards the goal:
+CS 380: Artificial Intelligence | 65StartGoal
+Breadth
+First
+Search
+No bias
+
+
+---- Page 66 ----
+A* Intuition
+•The heuristic biases the search of the algorithm 
+towards the goal:
+CS 380: Artificial Intelligence | 66StartGoal
+Breadth
+First
+Search
+No biasA*
+Biased
+towards the 
+goal
+
+
+---- Page 67 ----
+Example: A*
+CS 380: Artificial Intelligence | 67D
+g= 2
+h = 3A
+g= 1
+h = 2Goal
+g= 5
+h = 0
+B
+g= 1
+h = 4Start
+g= 0
+h = 3L
+g= 4
+h = 1
+E
+g= 2
+h = 5C
+g= 1
+h = 4F
+g= 2
+h = 3J
+g= 3
+h = 2
+G
+g= 2
+h = 5I
+g= 3
+h = 4K
+g= 4
+h = 3Start
+3OPEN = [E, G, I, K]
+CLOSED = [Start, A, B, C, D, F, J, L, Goal]
+A
+3B
+5C
+5
+D
+5
+E
+7
+F
+5G
+7
+I
+7J
+5
+L
+5
+K
+7
+Goal
+5
+
+
+---- Page 68 ----
+Implementation Notes
+•Remember the distinction between state and node
+•State:
+–The configuration of the problem (e.g., coordinates of a robot, 
+positions of the pieces in the 8 -puzzle, etc.)
+•Node:
+–State + {current cost (g), current heuristic (h), parent node, action 
+that got us here from the parent node, …}
+–It is important to remember who was the parent, and which 
+action was applied, so that once the solution is found, we can 
+reconstruct the path
+CS 380: Artificial Intelligence | 68
+
+---- Page 69 ----
+Example: A*
+CS 380: Artificial Intelligence | 69D
+g= 2
+h = 3A
+g= 1
+h = 2Goal
+g= 5
+h = 0
+B
+g= 1
+h = 4Start
+g= 0
+h = 3L
+g= 4
+h = 1
+E
+g= 2
+h = 5C
+g= 1
+h = 4F
+g= 2
+h = 3J
+g= 3
+h = 2
+G
+g= 2
+h = 5I
+g= 3
+h = 4K
+g= 4
+h = 3Start
+3OPEN = [E, G, I, K]
+CLOSED = [Start, A, B, C, D, F, J, L, Goal]
+A
+3B
+5C
+5
+D
+5
+E
+7
+F
+5G
+7
+I
+7J
+5
+L
+5
+K
+7
+Goal
+5
+
+
+---- Page 70 ----
+A* Pseudocode
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILE
+CS 380: Artificial Intelligence | 70
+
+---- Page 71 ----
+A* Pseudocode
+CS 380: Artificial Intelligence | 71Differences with 
+respect to 
+Breadth First 
+SearchStart .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILE
+
+---- Page 72 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 72Goal
+Start
+Nodes in pink are in CLOSED
+Nodes in grey are in OPEN
+
+---- Page 73 ----
+A* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 73Goal
+Start
+g= 0
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENStart .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILE
+
+---- Page 74 ----
+A* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 74Goal
+Start
+g= 0
+h = 3
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENStart .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILE
+
+---- Page 75 ----
+A* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 75Goal
+Start
+g= 0
+h = 3
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENStart .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILE
+
+---- Page 76 ----
+A* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 76Goal
+Start
+g= 0
+h = 3
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENStart .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILE
+
+---- Page 77 ----
+A* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 77Goal
+Start
+g= 0
+h = 3
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENStart .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILE
+
+---- Page 78 ----
+A* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 78Goal
+Start
+g= 0
+h = 3
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENStart .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEN
+
+---- Page 79 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 79Goal
+Start
+g= 0
+h = 3
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENN
+
+---- Page 80 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 80Goal
+Start
+g= 0
+h = 3
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENN
+
+---- Page 81 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 81Goal
+Start
+g= 0
+h = 3
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENchildren( N)
+N
+
+---- Page 82 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 82A Goal
+BStart
+g= 0
+h = 3
+C
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENchildren( N) M
+N
+
+---- Page 83 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 83A
+g= 1Goal
+BStart
+g= 0
+h = 3
+C
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENNchildren( N) M
+
+---- Page 84 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 84A
+g= 1
+h = 2Goal
+BStart
+g= 0
+h = 3
+C
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENNchildren( N) M
+
+---- Page 85 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 85A
+g= 1
+h = 2Goal
+BStart
+g= 0
+h = 3
+C
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENchildren( N) M
+N
+
+---- Page 86 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 86A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+C
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENchildren( N)
+MN
+
+---- Page 87 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 87A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+C
+g= 1
+h = 4
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENchildren( N)
+MN
+
+---- Page 88 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 88A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+C
+g= 1
+h = 4
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENN
+
+---- Page 89 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 89A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+C
+g= 1
+h = 4
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENN
+
+---- Page 90 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 90A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+C
+g= 1
+h = 4
+Nodes in pink are in CLOSED
+Nodes in grey are in OPEN
+
+---- Page 91 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 91A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+C
+g= 1
+h = 4
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENN
+
+---- Page 92 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 92A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+C
+g= 1
+h = 4
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENN
+
+---- Page 93 ----
+Start .g= 0
+Start .h = heuristic( Start )
+OPEN = [Start]
+CLOSED = []
+WHILE OPEN is not empty
+N= OPEN .removeLowestF()
+IFgoal( N) RETURN path to N
+CLOSED .add( N)
+FOR all children Mof Nnot in CLOSED :
+M.parent = N
+M.g = N.g + 1
+M.h = heuristic( M)
+OPEN .add( M)
+ENDFOR
+ENDWHILEA* Pseudocode Walkthrough
+CS 380: Artificial Intelligence | 93A
+g= 1
+h = 2Goal
+B
+g= 1
+h = 4Start
+g= 0
+h = 3
+C
+g= 1
+h = 4
+Nodes in pink are in CLOSED
+Nodes in grey are in OPENN
+
+---- Page 94 ----
+Properties of A*
+•Complete –Yes, unless there infinitely many 
+nodes with f≤ f(G)
+•Time –Exponential in [relative error in hx length 
+of solution]
+•Space –Keeps all nodes in memory
+•Optimal –Yes, cannot expand fi+1until fiis 
+finished
+CS 380: Artificial Intelligence | 94
+
+---- Page 95 ----
+Admissible Heuristics
+•To ensure optimality, A* requires the heuristic to 
+be admissible :
+•In other words: the heuristic
+must never overestimate
+the actual remaining cost to the goal.
+CS 380: Artificial Intelligence | 95
+h(n)£h*(n)Actual cost to the goal
+
+
+---- Page 96 ----
+Heuristics: Wolf -Goat -Cabbage 
+•Let’s assume that “cost” is the 
+number of boat trips.
+•What would be a good heuristic ?
+•Example:
+–Number of “items” on the left bank 
+(since we know we need to make 
+at least that number of trips )
+–Better: 
+•([number ofitems in left bank ] –1) * 2
+•Add 1 if boat on right bank and
+[number of items in left bank ] > 0
+CS 380: Artificial Intelligence | 96
+
+
+---- Page 97 ----
+Heuristics: 8 -Puzzle
+•Cost: number of moves
+•What would be a good heuristic ?
+–Heuristic 1:
+•Number of blocks out of place
+–Heuristic 2:
+•Distance of each block to its target 
+position
+CS 380: Artificial Intelligence | 978 1
+326
+745
+
+---- Page 98 ----
+Admissible Heuristics
+•To ensure optimality, A* requires the heuristic to 
+be admissible :
+•In other words: the heuristic
+must never overestimate
+the actual remaining cost to the goal .
+•If the heuristic is admissible, A* will be provably
+optimal.
+–But an inadmissible heuristic might work just fine.
+CS 380: Artificial Intelligence | 98
+h(n)£h*(n)Actual cost to the goal
+
+
+---- Page 99 ----
+Heuristic Dominance
+•If h2(n) ≥ h1(n) for all n(both admissible)
+Then h2dominates h1and is better for search
+•Typical Search Costs:
+–d= 14 IDS = 3,473,941 nodes
+•A*(h1) = 539 nodes
+•A*(h2) = 113 nodes
+–d = 24 IDS ≈ 54,000,000,000 nodes
+•A*(h1) = 39,135 nodes
+•A*(h2) = 1,641 nodes
+•Given any admissible heuristics ha, hb
+–h(n) = max(ha(n), hb(n)) is also admissible and 
+dominates ha, hb
+CS 380: Artificial Intelligence | 99
+
+---- Page 100 ----
+Constructing Heuristics by Relaxation
+h1(n) = number of tiles out of place
+h2(n) = Manhattan distance of tiles to proper locations
+•Admissible heuristics can be derived from the exact
+solution cost of a relaxed version of the problem
+•If the rules of the 8 -puzzle are relaxed so that a tile can 
+move anywhere , the h1(n)gives the shortest solution
+•If the rules are relaxed so that a tile can move to any 
+adjacent square , then h2(n)gives the shortest solution
+Key point : The optimal solution cost of a relaxed problem is 
+not greater than the optimal solution cost of the real 
+problem
+CS 380: Artificial Intelligence | 100
+
+---- Page 101 ----
+A Different Way to Build Heuristics
+•Pattern Databases –Store the exact optimal 
+solution cost for every possible subproblem
+instance.
+–You care about some features of the problem, but not all
+–In this example, all the possible locations of [1,3,6, blank ]
+–Identify the instance in the DB to get the h value
+CS 380: Artificial Intelligence | 1013 6
+1 * *
+* * *1 * 3
+* * 6
+* *Start Goal
+
+---- Page 102 ----
+Variations of A*
+•SMA*: A* with bounded memory usage
+•TBA*: A* for real -time domains where we have a 
+bounded time before producing an action
+•LRTA*: another real -time version of A* (very 
+simple, and the basis of a whole family of 
+algorithms )
+•D*: A* for dynamic domains (problem 
+configuration can change )
+•etc.
+CS 380: Artificial Intelligence | 102
+
+---- Page 103 ----
+Coming up…
+•Next time, we'll look at some search variations 
+and alternatives, including local search and 
+constraint satisfaction
+CS 380: Artificial Intelligence | 103
+
+===== slides/CS380 Lecture 5.pdf =====
+
+---- Page 1 ----
+| 1
+CS 380: ARTIFICIAL INTELLIGENCE
+| 1Lecture 5: Local Search & CSPs
+
+---- Page 2 ----
+Recall: Problem Solving
+•Idea: represent the problem we want to solve as:
+–State space
+–Actions
+–Goal Check
+–Heuristic / evaluation function
+•If we do this, we can then use search methods to 
+solve any problem in that space
+–BFS, DFS, Iterative Deepening, Greedy Search, A*
+CS 380: Artificial Intelligence | 2
+
+---- Page 3 ----
+Systematic vs. Local Search
+•All the algorithms we have seen so far have been 
+“systematic”:
+–They will systematically explore ALL the states in the search space 
+if needed
+•Each of them just explores the states in a different order
+–If the search space is finite, they are all complete
+•Local Search:
+–Instead of systematically exploring the state space…
+–Start with one state (even a bad one) and iteratively improve it by 
+exploring neighbor states (“local”)
+–Search space is the set of all states visited
+–Iterative improvement
+CS 380: Artificial Intelligence | 3
+
+---- Page 4 ----
+Iterative Improvement Algorithms
+•In many optimization problems, path is irrelevant
+–Goal state itself is the solution
+•Then state space = set of “complete” configurations
+–Find optimal configuration, e.g., TSP
+–Or, find configuration satisfying constraints, e.g., timetable
+•In such cases, can use iterative improvement algorithms
+–keep a single “current” state and try to improve it
+•Constant space, suitable for online as well as offline 
+search
+CS 380: Artificial Intelligence | 4
+
+---- Page 5 ----
+Example: Traveling Salesperson Problem
+•Start with any complete tour, perform pairwise 
+exchanges
+•Variants of this approach get within 1% of 
+optimal very quickly with thousands of cities
+CS 380: Artificial Intelligence | 5
+
+
+---- Page 6 ----
+Example: n -queens
+•Put nqueens on an n x nboard with no two 
+queens on the same row, column, or diagonal
+•Move a queen to reduce the number of conflicts
+•Almost always solves n -queens problems almost 
+instantaneously for very large n, e.g., n= 1 million
+CS 380: Artificial Intelligence | 6
+
+
+---- Page 7 ----
+Hill-climbing (or gradient ascent/descent)
+•“Like climbing Everest in think fog with amnesia”
+CS 380: Artificial Intelligence | 7
+
+
+---- Page 8 ----
+Hill-climbing cont.
+•Useful to consider state space landscape
+•Random -restart hill climbing overcomes local maxima –trivially 
+complete
+•Random sideways moves escape from shoulders but loop on flat 
+maxima
+CS 380: Artificial Intelligence | 8
+
+
+---- Page 9 ----
+Simulated Annealing
+•“Annealing” = heating and then controlled 
+cooling (of metals to strengthen the material)
+•At a fixed temperature T, the state occupation 
+probability reaches the Boltzmann distribution
+𝑝𝑥=𝛼𝑒𝐸(𝑥)
+𝑘𝑇
+•If Tis decreased slowly enough, you are 
+guaranteed to reach the optimal state (if we need 
+optimal)
+•Visualization:
+–https://www.youtube.com/watch?v=iaq_Fpr4KZc
+CS 380: Artificial Intelligence | 9
+
+---- Page 10 ----
+
+
+---- Page 11 ----
+Simulated Annealing
+•Idea: escape local maxima by allowing some 
+“bad” moves
+•But gradually decrease their size and frequency
+CS 380: Artificial Intelligence | 11
+
+
+---- Page 12 ----
+Local Beam Search
+•Idea : Keep kstates instead of 1; choose top kof 
+all their successors
+•Not the same as ksearches run in parallel!
+•Searches that find good states recruit other 
+searches to join them
+•Problem : quite often, all kstates end up on same 
+local hill
+•Idea : choose ksuccessors randomly, biased 
+towards the good ones
+•Observe the analogy to natural selection.
+CS 380: Artificial Intelligence | 12
+
+---- Page 13 ----
+Genetic Algorithms
+•Stochastic local beam search + generate 
+successor from pairs of states
+CS 380: Artificial Intelligence | 13
+
+
+---- Page 14 ----
+Genetic Algorithms Cont.
+•GAs require states encode a strings (GPs use 
+programs)
+•Crossover helps iffsubstrings are meaningful 
+components
+•GAs != evolution: e.g., real genes encode 
+replication machinery.
+CS 380: Artificial Intelligence | 14
+
+
+---- Page 15 ----
+Sample Visualization
+•Greedy search, local search, simulated 
+annealing…
+https://www.youtube.com/watch?v=SC5CX8drAtU
+CS 380: Artificial Intelligence | 15
+
+---- Page 16 ----
+
+
+---- Page 17 ----
+Constraint Satisfaction Problems (CSPS)
+•Standard search problem:
+–State is a “black box” –any old data structure that 
+supports goal test, eval, successor
+•CSP:
+–State is defined by variables Viwith values from 
+domain Di
+–Goal test is a set of constraints specifying allowable 
+combinations of values for subsets of variables
+–Simple example of a formal representation language
+–Allows useful general -purpose algorithms with more 
+power than standard search algorithms
+CS 380: Artificial Intelligence | 17
+
+---- Page 18 ----
+Example: 4 -Queens as a CSP
+•Assume 1 queen in each column. Which row does 
+each one go in?
+Variables:  Q1, Q2, Q3, Q4
+Domains: Di= {1,2,3,4}
+Constraints: 
+Qi!= Qj(cannot be in same row)
+|Qi–Qj| != | i–j| (or same diagonal)
+Translate each constraint into set of allowable 
+values for its variables
+E.g., values for (Q1, Q2) are (1,3) (1,4) (2,4) (3,1) (4,1) (4,2)
+CS 380: Artificial Intelligence | 18
+
+
+---- Page 19 ----
+Constraint Graph
+•Binary CSP: each constrain relates to at most two 
+variables
+•Constraint graph: nodes are variables, arcs show 
+constraints
+CS 380: Artificial Intelligence | 19
+
+
+---- Page 20 ----
+Example: Cryptarithmetic
+•Variables
+–D E M N O R S Y
+•Domains
+–{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+•Constraints
+–M!= 0, S!= 0 (unary constraints)
+–Y= D+ Eor Y= D+ E–10, etc.
+–D!= E, D!= M, D!= N, etc.
+CS 380: Artificial Intelligence | 20
+
+
+---- Page 21 ----
+Example: Map Coloring
+•Color a map so that no adjacent countries have 
+the same color
+•Variables
+–Countries Ci
+•Domains
+–{Red, Blue, Green}
+•Constraints
+–C1!= C2,C2!= C5, etc.
+CS 380: Artificial Intelligence | 21
+Constraint Graph:
+
+---- Page 22 ----
+Real -world CSPs
+•Assignment problems
+–e.g., who teaches what class
+•Timetabling problems
+–e.g., which class is offered when and where?
+•Hardware configuration
+•Spreadsheets
+•Transportation scheduling
+•Factory scheduling
+•Floorplanning
+Notice that many real -world problems involve real -valued 
+variables 
+CS 380: Artificial Intelligence | 22
+
+---- Page 23 ----
+Applying standard search
+•Start with straightforward, “dumb” approach, 
+then fix it
+•States are defined by the values assigned so far
+•Initial State : all variables unassigned
+•Actions : assign a value to an unassigned variable
+•Goal test : all variables assigned, no constraints 
+violated
+•Notice that this is the same for all CSPs
+CS 380: Artificial Intelligence | 23
+
+---- Page 24 ----
+Standard search applied to map -coloring
+CS 380: Artificial Intelligence | 24
+
+
+---- Page 25 ----
+Complexity of the dumb approach
+•Max. depth of space m: ??
+•Depth of solution state d: ??
+•Search algorithm to use: ??
+•Branching factor b: ??
+CS 380: Artificial Intelligence | 25
+
+---- Page 26 ----
+Complexity of the dumb approach
+•Max. depth of space m: n(number of variables)
+•Depth of solution state d: n(all vars assigned)
+•Search algorithm to use: depth -first
+•Branching factor b:  𝑖|𝐷𝑖|(at top of tree)
+| Di| = size of Domain i
+•This can be improved dramatically by noting the 
+following:
+–Order of assignment is irrelevant, hence many paths are 
+equivalent
+–Adding assignments cannot correct a violated constraint
+CS 380: Artificial Intelligence | 26
+
+---- Page 27 ----
+Backtracking Search
+Use depth -first search, but
+1)Fix the order of assignment => b = |Di|
+(can be done in the SUCCESSORS function)
+2)Check for constraint violations
+The constraint violation check can be implemented in 
+two ways:
+1)Modify SUCCESSORS to assign only values that are 
+allowed, given the values already assigned
+2)Check constraints are satisfied before expanding a state
+Backtracking search is the basic uninformed algorithm for CSPs
+Can solve n-queens for n ≈ 15
+CS 380: Artificial Intelligence | 27
+
+---- Page 28 ----
+Forward Checking
+•Idea: Keep track of remaining legal values for unassigned 
+variables.
+•Terminate search when any variable has no legal values.
+CS 380: Artificial Intelligence | 28
+Simplified map -coloring example:
+Can solve n -
+queens up to 
+n ≈ 30Red Blue Green
+C1
+C2
+C3
+C4
+C5
+
+---- Page 29 ----
+Forward Checking
+•Idea: Keep track of remaining legal values for unassigned 
+variables.
+•Terminate search when any variable has no legal values.
+CS 380: Artificial Intelligence | 29
+Simplified map -coloring example:
+Can solve n -
+queens up to 
+n ≈ 30Red Blue Green
+C1
+C2 x
+C3
+C4 x
+C5 x
+
+---- Page 30 ----
+Forward Checking
+•Idea: Keep track of remaining legal values for unassigned 
+variables.
+•Terminate search when any variable has no legal values.
+CS 380: Artificial Intelligence | 30
+Simplified map -coloring example:
+Can solve n -
+queens up to 
+n ≈ 30Red Blue Green
+C1
+C2 x
+C3 x
+C4 x x
+C5 x x
+
+---- Page 31 ----
+Forward Checking
+•Idea: Keep track of remaining legal values for unassigned 
+variables.
+•Terminate search when any variable has no legal values.
+CS 380: Artificial Intelligence | 31
+Simplified map -coloring example:
+Can solve n -
+queens up to 
+n ≈ 30Red Blue Green
+C1
+C2 x
+C3 x
+C4 x x
+C5 x x x Problem!
+
+---- Page 32 ----
+Heuristics for CSPs
+•More intelligent decision on which value to 
+choose for each variable, which variable to assign 
+next
+Given C1= Red, C2= Green, chose C3= ??
+Given C1= Red, C2= Green, what next??
+Can solve n -queens for n ≈ 1000
+CS 380: Artificial Intelligence | 32
+
+
+---- Page 33 ----
+Heuristics for CSPs
+•More intelligent decision on which value to 
+choose for each variable, which variable to assign 
+next
+Given C1= Red, C2= Green, chose C3= ??
+C3= Green: Least constraining value
+Given C1= Red, C2= Green, what next??
+C5: Most constrained variable
+Can solve n -queens for n ≈ 1000
+CS 380: Artificial Intelligence | 33
+
+
+---- Page 34 ----
+Iterative algorithms for CSPs
+•Hill-climbing, simulated annealing typically work 
+with “complete” states, i.e., all variables assigned
+•To apply to CSPs:
+–Allow states with unsatisfied constraints
+–Operators reassign variable values
+•Variable selection: randomly select any conflicted 
+variable
+•Min-conflicts heuristic:
+–Choose value that violates the fewest constraints
+–i.e., hillclimb with h(n) = total number of violated 
+constraints
+CS 380: Artificial Intelligence | 34
+
+---- Page 35 ----
+CS 380: Artificial Intelligence | 35Example: 4 -Queens
+
+
+---- Page 36 ----
+CS 380: Artificial Intelligence | 36Performance of min -conflicts
+
+
+---- Page 37 ----
+Summary
+•CSPs are a special kind of problem:
+–States defined by values of a fixed set of variables
+–Goal test defined by constraints on variable values
+•Backtracking = depth -first search with
+–Fixed variable order
+–Only legal successors
+•Forward checking prevents assignments that guarantee 
+later failure
+•Variable ordering and value selection heuristics help 
+significantly
+•Iterative min -conflicts is usually effective in practice
+•Tree -structured CSPs can always be solved very efficiently
+CS 380: Artificial Intelligence | 37
+
+---- Page 38 ----
+Coming up…
+•We will start applying ideas of search to 
+adversarial domains, where one player is playing 
+another
+CS 380: Artificial Intelligence | 38
+
+===== slides/CS380 Lecture 7.pdf =====
+
+---- Page 1 ----
+| 1
+CS 380: ARTIFICIAL INTELLIGENCE
+| 1Lecture 7: Adversarial Search II
+
+---- Page 2 ----
+Recall: Adversarial Search
+•Idea:
+–When there is only one agent in the world, we can solve 
+problems using DFS, BFS, ID, A*, etc.
+–When more than one agent, we need adversarial search
+•Last time we saw:
+–Minimax:
+•Systematically expands a “game tree” (can bound depth)
+•Apply utility function at leaves, and then back -propagate values, to 
+find best action
+–Alpha -beta pruning:
+•Improvement over minimax to expand less nodes
+–Expecti -minimax:
+•Extend minimax with chance nodes when we have nondeterminism
+•Can still use Alpha -beta pruning
+CS 380: Artificial Intelligence | 2
+
+---- Page 3 ----
+Minimax in Practice
+•Minimax (with alpha -beta pruning) can be used 
+to create AI that plays games like Checkers or 
+Chess
+•Problem: There are games that humans can play 
+that are too complex for Minimax
+–For example: Go
+CS 380: Artificial Intelligence | 3
+
+
+---- Page 4 ----
+Monte Carlo Methods
+•Algorithms that relay on random sampling to find 
+solution approximations.
+•Example: Monte Carlo integration
+–Imagine that I ask you to compute the following:
+CS 380: Artificial Intelligence | 4𝐴= 
+13
+𝑠𝑖𝑛(𝑥)1
+1+𝑥2𝑑𝑥
+
+
+---- Page 5 ----
+Monte Carlo Methods
+•Method 1: Symbolic integration
+–You could fetch your calculus book and integrate the 
+function using known formulas
+–But you’d need to do this by hand (did you know
+that automatic symbolic integration is still unsolved ?)
+•Method 2: Numerical computations
+–Approximate integral with rectangles, polynomials, 
+etc.
+•Method 3: "Monte Carlo" methods…
+CS 380: Artificial Intelligence | 5
+
+---- Page 6 ----
+Monte Carlo Methods
+•Method 3: Monte Carlo
+f(x)=𝑠𝑖𝑛(𝑥)1
+1+𝑥2
+–Repeat Ntimes:
+•Pick a random xbetween 1 and 3
+•Evaluate f(x)
+–Now average and multiply by 2  (due to integral 1 3)
+–Voilà!
+–The larger the N, the better the approximation
+CS 380: Artificial Intelligence | 6
+
+---- Page 7 ----
+Monte Carlo Methods
+•Idea:
+–Use random sampling to approximate the solution to 
+complex problems
+•How can we apply this idea to adversarial search?
+–The answer to this question is why we have computer 
+programs that can play Go at a master level.
+CS 380: Artificial Intelligence | 7
+
+---- Page 8 ----
+Minimax vs Monte Carlo Search
+CS 380: Artificial Intelligence | 8Minimax : Monte -Carlo:
+U U  U U  U U U U  U U  U U  U U U U
+Minimax opens the 
+complete tree (all 
+possible moves) up to a 
+fixed depth. 
+Then, a Utility function is 
+applied to the leaves.
+
+---- Page 9 ----
+Minimax vs Monte Carlo Search
+CS 380: Artificial Intelligence | 9Minimax : Monte -Carlo:
+U U  U U  U U U U  U U  U U  U U U U
+
+
+---- Page 10 ----
+Minimax vs Monte Carlo Search
+CS 380: Artificial Intelligence | 10Minimax : Monte -Carlo:
+U U  U U  U U U U  U U  U U  U U U U
+For each possible move at the 
+root node, Monte -Carlo search 
+runs a fixed number K of 
+random complete games.
+No need for an Eval function! 
+(but can be used if you want)
+Complete Game
+
+---- Page 11 ----
+Monte Carlo Search
+•For each possible move:
+–Repeat Ntimes:
+•Play a game until the end, selecting moves at random
+–Count the percentage of wins
+•Select the action with the highest percentage of wins .
+•Properties:
+–Complete : ?
+–Optimal : ?
+–Time : ?
+–Memory : ?
+CS 380: Artificial Intelligence | 11
+
+---- Page 12 ----
+Monte Carlo Search
+•For each possible move:
+–Repeat Ntimes:
+•Play a game until the end, selecting moves at random
+–Count the percentage of wins
+•Select the action with the highest percentage of wins .
+•Properties:
+–Complete : no
+–Optimal : no
+–Time : d*b*n (depth * branching factor * N)
+–Memory : b (for one level of search)
+•Works much better than minimax for large games, but has 
+many problems. We can do better.
+CS 380: Artificial Intelligence | 12
+
+---- Page 13 ----
+Minimax vs Monte Carlo Search
+CS 380: Artificial Intelligence | 13Minimax : Monte -Carlo:
+U U  U U  U U U U  U U  U U  U U U U
+For each possible move at the 
+root node, Monte -Carlo search 
+runs a fixed number K of 
+random complete games.
+No need for an Eval function! 
+(but can be used if you want)
+Complete Game
+
+---- Page 14 ----
+Monte Carlo Tree Search
+CS 380: Artificial Intelligence | 14
+0/0
+ Tree Search
+Monte -Carlo
+Search
+Current state
+W/T = how many games 
+starting from this state have 
+been found to win / total # 
+games explored in the current 
+search Current State
+
+
+---- Page 15 ----
+Monte Carlo Tree Search
+CS 380: Artificial Intelligence | 15
+0/0
+ Tree Search
+Monte -Carlo
+Search
+0/0
+At each iteration, one node of 
+the tree (upper part) is selected 
+and expanded (one node added 
+to the tree). From this new node 
+a complete game is played out 
+at random (Monte -Carlo)
+
+---- Page 16 ----
+Monte Carlo Tree Search
+CS 380: Artificial Intelligence | 16
+0/1
+ Tree Search
+Monte -Carlo
+Search
+0/1
+loss
+This is called a
+“playout ”
+At each iteration, one node of 
+the tree (upper part) is selected 
+and expanded (one node added 
+to the tree). From this new node 
+a complete game is played out at 
+random (Monte -Carlo)
+
+---- Page 17 ----
+Monte Carlo Tree Search
+CS 380: Artificial Intelligence | 17
+1/2
+ Tree Search
+Monte -Carlo
+Search
+0/1
+ 1/1
+win
+At each iteration, one node of 
+the tree (upper part) is selected 
+and expanded (one node added 
+to the tree). From this new node 
+a complete game is played out 
+at random (Monte -Carlo)
+
+---- Page 18 ----
+Monte Carlo Tree Search
+CS 380: Artificial Intelligence | 18
+2/3
+ Tree Search
+Monte -Carlo
+Search
+0/1
+ 2/2
+1/1
+win
+The counts w/tare used to determine which 
+nodes to explore next.
+Exploration/Exploitation , e.g:
+1)Some probability of expanding the best node
+2)Some probability of expanding one at random(done)
+
+---- Page 19 ----
+Monte Carlo Tree Search
+CS 380: Artificial Intelligence | 19
+2/3
+ Tree Search
+Monte -Carlo
+Search
+0/1
+ 2/2
+1/1
+win
+The counts w/t are used to determine which 
+nodes to explore next.
+Exploration/Exploitation , e.g:
+1)Some probability of expanding the best node
+2)Some probability of expanding one at random
+As we will see, we want to expand the best node 
+with higher probability than any of the others
+
+---- Page 20 ----
+Monte Carlo Tree Search
+CS 380: Artificial Intelligence | 20
+2/4
+ Tree Search
+Monte -Carlo
+Search
+0/1
+ 2/3
+1/1
+ 0/1
+loss
+The tree ensures all relevant actions 
+are explored (greatly alleviates the 
+randomness that affects Monte -Carlo 
+methods)
+
+---- Page 21 ----
+Monte Carlo Tree Search
+CS 380: Artificial Intelligence | 21
+2/4
+ Tree Search
+Monte -Carlo
+Search
+0/1
+ 2/3
+1/1
+ 0/1
+loss
+The random games played from each 
+node of the tree serve to estimate 
+the Utility function.
+They can be random, or use an 
+opponent model (if available)
+
+---- Page 22 ----
+MCTS Algorithm
+CS 380: Artificial Intelligence | 22
+
+
+---- Page 23 ----
+Monte Carlo Tree Search
+CS 380: Artificial Intelligence | 23
+
+
+---- Page 24 ----
+MCTS Algorithm
+CS 380: Artificial Intelligence | 24
+
+---- Page 25 ----
+Monte Carlo Tree Search
+•Question: How do we choose the next node to be added 
+to the tree?
+–Start at the root.  
+–Descend the tree choosing actions according to the current 
+probability estimates.  (Assume a uniform probability distribution 
+for anything you haven’t seen before)
+–Add to the tree the first node that you reach that isn’t already in 
+it.
+•Or we could use something other than just the current 
+probability estimates.
+•This looks like the “multi -armed bandit” problem…  
+CS 380: Artificial Intelligence | 25
+
+---- Page 26 ----
+Monte Carlo Tree Search
+•A “one -armed bandit” (a.k.a. slot machine) …
+CS 380: Artificial Intelligence | 26
+https:// www.amazon.com /Blue -Metal -Money -Plastic -Colourful /dp/B01B1E01A2
+
+---- Page 27 ----
+Monte Carlo Tree Search
+•The “multi -armed bandit” problem…
+CS 380: Artificial Intelligence | 27
+From en.wikipedia.org /wiki/Multi -armed_bandit #/media/ File:Las_Vegas_slot_machines.jpg
+
+---- Page 28 ----
+Tree Policy: ε-greedy
+•Given a list of children, which one do we explore
+in each iteration of MCTS? 
+•Ideally, we want:
+–To spend more time exploring good children (no point wasting 
+lots of time on bad children)
+–But maybe spend a little time exploring bad children,
+just in case they are good (since evaluation is stochastic, it might 
+happen that we were just unlucky, and a child we thought was 
+bad is actually good)
+•Simplest idea: ε -greedy
+–With probability 1 -ε: choose the current best
+–With probability ε: choose one at random
+CS 380: Artificial Intelligence | 28
+
+---- Page 29 ----
+Which is the best child?
+CS 380: Artificial Intelligence | 29
+60/100
+Tree Search
+Monte -Carlo
+Search
+1/10
+ 55/85
+ 4/5
+
+
+---- Page 30 ----
+Which is the best child?
+CS 380: Artificial Intelligence | 30
+60/100
+Tree Search
+Monte -Carlo
+Search
+1/10
+ 55/85
+ 4/5
+This one seems to win 80% of 
+the time, but we only have 
+sampled it 5 times. This one only wins about 65% 
+of the time, but we have 
+sampled it 85 times. 
+
+---- Page 31 ----
+What is the best child?
+CS 380: Artificial Intelligence | 31
+60/100
+Tree Search
+Monte -Carlo
+Search
+1/10
+ 55/85
+ 4/5
+This one is safer (we cannot be sure 
+the other one is good, unless we 
+sample it more times)
+This one seems to win 80% of 
+the time, but we only have 
+sampled it 5 times. This one only wins about 65% 
+of the time, but we have 
+sampled it 85 times. 
+
+---- Page 32 ----
+Tree Policy: Can we do Better?
+•We just mentioned the ε -greedy policy…
+but is there a way to do better?
+•ε-greedy is robust, but, for example:
+–If there are 3 children:
+•A: 40/100
+•B: 39/100
+•C: 2/100
+CS 380: Artificial Intelligence | 32
+
+---- Page 33 ----
+UCB1
+•"Upper Confidence Bounds" (version 1)
+•Balance between exploration and exploitation
+•UCB value for a given "arm" (or tree branch) i
+CS 380: Artificial Intelligence | 33
+vi+ClnN
+niExpected reward so far
+~ wins so far on this branchNumber of games explored
+so far on this branchNumber of games explored
+so far in total
+
+---- Page 34 ----
+UCB1
+•"Upper Confidence Bounds" (version 1)
+•Balance between exploration and exploitation
+•UCB value for a given "arm" (or tree branch) i
+CS 380: Artificial Intelligence | 34
+vi+ClnN
+niThis is high for arms that we 
+believe to be good.This is high for arms that we 
+have not explored much yet
+
+
+---- Page 35 ----
+Tree Policy: Can we do Better?
+•We just mentioned the ε -greedy policy…
+but is there a way to do better?
+•ε-greedy is robust, but, for example:
+–If there are 3 children:
+•A: 40/100
+•B: 39/100
+•C: 2/100
+CS 380: Artificial Intelligence | 35Almost same values
+N = 300
+vi+ClnN
+ni
+
+---- Page 36 ----
+Upper Confidence Tree Algorithm
+CS 380: Artificial Intelligence | 36
+
+
+---- Page 37 ----
+Upper Confidence Tree Algorithm
+CS 380: Artificial Intelligence | 37
+This means using UCB1 
+at the root to select a 
+child, and then 
+recursively repeat, until 
+we reach a leaf.
+
+
+---- Page 38 ----
+Monte Carlo Tree Search
+•After a fixed number of iterations K(or after the assigned 
+time is over), MCTS analyzes the tree and picks an action 
+with the highest win ratio
+•MCTS algorithms do not explore the whole game tree!
+–They sample the game tree
+–They spend more time in moves that are more promising
+–They are “ any-time algorithms ” (can be stopped at any time)
+•It can be shown theoretically that when Kgoes to infinity, 
+the values assigned to each action in the MCTS tree 
+converge to those computed by minimax
+•MCTS algorithms are the standard algorithms for modern 
+Go playing programs
+CS 380: Artificial Intelligence | 38
+
+---- Page 39 ----
+Go
+CS 380: Artificial Intelligence | 39
+https://www.youtube.com/watch?v=gECcsSeRcNo
+
+---- Page 40 ----
+Games using MCTS Variants
+•Go playing programs:
+–AlphaGo
+–MoGo
+–CrazyStone
+–Valkyria
+–Pachi
+–Fuego
+–The Many Faces of Go
+–Zen
+–…
+CS 380: Artificial Intelligence | 40
+
+
+---- Page 41 ----
+Go
+•Board is 19x19
+•Branching factor: 
+–Starts at 361
+–Decreases by 1 (sort of) after every move
+•Compare Go and Chess:
+–Chess, branching factor around 35:
+•Search at depth 6: 37,515,625 nodes
+–Go, branching factor around 300:
+•Search at depth 6: 729,000,000,000,000 nodes
+CS 380: Artificial Intelligence | 41
+
+---- Page 42 ----
+AlphaGo
+•Google’s AlphaGo defeated Lee Sedol in 2016, 
+and KeJiein May 2017
+•How?
+–Integrated MCTS with deep convolutional neural 
+networks
+–Data set of 30 million positions from the KGS Go 
+Server
+–Trained a collection of neural networks to predict the 
+probability of each move in the dataset and the 
+expected value of a given board
+–Used neural networks to inform MCTS search
+CS 380: Artificial Intelligence | 42
+
+---- Page 43 ----
+AlphaGo
+CS 380: Artificial Intelligence | 43
+pσ4 Deep Neural Networks trained:
+- Trained via Supervised Learning from 30million
+positions from the KGS Go server.
+- Predicts expert moves with 57% accuracy.
+- Simpliﬁcation of       (runs faster)
+- Predicts expert moves with 24.2% accuracyp⇡
+- Starts with       and improves it via self-play 
+(reinforcement learning)
+- 80% win ratio against
+- 85% win ratio against Pachi (MCTS with 100K rollouts)pσ
+pσpσ
+p⇢
+v⇢- Predicts the winner given a position
+- Trained from 30million positions using
+- Almost as accurate as rollouts with 15K times less CPU.       p⇢Integrated into MCTS:pσ
+pπ
+pρ
+vρpρ
+
+---- Page 44 ----
+AlphaGo
+CS 380: Artificial Intelligence | 44
+pσ4 Deep Neural Networks trained:
+- Trained via Supervised Learning from 30million
+positions from the KGS Go server.
+- Predicts expert moves with 57% accuracy.
+- Simpliﬁcation of       (runs faster)
+- Predicts expert moves with 24.2% accuracyp⇡
+- Starts with       and improves it via self-play 
+(reinforcement learning)
+- 80% win ratio against
+- 85% win ratio against Pachi (MCTS with 100K rollouts)pσ
+pσpσ
+p⇢
+v⇢- Predicts the winner given a position
+- Trained from 30million positions using
+- Almost as accurate as rollouts with 15K times less CPU.       p⇢Integrated into MCTS:
+Evaluation is the average of       ,         
+and a rollout with       .  used to bias sampling of 
+children during MCTS.
+v⇢p⇡pρpπpσ
+vρpρpπvρ
+
+---- Page 45 ----
+Go Chess
+•AlphaZero : AlphaGo -like system for chess
+•Stockfish : standard best chess -playing engine
+•“The program had four hours to play itself many, 
+many times, thereby becoming its own teacher.”
+•2017: AlphaZero won the 100 -game match vs. 
+Stockfish with 28 wins, 72 draws, and 0 losses (!)
+•See:
+https://www.chess.com/news/view/google -s-alphazero -
+destroys -stockfish -in-100-game -match
+CS 380: Artificial Intelligence | 45
+
+---- Page 46 ----
+Rock Papers Scissors
+•"Cheating" robot:
+https://vimeo.com/42703118
+•Winning every time:
+https://www.youtube.com/watch?v=g_1Ll4fhRso
+CS 380: Artificial Intelligence | 46
+
+---- Page 47 ----
+Adversarial Search Summary
+•For when there’s more than one agent in the world
+•Search on a Game Tree
+–Max layers: for our moves
+–Min layers: for our opponent’s moves
+–“Average” layers: for chance elements (e.g. dice rolls)
+•Algorithms:
+–Minimax
+•with Alpha -Beta pruning
+–Expecti -minimax
+–Monte Carlo Search
+–Monte Carlo Tree Search
+CS 380: Artificial Intelligence | 47
+
+===== slides/CS380 Lecture 6.pdf =====
+
+---- Page 1 ----
+| 1
+CS 380: ARTIFICIAL INTELLIGENCE
+| 1Lecture 6: Adversarial Search I
+
+---- Page 2 ----
+Recall: Problem Solving
+•Idea: represent the problem we want to solve as:
+–State space
+–Actions
+–Goal check
+–Cost function
+•If this is possible, we can use search methods to solve 
+any problem:
+–Systematic Search:
+•BFS, DFS, ID, Greedy Search, A*
+–Local Search:
+•Hill Climbing, Simulated Annealing, Local Beam Search (e.g., GAs)
+CS 380: Artificial Intelligence | 2
+
+---- Page 3 ----
+CS 380: Artificial Intelligence | 3The “Mechanical Turk” (1770 -1854)
+Wikipedia.org
+
+---- Page 4 ----
+Games vs. Search Problems
+•“Unpredictable” opponent => solution is a strategy specifying 
+a move for every possible opponent reply
+•Time limits => unlikely to find goal, must approximate
+•Plan of Attach:
+–Computer considers possible lines of play (Babbage, 1846)
+–Algorithm for perfect play ( Zermelo , 1912; Von Neumann, 1944)
+–Finite horizon, approximate evaluation ( Zuse , 1945; Wiener, 1948; 
+Shannon, 1950)
+–First chess program (Turing, 1951)
+–Machine learning to improve evaluation accuracy (Samuel, 1952 -57)
+–Pruning to allow deeper search (McCarthy, 1956)
+CS 380: Artificial Intelligence | 4
+
+---- Page 5 ----
+Types of Games
+CS 380: Artificial Intelligence | 5
+
+
+---- Page 6 ----
+Game Tree (2 -player, deterministic, turns)
+CS 380: Artificial Intelligence | 6
+
+
+---- Page 7 ----
+Minimax
+•Perfect play for deterministic, perfect -information games
+•Idea: choose move to position with highest minimax value 
+= best achievable payoff against best play
+•E.g., 2 -ply game:
+CS 380: Artificial Intelligence | 7
+
+
+---- Page 8 ----
+Game Tree (2 -player, deterministic, turns)
+CS 380: Artificial Intelligence | 8
+
+
+---- Page 9 ----
+Minimax Algorithm
+CS 380: Artificial Intelligence | 9
+
+
+---- Page 10 ----
+Properties of Minimax
+•Complete ??
+•Optimal ??
+•Time Complexity ??
+•Space Complexity ??
+CS 380: Artificial Intelligence | 10
+
+---- Page 11 ----
+Properties of Minimax
+•Complete : Only if tree is finite (chess has specific rules for 
+this) NB a finite strategy can exist even in an infinite tree!
+•Optimal ??
+•Time Complexity ??
+•Space Complexity ??
+CS 380: Artificial Intelligence | 11
+
+---- Page 12 ----
+Properties of Minimax
+•Complete : Yes, if tree is finite 
+•Optimal : Yes, against an optimal opponent. Otherwise??
+•Time Complexity ??
+•Space Complexity ??
+CS 380: Artificial Intelligence | 12
+
+---- Page 13 ----
+Properties of Minimax
+•Complete : Yes, if tree is finite 
+•Optimal : Yes, against an optimal opponent. Otherwise??
+•Time Complexity : O(bm)
+•Space Complexity ??
+CS 380: Artificial Intelligence | 13
+
+---- Page 14 ----
+Properties of Minimax
+•Complete : Yes, if tree is finite 
+•Optimal : Yes, against an optimal opponent. Otherwise??
+•Time Complexity : O(bm)
+•Space Complexity : O(bm)(depth -first exploration)
+For chess, b ≈ 35, m ≈ 100 for “reasonable” games
+=> exact solution completely infeasible
+But do we need to explore every path?
+CS 380: Artificial Intelligence | 14
+
+---- Page 15 ----
+Alpha -Beta Pruning
+•Not all nodes in the search tree are relevant for 
+deciding the next move
+CS 380: Artificial Intelligence | 15
+
+
+---- Page 16 ----
+Alpha -Beta Pruning
+•Not all nodes in the search tree are relevant for 
+deciding the next move
+CS 380: Artificial Intelligence | 16
+
+---- Page 17 ----
+Alpha -Beta Pruning
+•Not all nodes in the search tree are relevant for 
+deciding the next move
+CS 380: Artificial Intelligence | 17
+
+
+---- Page 18 ----
+Alpha -Beta Pruning
+•Not all nodes in the search tree are relevant for 
+deciding the next move
+CS 380: Artificial Intelligence | 18
+
+
+---- Page 19 ----
+α-βPruning Example
+CS 380: Artificial Intelligence | 19
+
+
+---- Page 20 ----
+α-βPruning Example
+CS 380: Artificial Intelligence | 20
+
+
+---- Page 21 ----
+α-βPruning Example
+CS 380: Artificial Intelligence | 21
+
+
+---- Page 22 ----
+α-βPruning Example
+CS 380: Artificial Intelligence | 22
+
+
+---- Page 23 ----
+α-βPruning Example
+CS 380: Artificial Intelligence | 23
+
+
+---- Page 24 ----
+Why is it called α-β?
+CS 380: Artificial Intelligence | 24
+αis the best value (to max) found so far off the current path
+If V is worse than α, max will avoid it => prune that branch
+Define βsimilarly for min
+
+---- Page 25 ----
+The α-βAlgorithm
+CS 380: Artificial Intelligence | 25
+
+
+---- Page 26 ----
+Properties of α-β
+•Pruning does not affect final result
+•Good move ordering improves effectiveness of 
+pruning
+•With “perfect ordering”, time complexity = 𝑂(𝑏 𝑚2) 
+=> doubles solvable depth
+•A simple example of the value of reasoning about 
+which computations are relevant (a form of 
+metareasoning )
+•Unfortunately, 3550is still impossible!
+CS 380: Artificial Intelligence | 26
+
+---- Page 27 ----
+Resource Limits
+•Standard approach:
+–Use Cutoff -Test instead of Terminal -Test
+•e.g., depth limit (perhaps add quiescence search )
+–Use Eval instead of Utility
+•e.g., evaluation function that estimates desirability of 
+position
+•Suppose we have 100 seconds, explore 104nodes/second
+=> 106nodes per move ≈ 358/2
+=> α-βreaches depth 8 => pretty good chess program
+CS 380: Artificial Intelligence | 27Utility for terminal states; 
+Evalfor ALL statesI.e., search “interesting” 
+states more than 
+“standard” ones
+
+---- Page 28 ----
+Evaluation Functions
+•For chess, typically linear weighted sum of features
+Eval(s) = w1f1(s) + w2f2(s) + … + wnfn(s)
+e.g., w1= 9 with f1(s) = (number of white queens) –(number of black 
+queens), etc.
+CS 380: Artificial Intelligence | 28
+
+
+---- Page 29 ----
+Evaluation Functions
+•For chess, typically linear weighted sum of features
+Eval(s) = w1f1(s) + w2f2(s) + … + wnfn(s)
+e.g., w1= 9 with f1(s) = (number of white queens) –(number of black 
+queens), etc.
+CS 380: Artificial Intelligence | 29
+3 3.25 5 9 Fischer
+3 3.15 4.5 9 Kasparov
+
+---- Page 30 ----
+Digression: Exact values don’t matter
+•Behavior is preserved under any monotonic
+transformation of Eval
+•Only the order matters:
+–Payoff in deterministic games acts as an ordinal utility 
+function
+CS 380: Artificial Intelligence | 30
+
+
+---- Page 31 ----
+Deterministic games in practice
+•Checkers: Chinook ended 40 -year reign of human world champion 
+Marion Tinsley in 1994. Used an endgame database defining perfect 
+play for all positions involving 8 or fewer pieces on the board, a total 
+of 443,748,401,247 positions.
+•Chess: Deep Blue defeated human world champion, Gary Kasparov, in 
+a six -game match in 1997. Deep Blue searches 200 million positions 
+per second, uses very sophisticated evaluation, and undisclosed 
+methods for extending some lines of search up to 40 ply.
+•Othello: human champions refuse to compete against computers, 
+who are too good.
+•Go: human champions refuse to compete against computers, who 
+are too bad. In go, b > 300, so most programs use pattern knowledge 
+bases to suggest plausible moves.
+CS 380: Artificial Intelligence | 31
+
+---- Page 32 ----
+Deterministic games in practice
+•Checkers: Chinook ended 40 -year reign of human world champion 
+Marion Tinsley in 1994. Used an endgame database defining perfect 
+play for all positions involving 8 or fewer pieces on the board, a total 
+of 443,748,401,247 positions.
+•Chess: Deep Blue defeated human world champion, Gary Kasparov, in 
+a six -game match in 1997. Deep Blue searches 200 million positions 
+per second, uses very sophisticated evaluation, and undisclosed 
+methods for extending some lines of search up to 40 ply.
+•Othello: human champions refuse to compete against computers, 
+who are too good.
+•Go: human champions refuse to compete against computers, who 
+are too bad. In go, b > 300, so most programs use pattern knowledge 
+bases to suggest plausible moves.
+CS 380: Artificial Intelligence | 32AlphaGo
+
+---- Page 33 ----
+Nondeterministic games: backgammon
+CS 380: Artificial Intelligence | 33
+
+
+---- Page 34 ----
+Expecti -minimax
+•For chance layer, compute a score weighted by 
+the probability that a move occurs
+•In other words: Use the expected value of a 
+move, (instead of max or min) weighted by the 
+probability of that branch of the tree
+CS 380: Artificial Intelligence | 34
+
+---- Page 35 ----
+Nondeterministic games in general
+•In nondeterministic games, chance introduced by 
+dice, card -shuffling
+•Simplified example with coin -flipping
+CS 380: Artificial Intelligence | 35
+
+
+---- Page 36 ----
+Algorithm for nondeterministic games
+•Expecti -minimax gives perfect play
+•Just like minimax, except we must also handle 
+chance nodes
+CS 380: Artificial Intelligence | 36
+
+
+---- Page 37 ----
+Nondeterministic games in practice
+•Dice rolls increase b: 21 possible rolls with 2 dice
+•Backgammon ≈ 20 legal moves
+Depth 4 = 20 x (21 x 20)3≈ 1.2 x 109
+•As depth increases, probability of reaching a 
+given node shrinks => value of lookahead is 
+diminished
+•α-βpruning is much less effective
+•TDGammon uses depth -2 search + very good Eval
+≈ world -champion level
+CS 380: Artificial Intelligence | 37
+
+---- Page 38 ----
+Digression: Exact values DO matter
+•Behavior is preserved only by positive linear 
+transformation of Eval
+•Hence Eval should be proportional to the expected 
+payoff
+CS 380: Artificial Intelligence | 38
+
+
+---- Page 39 ----
+Games of Imperfect Information
+•E.g., card games, where opponent’s initial cards are unknown
+•Typically, we can calculate a probability for each possible deal
+•Seems just like having one big dice roll at the beginning of the 
+game
+•Idea: compute the minimax value of each action in each deal, 
+then choose the action with highest expected value over all 
+deals.
+•Special case: if an action is optimal for all deals, it’s optimal
+•GIB, current best bridge program, approximates this idea by:
+–Generating 100 deals consistent with bidding information
+–Picking the action the wins the most tricks on average
+CS 380: Artificial Intelligence | 39
+
+---- Page 40 ----
+Proper Analysis
+* Intuition that the value of an action is the average 
+of its values in all actual states is WRONG
+•With partial observability, value of an action 
+depends on the information state or belief state 
+the agent is in
+•Can generate and search a tree of information 
+states
+•Leads to rational behaviors such as:
+–Acting to obtain information
+–Signaling to one’s partner
+–Acting randomly to minimize information disclosure
+CS 380: Artificial Intelligence | 40
+
+---- Page 41 ----
+Coming up…
+•What if the game is too complex for minimax and 
+related searches?
+•Can we do reasonably well using some other 
+approach?
+–Monte Carlo methods
+CS 380: Artificial Intelligence | 41
+
+===== slides/CS380 Lecture 8.pdf =====
+
+---- Page 1 ----
+| 1
+CS 380: ARTIFICIAL INTELLIGENCE
+| 1Lecture 8: Logical Agents
+
+---- Page 2 ----
+Summary so far:
+•What is AI?
+–Rational Agents
+•Problem solving:
+–Systematic search
+•Uninformed search: DFS, BFS, ID
+•Informed search: heuristics, Greedy Search, A*
+–Local Search: Hill Climbing, Simulated Annealing
+–Adversarial Search: Minimax, alpha -beta, Monte Carlo 
+Tree Search
+•Next: Knowledge Representation + Reasoning
+CS 380: Artificial Intelligence | 2
+
+---- Page 3 ----
+Knowledge
+•Knowledge base:
+–When you think of “knowledge”, what do you think 
+of?
+CS 380: Artificial Intelligence | 3
+
+---- Page 4 ----
+Knowledge
+•Knowledge base:
+–For our purposes: A set of sentences in a formal
+language
+•Knowledge -based agent:
+•“Declarative programming”
+CS 380: Artificial Intelligence | 4Inference engineKnowledge baseDomain -
+dependent
+Domain -
+independent
+
+---- Page 5 ----
+Declarative Programming
+•Tell an agent WHAT to do, but not HOW .
+•Encode all the necessary knowledge, and let the 
+agent infer how to achieve the goals.
+•For example, instead of programming a specific 
+sorting algorithm, we could tell an agent:
+–Here’s a set of numbers.
+–Now I want them sorted, which means that for every 
+adjacent numbers aand b, they must satisfy a <= b
+–You (the agent) figure out how 
+•In the limit, this is really hard
+CS 380: Artificial Intelligence | 5
+
+---- Page 6 ----
+Wumpus World
+•There’s a cave with a terrible “Wumpus” that eats 
+anyone who enters its room 
+•The Wumpus can be shot with an arrow if you’re 
+facing the right direction 
+•… but you only have 1 arrow 
+•Some rooms have bottomless pits that trap you 
+•So why are you poking around Wumpus World?
+There’s gold in one room!! 
+CS 380: Artificial Intelligence | 6
+
+---- Page 7 ----
+Wumpus World PEAS Description
+•Performance measure
+–Gold +1000, death -1000, 
+–-1 per step, -10 for using arrow
+•Environment
+–Squares adjacent to wumpus are smelly
+–Squares adjacent to pit are breezy
+–Glitter iff gold is in the same square
+–Shooting kills wumpus if you are facing it
+–Shooting uses up the only arrow
+–Grabbing picks up gold if in same square
+–Releasing drops gold in same square
+•Actuators 
+–Left turn, Right turn, Forward, Grab, Release, Shoot
+•Sensors -Breeze, Glitter, Smell
+CS 380: Artificial Intelligence | 7
+WumpusWor ld PEASdescript ion
+Performancemeasure
+gold+ 1000, death-1000
+-1perstep,-10forusingthearrow
+Environment
+Squaresadjace nttowumpusaresmelly
+Squaresadjace nttopitarebreezy
+Glitteriffgoldisinthesamesquare
+Shootingkillswumpusifyouarefacingit
+Shootingus e suptheonlyarrow
+Grabbingpicksupgoldifinsamesquare
+ReleasingdropsthegoldinsamesquareBreeze BreezeBreezeBreezeBreeze
+StenchStenchBreeze
+PIT
+PIT
+PIT
+1 2 3 41234
+STARTGoldStench
+ActuatorsLeftturn,Rightturn,
+Forward,Grab,Releas e ,Shoot
+S e nsorsBreeze,Glitter,Smell
+Chapter7 5
+
+---- Page 8 ----
+Exploring the Wumpus World
+CS 380: Artificial Intelligence | 8
+
+
+---- Page 9 ----
+Exploring the Wumpus World
+CS 380: Artificial Intelligence | 9
+
+
+---- Page 10 ----
+Exploring the Wumpus World
+CS 380: Artificial Intelligence | 10
+
+
+---- Page 11 ----
+Exploring the Wumpus World
+CS 380: Artificial Intelligence | 11
+
+
+---- Page 12 ----
+Exploring the Wumpus World
+CS 380: Artificial Intelligence | 12
+
+
+---- Page 13 ----
+Exploring the Wumpus World
+CS 380: Artificial Intelligence | 13
+
+
+---- Page 14 ----
+Exploring the Wumpus World
+CS 380: Artificial Intelligence | 14
+
+
+---- Page 15 ----
+Exploring the Wumpus World
+CS 380: Artificial Intelligence | 15
+
+
+---- Page 16 ----
+Other tight spots
+CS 380: Artificial Intelligence | 16
+
+
+---- Page 17 ----
+Logic in general
+•Logics are formal languages for representing information 
+such that conclusions can be drawn
+•Syntax defines the sentences in the language
+•Semantics defines the “meaning” of sentences, i.e., 
+define truth of a sentence in a world
+•E.g., the language of arithmetic
+–x + 2 ≥ y is a sentence; x2 + y >      is not a sentence
+–x+ 2 ≥ y is true iff the number x+ 2 is no less than the number y
+–x+ 2 ≥ y is true in a world where x = 7, y = 1
+–x+ 2 ≥ y is false in a world where x = 0, y = 6
+CS 380: Artificial Intelligence | 17
+
+---- Page 18 ----
+Entailment
+•Entailment means that one thing follows from another: 
+KB Ⱶα
+•Knowledge base KB entails sentence α
+If and only if
+αis true in all worlds where KB is true
+•E.g., the KB containing “the Giants won” and “the Reds 
+won” entails “Either the Giants won or the Reds won”
+•E.g., x + y = 4 entails 4 = x + y
+•Entailment is a relationship between sentences (i.e., 
+syntax ) that is based on semantics .
+CS 380: Artificial Intelligence | 18
+
+---- Page 19 ----
+Models
+•Logicians typically think in terms of models , which are 
+formally structured worlds with respect to which truth 
+can be evaluated
+•We say mis a model of a sentence αif αis true in m
+•M(α) is the set of all models of α
+•Then KB αif and only if M(KB) ⊆M(α)
+E.g. KB= Giants won and Reds won
+α= Giants won
+CS 380: Artificial Intelligence | 19
+M(α)
+
+
+---- Page 20 ----
+Entailment in the Wumpus World
+•Situation after detecting nothing 
+in [1,1], moving right, breeze in 
+[2,1]
+•Consider possible models for ? s 
+assuming only pits
+•3 Boolean choices => 8 possible 
+models
+CS 380: Artificial Intelligence | 20
+
+
+---- Page 21 ----
+Wumpus Models
+CS 380: Artificial Intelligence | 21
+
+
+---- Page 22 ----
+Wumpus Models
+•KB= wumpus -world rules + observations
+CS 380: Artificial Intelligence | 22
+
+
+---- Page 23 ----
+Wumpus Models
+•KB= wumpus -world rules + observations
+•α1= “[1,2] is safe”, KB Ⱶα1, proved by model checking
+CS 380: Artificial Intelligence | 23
+
+
+---- Page 24 ----
+Wumpus Models
+•KB= wumpus -world rules + observations
+•α2= “[2,2] is safe”, KB     α2
+CS 380: Artificial Intelligence | 24
+
+
+---- Page 25 ----
+Propositional Logic: Syntax
+•Propositional logic is the simplest logic –illustrates basic 
+ideas
+•The proposition symbols P1,P2, etcare sentences
+•If S is a sentence, ¬S is a sentence (negation)
+•If S1and S2are sentences, S1ꓥS2is a sentence (conjunction)
+•If S1and S2are sentences, S1ꓦS2is a sentence (disjunction)
+•If S1and S2are sentences, S1⇒S2is a sentence (implication)
+•If S1and S2are sentences, S1⇔S2is a sentence 
+(biconditional )
+CS 380: Artificial Intelligence | 25
+
+---- Page 26 ----
+Propositional Logic: Semantics
+•Each model specifies true/false for each proposition 
+symbol
+•E.g., P1,2 P2,2 P3,1
+false false true
+(With these symbols, 8 possible models can be enumerated 
+automatically)
+•Rules for evaluating truth with respect to a model m:
+CS 380: Artificial Intelligence | 26
+
+
+---- Page 27 ----
+Truth Tables for Connectives
+CS 380: Artificial Intelligence | 27
+
+
+---- Page 28 ----
+Wumpus World Sentences
+•Let Pi,jbe true if there is a pit in [i,j].
+•Let Bi,jbe true if there is a breeze in [i,j].
+¬P1,1
+¬B1,1
+B2,1
+“Pits cause breezes in adjacent squares”
+CS 380: Artificial Intelligence | 28
+
+---- Page 29 ----
+Wumpus World Sentences
+•Let Pi,jbe true if there is a pit in [i,j].
+•Let Bi,jbe true if there is a breeze in [i,j].
+Rules
+R1 ¬P1,1
+R2 ¬B1,1
+R3 B2,1
+“Pits cause breezes in adjacent squares”
+R4 B1,1⇔(P1,2ꓦP2,1)
+R5 B2,1⇔(P1,1ꓦP2,2ꓦP3,1)
+“A square is breezy if and only if there is an adjacent pit”
+These rules together form our KB
+CS 380: Artificial Intelligence | 29
+
+---- Page 30 ----
+Truth Tables for Inference
+•Enumerate rows (different assignments to symbols), if KB
+is true in row, check that αis too
+•KB = rules derived from observations, laws of Wumpus
+•α= what we’re interested in testing/checking
+CS 380: Artificial Intelligence | 30
+
+
+---- Page 31 ----
+Truth Tables for Inference
+•Enumerate rows (different assignments to symbols), if KB
+is true in row, check that αis too
+•KB = rules derived from observations, laws of Wumpus
+•α= what we’re interested in testing/checking
+CS 380: Artificial Intelligence | 31
+
+
+---- Page 32 ----
+Pros and Cons of Propositional Logic
+•Propositional logic is declarative : pieces of syntax correspond to 
+facts
+•Propositional logic allows partial/disjunctive/negated information 
+(unlike most data structures and databases)
+•Propositional logic is compositional : meaning B1,1ꓥP1,2is derived 
+from meaning of B1,1and of P1,2
+•Meaning in propositional logic is context -independent (unlike 
+natural language, where meaning depends on context)
+•Propositional logic has very limited expressive power (unlike 
+natural language)
+E.g., cannot say “pits cause breezes in adjacent squares” except by 
+writing one sentence for each square
+CS 380: Artificial Intelligence | 32
+
+---- Page 33 ----
+First -order Logic
+•Whereas propositional logic assumes world 
+contains facts , first -order logic (like natural 
+language) assumes the world contains
+–Objects : people, houses, numbers, theories, Ronald 
+McDonald, colors, baseball games, wars, centuries…
+–Relations : red, round, bogus, prime, multistoried… , 
+brother of, bigger than, inside, part of, has color, 
+occurred after, owns, comes between…
+–Functions : father of, best friend, third inning of, one 
+more than, end of…
+CS 380: Artificial Intelligence | 33
+
+---- Page 34 ----
+Models for First -order Logic: Example
+CS 380: Artificial Intelligence | 34
+
+
+---- Page 35 ----
+Syntax of FOL: Basic Elements
+•Constants KingJohn , 2, UCB, …
+•Predicates Brother, >, …
+•Functions Sqrt, LeftLegOf , …
+•Variables x, y, a, b, …
+•Connectives ꓥꓦ¬  ⇒⇔
+•Equality =
+•Quantifiers ꓯꓱ
+CS 380: Artificial Intelligence | 35
+
+---- Page 36 ----
+Atomic Sentences
+•Atomic sentence = predicate(term1, …, termm)
+or term1= term2
+•Term = function(term1, …, termm)
+or constant or variable
+E.g., Brother( KingJohn , RichartTheLionheart )
+> (Length( LeftLegOf (Richard)), Length( LeftLegOf (KingJohn )))
+CS 380: Artificial Intelligence | 36
+
+---- Page 37 ----
+Complex Sentences
+•Complex sentences are made from atomic sentences 
+using connectives
+¬S,  S1ꓥS2,  S1ꓦS2,  S1⇒S2,  S1⇔S2
+E.g. 
+Sibling( KingJohn , Richard) ⇒Sibling(Richard, KingJohn )
+>(1,2) ꓦ≤ (1,2)
+>(1,2) ꓥ¬> (1,2)
+CS 380: Artificial Intelligence | 37
+
+---- Page 38 ----
+Models for FOL: Lots!
+•Entailment in propositional logic can be computed 
+by enumerating models
+•We can enumerate the FOL models for a given KB 
+vocabulary:
+For each number of domain elements nfrom 1to ∞
+For each k-arypredicate Pkin the vocabulary
+For each possible k-aryrelation on nobjects
+For each constant symbol Cin the vocabulary
+For each choice of referent for Cfrom nobjects…
+Computing entailment by enumerating FOL models is not easy!
+CS 380: Artificial Intelligence | 38
+
+---- Page 39 ----
+Universal Quantification
+•ꓯ<variables> <sentence>
+•Everyone at Berkeley is smart:
+–ꓯx   At(x, Berkeley) ⇒Smart(x)
+•ꓯx  P is true in a model miff Pis true with x
+being each possible object in the model
+•Roughly speaking, equivalent to the conjunction
+of instantiations of P
+(At(KingJohn , Berkeley) ⇒Smart( KingJohn ))
+ꓥ(At(Richard, Berkeley) ⇒Smart(Richard))
+ꓥ(At(Berkeley , Berkeley) ⇒Smart( Berkeley )) … 
+CS 380: Artificial Intelligence | 39
+
+---- Page 40 ----
+A common mistake to avoid
+•Typically, ⇒is the main connective with ꓯ
+•Common mistake, using ꓥas the main connective 
+with ꓯ:
+ꓯx  At(x, Berkeley) ꓥSmart(x)
+Means “Everyone is at Berkeley and everyone is 
+smart”
+CS 380: Artificial Intelligence | 40
+
+---- Page 41 ----
+Existential Quantification
+•ꓱ<variable> <sentence>
+•Someone at Stanford is smart:
+–ꓱx  At(x, Stanford) ꓥSmart(x)
+•ꓱx  P is true in a model miff Pis true with xbeing 
+some possible object in the model
+•Roughly speaking, equivalent to the disjunction 
+of instantiations of P
+(At(KingJohn , Stanford) ꓥSmart( KingJohn ))
+ꓦ(At(Richard, Stanford) ꓥSmart(Richard))
+ꓦ… 
+CS 380: Artificial Intelligence | 41
+
+---- Page 42 ----
+Another common mistake to avoid
+•Typically, ꓥis the main connective with ꓱ
+•Common mistake: using ⇒as the main 
+connective with ꓱ:
+ꓱxAt(x, Stanford) ⇒Smart(x)
+Is true if there is anyone who is not at Stanford !
+CS 380: Artificial Intelligence | 42
+
+---- Page 43 ----
+Properties of quantifiers
+•ꓯx ꓯy is the same as ꓯy ꓯx
+•ꓱx ꓱyis the same as ꓱy ꓱx
+•ꓱx ꓯy is not the same as ꓯy ꓱx
+•ꓱx ꓯy  Loves( x,y)
+–“There is a person who loves everyone in the world”
+•ꓯy ꓱx  Loves( x,y)
+–“Everyone in the world is loved by at least one person”
+•Quantifier duality: each can be expressed using the other
+–ꓯx  Likes(x, IceCream )  ¬ꓱx ¬Likes(x, IceCream )
+–ꓱx Likes(x , Broccoli)      ¬ ꓯx ¬Likes(x , Broccoli) 
+CS 380: Artificial Intelligence | 43
+
+---- Page 44 ----
+Fun with Sentences
+•Brothers are siblings
+CS 380: Artificial Intelligence | 44
+
+---- Page 45 ----
+Fun with Sentences
+Brothers are siblings
+•ꓯx,y Brother(x,y) ⇒Sibling(x,y).
+“Sibling” is symmetric
+CS 380: Artificial Intelligence | 45
+
+---- Page 46 ----
+Fun with Sentences
+Brothers are siblings
+•ꓯx,y Brother(x,y) ⇒Sibling(x,y).
+“Sibling” is symmetric
+•ꓯx,y Sibling(x,y) ⇔Sibling( y,x).
+One’s mother is one’s female parent
+CS 380: Artificial Intelligence | 46
+
+---- Page 47 ----
+Fun with Sentences
+Brothers are siblings
+•ꓯx,y Brother(x,y) ⇒Sibling(x,y).
+“Sibling” is symmetric
+•ꓯx,y Sibling(x,y) ⇔Sibling( y,x).
+One’s mother is one’s female parent
+•ꓯx,y Mother(x,y ) ⇔(Female(x) ꓥ(Parent(x,y)).
+A first cousin is a child of a parent’s sibling
+CS 380: Artificial Intelligence | 47
+
+---- Page 48 ----
+Fun with Sentences
+Brothers are siblings
+•ꓯx,y Brother(x,y) ⇒Sibling(x,y).
+“Sibling” is symmetric
+•ꓯx,y Sibling(x,y) ⇔Sibling( y,x).
+One’s mother is one’s female parent
+•ꓯx,y Mother(x,y ) ⇔(Female(x) ꓥ(Parent(x,y)).
+A first cousin is a child of a parent’s sibling
+•ꓯx,y FirstCousin(x,y ) ⇔ ꓱpx,py  Parent( px,x) ꓥ
+Sibling(px,py) ꓥParent( py,y)
+CS 380: Artificial Intelligence | 48
+
+---- Page 49 ----
+Interacting with FOL KBs
+Suppose a wumpus -world is using a FOL KB and perceives a 
+smell and a breeze (but no glitter) at t = 5.
+Tell(KB, Percept([Smell, Breeze, None],5))
+Ask(KB, ꓱa Action(a,5))
+I.e., does KBentail any particular actions at t = 5 ?
+Answer: Yes, {a/Shoot} substitution (binding list)
+Given a sentence Sand a substitution σ,
+Sσdenotes that result of plugging σinto S; e.g.,
+S = Smarter( x,y)
+σ= {x/Hillary, y/Bill}
+Sσ= Smarter(Hillary, Bill)
+Ask (KB, S) returns some/all σsuch that KB   S σ
+CS 380: Artificial Intelligence | 49
+
+
+---- Page 50 ----
+Deducing Hidden Properties
+Properties at locations:
+ꓯx,tAt(Agent,x,t ) ꓥSmelt(t) ⇒Smelly(x)
+ꓯx,tAt(Agent,x,t ) ꓥBreeze(t) ⇒Breezy(x)
+Squares are breezy near a pit:
+Diagnostic rule –infer cause from effect
+ꓯy Breezy(y) ⇒ꓱx Pit(x) ꓥAdjacent( x,y)
+Causal rule –infer effect from cause
+ꓯx,y Pit(x) ꓥAdjacent(x,y ) ⇒Breezy(y)
+Neither of these is complete –e.g., the causal rule doesn’t 
+say whether squares far away from pits can be breezy
+Definition for the Breezy predicate:
+ꓯy Breezy(y) ⇔ [ ꓱx Pit(x) ꓥAdjacent(x,y ) ]
+CS 380: Artificial Intelligence | 50
+
+---- Page 51 ----
+Describing Actions 
+•“Effect” axiom –describes changes due to action
+ꓯs AtGold (s) ⇒Holding(Gold, Result( Grab,s ))
+•“Frame” axiom –describes non -changes due to action
+ꓯs HaveArrow (s) ⇒HaveArrow (Result( Grab,s ))
+•Frame problem : find an elegant way to handle non -change
+–(a) representation –avoid frame axioms
+–(b) inference –avoid repeated “copy -overs” to keep track of state
+•Qualification problem : true descriptions of real actions required 
+endless caveats –what if gold is slippery or nailed down or …
+•Ramification problem : real actions have many secondary 
+consequences –what about the dust on the gold, wear and tear 
+on gloves, … 
+CS 380: Artificial Intelligence | 51
+
+---- Page 52 ----
+Making Plans
+•Initial condition in KB:
+At(Agent, [1,1], S0)
+At(Gold, [1,2], S0)
+•Query: Ask(KB, ꓱs Holding( Gold,s ))
+–i.e., in what situation will I be holding the gold?
+•Answer: {s/Result(Grab, Result(Forward, S0))}
+–i.e., go forward and then grab the gold
+•This assumes that the agent is interested in plans 
+starting at S0and that S0is the only situation 
+described in KB
+CS 380: Artificial Intelligence | 52
+
+---- Page 53 ----
+Making Plans: A better way
+•Represent plans as action sequences [a1, a2, … , an]
+PlanResult (p,s)is the result of executing pin s
+•Then the query Ask(KB, ꓱp  Holding(Gold, 
+PlanResult (p,S0))) has the solution {p/[Forward,Grab ]}
+•Definition of PlanResult in terms of Result :
+ꓯs  PlanResult ([],s) = s
+ꓯa,p,s PlanResult ([a|p],s) = PlanResult (p,Result (a,s))
+•Planning systems are special -purpose reasoners 
+designed to do this type of inference more efficiently 
+than a general -purpose reasoner
+CS 380: Artificial Intelligence | 53
+
+---- Page 54 ----
+Summary
+•Predicate logic
+–Basic representation for factual knowledge
+•First -order logic
+–Objects and relations are semantic primitives
+–Syntax: constants, functions, predicates, equality, 
+quantifiers
+–Situation calculus:
+•Conventions for describing actions and changes in FOL
+•Can formulate planning as inference on a situation calculus KB
+–Increased expressive power over propositional logic
+•… or at least, sufficient to define Wumpus world
+CS 380: Artificial Intelligence | 54
+
+===== slides/CS380 Lecture 9.pdf =====
+
+---- Page 1 ----
+| 1
+CS 380: ARTIFICIAL INTELLIGENCE
+| 1Lecture 9: Natural Language Processing
+
+---- Page 2 ----
+Natural Language Processing
+•Let’s start with some classic examples:
+–Eliza ( Weizenbaum , 1966)
+•Sample implementation:
+http://www.masswerk.at/elizabot/
+–SHRDLU ( Winograd , 1970)
+•http://hci.stanford.edu/~winograd/shrdlu/
+•https://www.youtube.com/watch?v=QAJz4YKUwqw
+•How did SHRDLU get its name?
+http://hci.stanford.edu/~winograd/shrdlu/name.html
+CS 380: Artificial Intelligence | 2
+
+---- Page 3 ----
+
+
+---- Page 4 ----
+Natural Language Processing
+•SHRDLU is quite impressive for late 1960s!
+•So, is NLP solved nowadays? (after ~50 years?)
+–Not at all!
+•But SHRDLU worked pretty well —can’t we just apply the 
+algorithms in SHRDLU to other domains?
+–SHRDLU worked on a “micro -world”, which masks most of the 
+hard problems in NLP (ambiguity, metaphor,
+non-compositionality, etc.)
+–Efforts to scale SHRDLU to larger domains have consistently failed 
+(e.g., CyC)
+CS 380: Artificial Intelligence | 4
+
+---- Page 5 ----
+Natural Language Processing
+•There are many possible perspectives for an 
+analysis of language…
+–Linguistics: e.g., general & specific aspects of language 
+–Psychology: e.g., developmental learning
+–Computer Science: e.g., grammar & parsing
+–Sociology: e.g., language across cultures
+–Etc.
+•Here we focus on NLP from an agent perspective:
+an agent/human communicating with an 
+agent/human
+CS 380: Artificial Intelligence | 5
+
+---- Page 6 ----
+Communication
+•“Classical” view (pre -1953)
+–Language consists of sentences that are true/false (logic)
+•“Modern” view (post -1953)
+–Language is a form of action
+Wittgenstein(1953) Philosophical Investigations
+Austin (1962) How to Do Things with Words
+Searle (1969) Speech Acts
+•Why?
+–To change the actions of other agents
+CS 380: Artificial Intelligence | 6
+
+
+---- Page 7 ----
+Speech Acts
+•Speech acts achieve the speaker’s goals:
+–Inform “There’s a pit in front of you”
+–Query “Can you see the gold?
+–Command “Pick it up”
+–Promise “I’ll share the gold with you”
+–Acknowledge “OK”
+•Speech act planning requires knowledge of
+–Situation
+–Semantic and syntactic conventions
+–Hearer’s goals, knowledge base, and rationality
+CS 380: Artificial Intelligence | 7
+
+
+---- Page 8 ----
+Stages of Communication (informing)
+•Intention S wants to inform H that P
+•Generation S selects words Wto express Pin context C
+•Synthesis S utters words W
+•Perception H perceives W’in context C’
+•Analysis H infers possible meanings P1,… Pn
+•Disambiguation H infers intended meaning Pi
+•Incorporation H incorporates Piinto KB
+How could this go wrong?
+CS 380: Artificial Intelligence | 8
+
+---- Page 9 ----
+Stages of Communication (informing)
+•Intention S wants to inform H that P
+•Generation S selects words Wto express Pin context C
+•Synthesis S utters words W
+•Perception H perceives W’in context C’
+•Analysis H infers possible meanings P1,… Pn
+•Disambiguation H infers intended meaning Pi
+•Incorporation H incorporates Piinto KB
+How could this go wrong?
+–Insincerity (S doesn’t believe P)
+–Speech wreck ignition failure (speech recognition failure )
+–Ambiguous utterance
+–Differing understanding of current context ( C != C’ )
+CS 380: Artificial Intelligence | 9
+
+---- Page 10 ----
+Stages of Communication (informing)
+•Intention S wants to inform H that P
+•Generation S selects words Wto express Pin context C
+•Synthesis S utters words W
+•Perception H perceives W’in context C’
+•Analysis H infers possible meanings P1,… Pn
+•Disambiguation H infers intended meaning Pi
+•Incorporation H incorporates Piinto KB
+CS 380: Artificial Intelligence | 10Ambiguity examples from NYT Crossword:
+They hang around in kitchens = APRON
+Bare -bones outfit = SKELETON COSTUME
+Device for on -line conversation? = TIN CAN TELEPHONE?
+?
+?
+
+---- Page 11 ----
+Grammar
+•Vervet monkeys, antelopes, etc. use isolated 
+symbols for sentences
+–Restricted set of communicable propositions, no 
+generative capacity
+CS 380: Artificial Intelligence | 11
+
+---- Page 12 ----
+Grammar
+•Vervet monkeys, antelopes, etc. use isolated 
+symbols for sentences
+–Restricted set of communicable propositions, no 
+generative capacity
+CS 380: Artificial Intelligence | 12
+Vervet monkeys are known to elicit predator -specific alarm 
+calls . Three well -documented vervet monkey alarm calls are 
+those for leopard, martial eagle and python. Leopard alarm 
+calls are short tonal calls produced in a series of inhalations 
+and exhalations. Eagle alarm calls are low pitched grunts 
+while python alarm calls are high pitched “ chutters ”.Different 
+alarm calls seem to evoke different responses to individuals 
+that heard the alarm calls. However, the first reaction of a 
+vervet monkey upon hearing an alarm call is to look at the 
+direction of the caller . Looking at the direction of the caller 
+gives them clues as to why the alarm calls were made and 
+also where the caller is facing reveals the direction of the 
+approaching predator.  [from primatology.net ]
+
+---- Page 13 ----
+Grammar
+•Vervet monkeys, antelopes, etc. use isolated symbols for sentences
+–Restricted set of communicable propositions, no generative capacity
+(Chomsky (1957): Syntactic Structures)
+•Grammar specifies the compositional structure of complex messages. 
+E.g., speech (linear), text (linear), music (two -dimensional)
+•A formal language is a set of strings of terminal symbols
+•Each string in the language can be analyzed/generated by the grammar
+•The grammar is a set of rewrite rules , e.g., 
+S → NP VP Backus -Naur Form (BNF)
+Article → the | a | an | …
+Here S is the sentence symbol, NP and VP are nonterminals
+CS 380: Artificial Intelligence | 13
+
+---- Page 14 ----
+Grammar Types
+•Regular : nonterminal → terminal[nonterminal]
+S →aS
+S →Λ (Λ= uppercase lambda = empty string)
+•Context -free: nonterminal → anything
+S →aSb
+•Context -sensitive : more nonterminals
+ASB →AAaBB
+•Recursively enumerable: no constraints
+•Natural languages probably context -free, 
+parsable in real time!
+CS 380: Artificial Intelligence | 14
+
+---- Page 15 ----
+Wumpus Lexicon
+•Noun → stench | breeze | glitter | nothing | Wumpus | pit | 
+pits | gold | east | …
+•Verb → is | see | smell | shoot | feel | stinks | go | grab | 
+carry | kill | turn | …
+•Adjective → right | left | east | south | back | smelly | …
+•Adverb → here | there | nearby | ahead | right | left | east | 
+south | back | …
+•Pronoun → me | you | I | it | …
+•Name → John | Mary | Boston | UCB | PAJC | …
+•Article → the | a | an | …
+•Preposition →to | in | on | near | …
+•Conjunction →and | or | but | …
+•Digit → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+CS 380: Artificial Intelligence | 15
+
+---- Page 16 ----
+Wumpus Grammar
+CS 380: Artificial Intelligence | 16
+
+
+---- Page 17 ----
+Grammaticality Judgements
+CS 380: Artificial Intelligence | 17
+
+
+---- Page 18 ----
+Parse Trees
+CS 380: Artificial Intelligence | 18
+
+
+---- Page 19 ----
+Parse Trees
+CS 380: Artificial Intelligence | 19
+
+
+---- Page 20 ----
+Parse Trees
+CS 380: Artificial Intelligence | 20
+
+
+---- Page 21 ----
+Parse Trees
+CS 380: Artificial Intelligence | 21
+
+
+---- Page 22 ----
+Parse Trees
+CS 380: Artificial Intelligence | 22
+
+
+---- Page 23 ----
+Syntax in NLP
+•Most view syntactic structure as an essential step towards 
+meaning;
+–“Mary hit John” ≠ “John hit Mary”
+–“And since I was not informed –as a matter of fact, since I did not 
+know that there were excess funds until we, ourselves, in that 
+checkup after the whole thing blew up, and that was, if you’ll 
+remember, that was the incident in which the attorney general 
+came to me and told me that he had seen a memo that indicated 
+there were no more funds”
+CS 380: Artificial Intelligence | 23
+
+---- Page 24 ----
+Syntax in NLP
+•Most view syntactic structure as an essential step towards 
+meaning;
+–“Mary hit John” ≠ “John hit Mary”
+–“And since I was not informed –as a matter of fact, since I did not 
+know that there were excess funds until we, ourselves, in that 
+checkup after the whole thing blew up, and that was, if you’ll 
+remember, that was the incident in which the attorney general 
+came to me and told me that he had seen a memo that indicated 
+there were no more funds”
+–“Wouldn’t the sentence ‘I want to put a hyphen between the 
+words Fish and And and And and Chips in my Fish -And-Chips sign’ 
+have been clearer if quotation marks had been placed before 
+Fish, and between Fish and and, and and and And, and And and
+and, and and and And, and And and and, and and and Chips, as 
+well as after Chips?
+CS 380: Artificial Intelligence | 24
+
+---- Page 25 ----
+Real Language
+•Real human languages provide many problems 
+for NLP:
+–Ambiguity
+–Anaphora
+–Indexicality
+–Vagueness
+–Discourse structure
+–Metonymy
+–Metaphor
+–Noncompositionality
+CS 380: Artificial Intelligence | 27
+
+---- Page 26 ----
+Ambiguity
+•Squad helps dog bite victim
+CS 380: Artificial Intelligence | 28
+
+---- Page 27 ----
+Ambiguity
+•Squad helps dog bite victim
+•Helicopter powered by human flies
+CS 380: Artificial Intelligence | 29
+
+---- Page 28 ----
+Ambiguity
+•Squad helps dog bite victim
+•Helicopter powered by human flies
+•I ate spaghetti with meatballs
+CS 380: Artificial Intelligence | 30
+
+---- Page 29 ----
+Ambiguity
+•Squad helps dog bite victim
+•Helicopter powered by human flies
+•I ate spaghetti with meatballs
+salad
+CS 380: Artificial Intelligence | 31
+
+---- Page 30 ----
+Ambiguity
+•Squad helps dog bite victim
+•Helicopter powered by human flies
+•I ate spaghetti with meatballs
+salad
+abandon
+CS 380: Artificial Intelligence | 32
+
+---- Page 31 ----
+Ambiguity
+•Squad helps dog bite victim
+•Helicopter powered by human flies
+•I ate spaghetti with meatballs
+salad
+abandon
+a fork
+CS 380: Artificial Intelligence | 33
+
+---- Page 32 ----
+Ambiguity
+•Squad helps dog bite victim
+•Helicopter powered by human flies
+•I ate spaghetti with meatballs
+salad
+abandon
+a fork
+a friend
+CS 380: Artificial Intelligence | 34
+
+---- Page 33 ----
+Ambiguity
+•Squad helps dog bite victim
+•Helicopter powered by human flies
+•I ate spaghetti with meatballs
+salad
+abandon
+a fork
+a friend
+Ambiguity can be lexical (polysemy), syntactic, 
+semantic, referential
+CS 380: Artificial Intelligence | 35
+
+---- Page 34 ----
+Anaphora
+•Using pronouns to refer back to entities already 
+introduced in the text
+•After Mary proposed to John, they found a 
+preacher and got married.
+CS 380: Artificial Intelligence | 36
+
+---- Page 35 ----
+Anaphora
+•Using pronouns to refer back to entities already 
+introduced in the text
+•After Mary proposed to John, they found a 
+preacher and got married.
+•For the honeymoon, they went to Hawaii.
+CS 380: Artificial Intelligence | 37
+
+---- Page 36 ----
+Anaphora
+•Using pronouns to refer back to entities already 
+introduced in the text
+•After Mary proposed to John, they found a 
+preacher and got married.
+•For the honeymoon, they went to Hawaii.
+•Mary saw a ring through the window and asked 
+John for it.
+CS 380: Artificial Intelligence | 38
+
+---- Page 37 ----
+Anaphora
+•Using pronouns to refer back to entities already 
+introduced in the text
+•After Mary proposed to John, they found a 
+preacher and got married.
+•For the honeymoon, they went to Hawaii.
+•Mary saw a ring through the window and asked 
+John for it.
+•Mary threw a rock at the window and broke it.
+CS 380: Artificial Intelligence | 39
+
+---- Page 38 ----
+Anaphora
+•Using pronouns to refer back to entities already 
+introduced in the text
+•After Mary proposed to John, they found a 
+preacher and got married.
+•For the honeymoon, they went to Hawaii.
+•Mary saw a ring through the window and asked 
+John for it.
+•Mary threw a rock at the window and broke it.
+•Compare : Mary threw a vase at the wall and 
+broke it.
+CS 380: Artificial Intelligence | 40
+
+---- Page 39 ----
+Indexicality
+•Indexical sentences refer to utterance situation 
+(place, time, etc)
+•I am over here .
+•Why did you do that?
+CS 380: Artificial Intelligence | 41
+
+---- Page 40 ----
+Metonymy
+•Using one noun phrase to stand for another
+•I’ve read Shakespeare
+•Chrysler announced record profits
+•The ham sandwich on Table 4 wants another 
+beer.
+CS 380: Artificial Intelligence | 42
+
+---- Page 41 ----
+Metaphor
+•“Non -literal” usage of words and phrases, often 
+systematic:
+•I’ve tried killing the process, but it won’t die. Its 
+parent keeps it alive.
+CS 380: Artificial Intelligence | 43
+
+---- Page 42 ----
+Noncompositionality
+•Meaning of a phrase = combined meaning of its 
+terms?
+CS 380: Artificial Intelligence | 44
+
+---- Page 43 ----
+Noncompositionality
+•Basketball shoes
+CS 380: Artificial Intelligence | 45
+
+---- Page 44 ----
+Noncompositionality
+•Basketball shoes
+•Baby shoes
+CS 380: Artificial Intelligence | 46
+
+---- Page 45 ----
+Noncompositionality
+•Basketball shoes
+•Baby shoes
+•Alligator shoes
+CS 380: Artificial Intelligence | 47
+
+---- Page 46 ----
+Noncompositionality
+•Basketball shoes
+•Baby shoes
+•Alligator shoes
+•Designer shoes
+CS 380: Artificial Intelligence | 48
+
+---- Page 47 ----
+Noncompositionality
+•Basketball shoes
+•Baby shoes
+•Alligator shoes
+•Designer shoes
+•Brake shoes
+CS 380: Artificial Intelligence | 49
+
+---- Page 48 ----
+Noncompositionality
+•Basketball shoes
+•Baby shoes
+•Alligator shoes
+•Designer shoes
+•Brake shoes
+•Red book
+CS 380: Artificial Intelligence | 50
+
+---- Page 49 ----
+Noncompositionality
+•Basketball shoes
+•Baby shoes
+•Alligator shoes
+•Designer shoes
+•Brake shoes
+•Red book
+•Red pen
+CS 380: Artificial Intelligence | 51
+
+---- Page 50 ----
+Noncompositionality
+•Basketball shoes
+•Baby shoes
+•Alligator shoes
+•Designer shoes
+•Brake shoes
+•Red book
+•Red pen
+•Red hair
+CS 380: Artificial Intelligence | 52
+
+---- Page 51 ----
+Noncompositionality
+•Basketball shoes
+•Baby shoes
+•Alligator shoes
+•Designer shoes
+•Brake shoes
+•Red book
+•Red pen
+•Red hair
+•Red herring
+CS 380: Artificial Intelligence | 53
+
+---- Page 52 ----
+Noncompositionality
+•Basketball shoes
+•Baby shoes
+•Alligator shoes
+•Designer shoes
+•Brake shoes
+•Red book
+•Red pen
+•Red hair
+•Red herring
+•Small moon
+CS 380: Artificial Intelligence | 54
+
+---- Page 53 ----
+Noncompositionality
+•Basketball shoes
+•Baby shoes
+•Alligator shoes
+•Designer shoes
+•Brake shoes
+•Red book
+•Red pen
+•Red hair
+•Red herring
+•Small moon
+•Large molecule
+CS 380: Artificial Intelligence | 55
+
+---- Page 54 ----
+Noncompositionality
+•Basketball shoes
+•Baby shoes
+•Alligator shoes
+•Designer shoes
+•Brake shoes
+•Red book
+•Red pen
+•Red hair
+•Red herring
+•Small moon
+•Large molecule
+•Mere child
+CS 380: Artificial Intelligence | 56
+
+---- Page 55 ----
+Noncompositionality
+•Basketball shoes
+•Baby shoes
+•Alligator shoes
+•Designer shoes
+•Brake shoes
+•Red book
+•Red pen
+•Red hair
+•Red herring
+•Small moon
+•Large molecule
+•Mere child
+•Alleged murderer
+CS 380: Artificial Intelligence | 57
+
+---- Page 56 ----
+Noncompositionality
+•Basketball shoes
+•Baby shoes
+•Alligator shoes
+•Designer shoes
+•Brake shoes
+•Red book
+•Red pen
+•Red hair
+•Red herring
+•Small moon
+•Large molecule
+•Mere child
+•Alleged murderer
+•Real leather
+CS 380: Artificial Intelligence | 58
+
+---- Page 57 ----
+Noncompositionality
+•Basketball shoes
+•Baby shoes
+•Alligator shoes
+•Designer shoes
+•Brake shoes
+•Red book
+•Red pen
+•Red hair
+•Red herring
+•Small moon
+•Large molecule
+•Mere child
+•Alleged murderer
+•Real leather
+•Artificial grass
+CS 380: Artificial Intelligence | 59
+
+---- Page 58 ----
+NLP in the Real World
+CS 380: Artificial Intelligence | 60
+
+
+---- Page 59 ----
+
+
+---- Page 60 ----
+
+
+---- Page 61 ----
+NLP in the Real World
+CS 380: Artificial Intelligence | 63
+
+
+---- Page 62 ----
+NLP in the Real World
+•Thinking beyond agents, how you do NLP depends 
+on what task you’re trying to accomplish
+•Examples
+–Part-of-speech classification (noun/verb/etc.)
+–Classification w.r.t. a taxonomy (e.g., Amazon products)
+–Authorship detection (e.g., Founding Fathers)
+–Language detection (which language is this?)
+–Sentiment analysis (is this positive, negative, other?)
+–Concept extraction, summarization (what is this about?)
+–Machine translation (one language to another)
+–Language generation (e.g., Chat -GPT)
+CS 380: Artificial Intelligence | 64
+
+---- Page 63 ----
+NLP in Python
+•Let’s check out a robust Python library for doing 
+NLP work: spaCy (plus spacytextblob )
+•According to their website… 
+–spaCy is a free, open -source library for advanced NLP 
+in Python
+–spaCy is nota platform, an API, an out -of-the-box 
+chatbot engine, or research software
+–(though they've recently added integration with 
+chatbots, LLMs, etc.)
+–For more info, see https://spacy.io/usage/spacy -101
+CS 380: Artificial Intelligence | 65> python -m pip install spacy spacytextblob
+
+---- Page 64 ----
+CS 380: Artificial Intelligence | 66nlp.py
+
+
+---- Page 65 ----
+Token Information
+Token :The original word text
+Lemma :The base form of the word
+POS:The part-of-speech tag
+Shape :The word shape –
+capitalization, punctuation, digits
+Alpha :Is the token alphabetic?
+Stop :Is the token a "stop word"?
+Named Entities
+ORG = Organization
+GPE = Geopolitical Organization
+MONEY = Currency
+
+---- Page 66 ----
+CS 380: Artificial Intelligence | 68nlp.py
+
+
+---- Page 67 ----
+
+
+---- Page 68 ----
+NLP in the Real World
+•Problem: A perfect, unambiguous parsed 
+understanding of a sentence is often elusive.
+•In the face of real -world language & ambiguity,
+how can we handle the explosion of possible 
+grammatical rules?
+–Allow for partially -formed parse trees
+–Incorporate probabilistic parsing
+–Use modern techniques (e.g., neural networks) that 
+can better handle “imperfect” language
+CS 380: Artificial Intelligence | 70
+
+---- Page 69 ----
+Coming up…
+•These ideas lead us naturally into the next topic, 
+Machine Learning
+–How can agents learn what to do and when to do it?
+–Once they know what to do, how can they improve 
+their behavior over time?
+CS 380: Artificial Intelligence | 71
+
+===== slides/CS380 Lecture 10.pdf =====
+
+---- Page 1 ----
+| 1
+CS 380: ARTIFICIAL INTELLIGENCE
+| 1Lecture 10: Machine Learning
+
+---- Page 2 ----
+Summary so far:
+•Rational Agents
+•Problem Solving
+–Systematic Search
+•Uninformed
+•Informed
+–Local Search
+–Adversarial Search
+•Logic and Knowledge Representation
+–Predicate Logic
+–First -order Logic
+•Natural -Language Processing
+•Today: Machine Learning
+CS 380: Artificial Intelligence | 2
+
+---- Page 3 ----
+Machine Learning
+•Computational methods for computers to exhibit 
+specific forms of learning. For example:
+–Learning from Examples:
+•Supervised learning
+•Unsupervised learning
+–Reinforcement Learning
+–Learning from Observation (demonstration/imitation)
+CS 380: Artificial Intelligence | 3
+
+---- Page 4 ----
+How it works
+•Feed input data into an algorithm
+•Allow the algorithm to find patterns or 
+relationships
+•Algorithms builds a model to make predictions or 
+decisions
+•The model improves over time with more data
+CS 380: Artificial Intelligence | 4
+
+---- Page 5 ----
+Examples
+•Supervised Learning : learning to recognize writing
+CS 380: Artificial Intelligence | 5
+
+
+---- Page 6 ----
+Examples
+•Supervised Learning : image classification
+CS 380: Artificial Intelligence | 6
+
+
+---- Page 7 ----
+Examples
+•Unsupervised Learning : clustering observations 
+into meaningful classes
+CS 380: Artificial Intelligence | 7
+
+
+---- Page 8 ----
+Examples
+•Reinforcement Learning : learning to walk
+CS 380: Artificial Intelligence | 8
+
+
+---- Page 9 ----
+Examples
+•Learning from demonstration : performing tasks 
+that other agents (or humans) can do
+CS 380: Artificial Intelligence | 9
+
+
+---- Page 10 ----
+Examples
+•Learning from demonstration :
+–https://www.youtube.com/watch?v=3nSn1DGek4c
+CS 380: Artificial Intelligence | 10
+
+
+---- Page 11 ----
+Inductive Learning
+•Inductive learning tries to infer general concepts 
+from simple examples
+•Let’s try to learn something in its simplest form:
+Learning a function from examples
+–Desired : fis a target function we want to learn
+—but we don’t know what it is or how to compute it
+–Given : examples where an example = < x , f(x) >
+–Problem : find a hypothesis h such that h ≈ f
+CS 380: Artificial Intelligence | 11
+
+---- Page 12 ----
+Inductive Learning
+•Now, let’s try to construct a hypothesis h
+such that h ≈ f
+CS 380: Artificial Intelligence | 12
+Inductivelearningmethod
+Construct/adjusthtoagreewithfontrainings e t
+(hisconsistentifitagreeswithfonallexample s )
+E.g.,curveﬁtting:
+xf(x)
+Chapter18,Sections1–3 7
+
+---- Page 13 ----
+Inductive Learning
+•Now, let’s try to construct a hypothesis h
+such that h ≈ f
+CS 380: Artificial Intelligence | 13
+Inductivelearningmethod
+Construct/adjusthtoagreewithfontrainings e t
+(hisconsistentifitagreeswithfonallexample s )
+E.g.,curveﬁtting:
+xf(x)
+Chapter18,Sections1–3 8
+
+---- Page 14 ----
+Inductive Learning
+•Now, let’s try to construct a hypothesis h
+such that h ≈ f
+CS 380: Artificial Intelligence | 14
+Inductivelearningmethod
+Construct/adjusthtoagreewithfontrainings e t
+(hisconsistentifitagreeswithfonallexample s )
+E.g.,curveﬁtting:
+xf(x)
+Chapter18,Sections1–3 9
+
+---- Page 15 ----
+Inductive Learning
+•Now, let’s try to construct a hypothesis h
+such that h ≈ f
+CS 380: Artificial Intelligence | 15
+Inductivelearningmethod
+Construct/adjusthtoagreewithfontrainings e t
+(hisconsistentifitagreeswithfonallexample s )
+E.g.,curveﬁtting:
+xf(x)
+Chapter18,Sections1–3 10
+
+---- Page 16 ----
+Inductive Learning
+•Now, let’s try to construct a hypothesis h
+such that h ≈ f
+CS 380: Artificial Intelligence | 16
+Inductivelearningmethod
+Construct/adjusthtoagreewithfontrainings e t
+(hisconsistentifitagreeswithfonallexample s )
+E.g.,curveﬁtting:
+xf(x)
+Chapter18,Sections1–3 11
+
+---- Page 17 ----
+Inductive Learning
+•Now, let’s try to construct a hypothesis h
+such that h ≈ f
+•Occam’s razor : The simplest explanation
+tends to be the best one.
+CS 380: Artificial Intelligence | 17
+Inductivelearningmethod
+Construct/adjusthtoagreewithfontrainings e t
+(hisconsistentifitagreeswithfonallexample s )
+E.g.,curveﬁtting:
+xf(x)
+Chapter18,Sections1–3 11
+William of Occam 
+(1287 -1347)
+
+---- Page 18 ----
+Attribute -Based Representations
+•Items (or examples) described by attribute values 
+(Boolean, discrete, continuous, etc.)
+•Example: Will I wait for a table at a restaurant?
+–What factors (attributes) would affect your decision?
+CS 380: Artificial Intelligence | 18
+
+---- Page 19 ----
+Attribute -Based Representations
+•Items (or examples) described by attribute values 
+(Boolean, discrete, continuous, etc.)
+•Example: Will I wait for a table at a restaurant?
+–Do I have an Alternative ?
+–Is there a Bar?
+–Is it Friday ?
+–Am I Hungry ?
+–Are there Patrons in the restaurant?
+–What is the Price ?
+–Is it Raining ?
+–Do I have a Reservation ?
+–What Type of food is it?
+–What’s the Estimated wait time?
+I will wait, True or False
+CS 380: Artificial Intelligence | 19
+
+---- Page 20 ----
+Attribute -Based Representations
+•Items (or examples) described by attribute values 
+(Boolean, discrete, continuous, etc.)
+•Example: Will I wait for a table at a restaurant?
+CS 380: Artificial Intelligence | 20
+
+
+---- Page 21 ----
+Decision Trees
+•Decision Tree asks questions about the attributes 
+of a given example to provide an answer
+•Here is the “true” tree for whether to wait:
+CS 380: Artificial Intelligence | 21
+Decisiontrees
+One pos s iblerepre s e ntationforhypothe s e s
+E.g.,hereisthe“true”treeforde cidingwhethertowait:
+No  Yes
+No  Yes
+No  YesNo  Yes
+No  Yes
+No  YesNone Some Full
+>60 30−60 10−30 0−10
+No  YesAlternate?Hungry?
+Reservation?
+Bar? Raining?Alternate?Patrons?
+Fri/Sat?WaitEstimate? F T
+F T
+T
+T
+F TT F T
+T F
+Chapter18,Sections1–3 14
+
+---- Page 22 ----
+Decision Trees
+•Decision trees are expressive: they can express any 
+function of the input attributes
+•For example, for Boolean functions, we can convert truth 
+table row → path to leaf
+•Trivially, there is a consistent decision tree for any training 
+set w/ one path to leaf for each example (unless f
+nondeterministic in x)
+•But it probably won’t generalize to new examples!
+CS 380: Artificial Intelligence | 22
+Exp ressiveness
+De cisiontreescanexpre s sanyfunctionoftheinputattribute s .
+E.g.,forBooleanfunctions,truthtablerow→pathtoleaf:
+F TA
+B
+F TBA B A xor B
+F F F
+F T T
+T F T
+T T FF
+F F T
+ T  T
+Trivially,thereisaconsistentde cisiontreeforanytrainings e t
+w/onepathtoleafforeachexample(unle s sfnondeterministicinx)
+butitprobablywon’tge neralizetonewexamples
+Prefertoﬁndmorecompactde cisiontrees
+Chapter18,Sections1–3 15
+
+---- Page 23 ----
+Decision Trees
+•How many distinct decision trees are there with n
+Boolean attributes?
+= number of Boolean functions
+= number of distinct truth tables with 2nrows = 22^n
+–E.g., with 6 Boolean attributes, there are 
+18,446,744,073,709,551,616 trees
+•How many purely conjunctive hypotheses are there?
+(e.g., Hungry ∧¬Rain)
+–Each attribute can be positive, negative, or omitted
+3ndistinct conjunctive hypotheses
+•A more expressive hypothesis space…
+–increases chance that target function can be expressed
+–increases number of hypotheses consistent w/ training set
+–But may get worse predictions!
+CS 380: Artificial Intelligence | 23
+
+---- Page 24 ----
+Decision -Tree Learning
+•Goal : find a small tree consistent with examples
+•Idea : (recursively) choose the “most significant” 
+attribute as the root of a (sub)tree 
+CS 380: Artificial Intelligence | 24
+Decisiontreelearning
+Aim:ﬁndasmalltreeconsistentwiththetrainingexamples
+Idea:(re cursively)choos e“mos tsigniﬁcant”attributeasrootof(sub)tree
+functionDTL(examples,attributes,default)returnsade cisiontre e
+ifexamplesise mptythenreturndefault
+elseifallexampleshavethesameclassiﬁcationthenreturntheclassiﬁcation
+elseifattributesise mptythenreturnMode(examples)
+else
+best←Choose-Attribute(attributes,examples)
+tree←anewde cisiontre ewithroottestbest
+foreachvalueviofbestdo
+examplesi←{e le me n tsofexampleswithbest=vi}
+subtree←DTL(examplesi,attributes−best,Mode(examples))
+addabranchtotreewithlabelviandsubtre esubtree
+returntree
+Chapter18,Sections1–3 23
+
+---- Page 25 ----
+ID3
+•Developed by Quinlan (1986)
+•ID3 = “Iterative Dichotomiser 3”
+–Create a decision tree that iteratively evaluates an 
+item based on its attributes
+–Key idea: use entropy (or information gain ) to make 
+these decisions
+CS 380: Artificial Intelligence | 25
+
+---- Page 26 ----
+ID3
+•Consider how different attributes might split a set 
+of training examples
+–Based on Patrons …
+CS 380: Artificial Intelligence | 26
+
+
+---- Page 27 ----
+ID3
+•Consider how different attributes might split a set 
+of training examples
+–Based on Type …
+CS 380: Artificial Intelligence | 27
+
+
+---- Page 28 ----
+ID3
+•Consider how different attributes might split a set 
+of training examples
+•Which of these attributes should we prefer?
+CS 380: Artificial Intelligence | 28
+Choosin ganattribute
+Idea:agoodattributesplitstheexamplesintosubs e tsthatare(ideally)“all
+pos itive”or“allne gative”
+None Some FullPatrons?
+French Italian Thai BurgerType?
+Patrons?isabetterchoice—gi vesinformationabouttheclassiﬁcation
+Chapter18,Sections1–3 24
+
+---- Page 29 ----
+ID3
+•Consider how different attributes might split a set 
+of training examples
+•Which of these attributes should we prefer ?
+–Better to have subsets that are all/mostly the same class
+–“Patrons ”is a better choice here
+CS 380: Artificial Intelligence | 29
+Choosin ganattribute
+Idea:agoodattributesplitstheexamplesintosubs e tsthatare(ideally)“all
+pos itive”or“allne gative”
+None Some FullPatrons?
+French Italian Thai BurgerType?
+Patrons?isabetterchoice—gi vesinformationabouttheclassiﬁcation
+Chapter18,Sections1–3 24
+
+---- Page 30 ----
+Entropy
+•“Information” is what answers questions in the 
+context of decision trees
+–In essence, the more clueless I am about the answer 
+initially, the more information is contained in the answer 
+•Scale
+–1 bit = answer to Boolean question with prior ⟨0.5, 0.5⟩
+–Information in an answer when prior is 𝑃1,…,𝑃𝑛is
+… also called the entropy of the prior
+CS 380: Artificial Intelligence | 30𝐻𝑃1,…,𝑃𝑛= 
+𝑖=1𝑛
+−𝑃𝑖log2𝑃𝑖
+
+---- Page 31 ----
+Entropy
+•Given a set of symbols S…
+•Drawn from an alphabet B…
+•Entropy is a measure of uncertainty of a variable
+•Entropy = expected number of bits needed to 
+encode the next symbol (in a sense, the amount 
+of "surprise" over the outcome of the next event) 
+–If Sis drawn at random from B, entropy is maximal 
+–If Sis always the same symbol from B, entropy is 
+minimal
+•we know which symbol will come next, so there’s no new 
+information
+CS 380: Artificial Intelligence | 31
+
+---- Page 32 ----
+Entropy
+•Entropy can be defined as:
+•Example for a binary variable:
+CS 380: Artificial Intelligence | 32𝐻𝑃1,…,𝑃𝑛= 
+𝑖=1𝑛
+−𝑃𝑖log2𝑃𝑖
+
+
+---- Page 33 ----
+ID3
+•An attribute splits the examples 𝐸into subsets 𝐸𝑖, 
+each of which (we hope) needs less information 
+to complete the classification
+•Let 𝐸𝑖have 𝑝𝑖positive and 𝑛𝑖negative examples
+–𝐻(𝑝𝑖
+𝑝𝑖+𝑛𝑖,𝑛𝑖
+𝑝𝑖+𝑛𝑖)bits needed to classify a new example
+–the expected number of bits per example over all 
+branches is
+CS 380: Artificial Intelligence | 33 
+𝑖𝑝𝑖+𝑛𝑖
+𝑝+𝑛𝐻(𝑝𝑖
+𝑝𝑖+𝑛𝑖,𝑛𝑖
+𝑝𝑖+𝑛𝑖)
+
+---- Page 34 ----
+ID3
+•For Patrons :
+–Subset E1has p1= 0 positive, n1= 2 negative
+–Subset E2has p2= 4 positive, n2= 0 negative
+–Subset E3has p3= 2 positive, n3= 4 negative
+CS 380: Artificial Intelligence | 34
+Choosin ganattribute
+Idea:agoodattributesplitstheexamplesintosubs e tsthatare(ideally)“all
+pos itive”or“allne gative”
+None Some FullPatrons?
+French Italian Thai BurgerType?
+Patrons?isabetterchoice—gi vesinformationabouttheclassiﬁcation
+Chapter18,Sections1–3 24𝑝=6,𝑛=6
+ 
+𝑖𝑝𝑖+𝑛𝑖
+𝑝+𝑛𝐻𝑝𝑖
+𝑝𝑖+𝑛𝑖,𝑛𝑖
+𝑝𝑖+𝑛𝑖=0.459bits
+
+---- Page 35 ----
+Choosin ganattribute
+Idea:agoodattributesplitstheexamplesintosubs e tsthatare(ideally)“all
+pos itive”or“allne gative”
+None Some FullPatrons?
+French Italian Thai BurgerType?
+Patrons?isabetterchoice—gi vesinformationabouttheclassiﬁcation
+Chapter18,Sections1–3 24𝑝=6,𝑛=6ID3
+•For Type :
+–All subsets have 𝑝𝑖=𝑛𝑖
+•So we choose the attribute that minimizes the 
+resulting entropy, i.e., Patrons
+CS 380: Artificial Intelligence | 35 
+𝑖𝑝𝑖+𝑛𝑖
+𝑝+𝑛𝐻𝑝𝑖
+𝑝𝑖+𝑛𝑖,𝑛𝑖
+𝑝𝑖+𝑛𝑖=1bit
+
+---- Page 36 ----
+ID3
+•The ID3 tree after learning:
+•A lot simpler than the full tree we saw earlier
+•Why is simpler a good thing here?
+CS 380: Artificial Intelligence | 36
+Exa mplecont d.
+De cisiontreelearnedfromthe12example s :
+No  YesFri/Sat?None Some FullPatrons?
+No  YesHungry?
+Type?
+French Italian Thai BurgerF T
+T FF
+T
+F T
+Substantiallysimplerthan“true”tree—a morecomplexhypothe s isisn’tjus-
+tiﬁedbysmallamountofdata
+Chapter18,Sections1–3 27
+
+---- Page 37 ----
+ID3
+•Alternatives to Entropy…
+–E.g., Information Gain is a common alternative
+–And there are others (Gain Ratio, GINI Index, RLDM, 
+etc.)
+•Alternative search strategies…
+–E.g., Decision Forests (instead of 1 deep tree, use 
+multiple shorter trees and aggregate their decisions)
+CS 380: Artificial Intelligence | 37
+
+---- Page 38 ----
+Decision Trees in Python
+•You could go ahead and write code for decision 
+trees from scratch
+–You'd have control over all elements of the system
+•… but we're not planning that in our intro course
+•Instead, let's use a common Python library to 
+build a basic decision tree
+–Core library: scikit -learn
+•Note: This library doesn't use ID3, but rather CART, which 
+builds on C4.5, which builds on ID3 —so not the same 
+algorithm that we've discussed today, but same general idea
+–Also useful: pandas for data, matplotlib for plots
+CS 380: Artificial Intelligence | 38> python -m pip install scikit -learn pandas matplotlib
+
+---- Page 39 ----
+restaurant.csv
+CS 380: Artificial Intelligence | 39
+
+
+---- Page 40 ----
+decision_tree.py
+CS 380: Artificial Intelligence | 40
+
+
+---- Page 41 ----
+
+
+---- Page 42 ----
+> python decision_tree.py 
+Alternative Bar Friday Hungry Patrons Price Rain Reservation     Type EstimatedWait WillWait
+0            T   F      F      T    Some   $$$    F           T   French          0 –10        T
+1            T   F      F      T    Full     $    F           F     Thai         30 –60        F
+2            F   T      F      F    Some     $    F           F   Burger          0 –10        T
+3            T   F      T      T    Full     $    F           F     Thai         10 –30        T
+4            T   F      T      F    Full   $$$    F           T   French           >60        F
+5            F   T      F      T    Some    $$    T           T  Italian          0 –10        T
+6            F   T      F      F    None     $    T           F   Burger          0 –10        F
+7            F   F      F      T    Some    $$    T           T     Thai          0 –10        T
+8            F   T      T      F    Full     $    T           F   Burger           >60        F
+9            T   T      T      T    Full   $$$    F           T  Italian         10 –30        F
+10           F   F      F      F    None     $    F           F     Thai          0 –10        F
+11           T   T      T      T    Full     $    F           F   Burger         30 –60        T
+Note: scikit -learn can only build a 
+binary tree, so it handles features 
+with >2 values differently than we 
+discussed earlier
+
+---- Page 43 ----
+Overfitting
+•What if almost all examples fit a clear pattern, 
+but there’s one that doesn’t fit?
+CS 380: Artificial Intelligence | 43
+
+
+---- Page 44 ----
+Overfitting
+•What if almost all examples fit a clear pattern, 
+but there’s one that doesn’t fit?
+CS 380: Artificial Intelligence | 44
+
+
+---- Page 45 ----
+Overfitting
+•What if almost all examples fit a clear pattern, 
+but there’s one that doesn’t fit?
+CS 380: Artificial Intelligence | 45
+
+
+---- Page 46 ----
+Overfitting
+•What happens if we have an example in the training set 
+that is noise? (e.g. that is mislabeled)
+–ID3 will try to force it into the decision tree!
+•This is an example of Overfitting —when what you’ve 
+learned does very well on training examples,
+but much less well on other examples
+–In other words, it doesn’t generalize
+–One of the most critical concepts in machine learning!
+•For ID3, some strategies exist to avoid this
+–e.g., prevent leaves that have very few examples
+–e.g., stop building the tree when there would be little 
+information gain in the next level
+CS 380: Artificial Intelligence | 46
+
+---- Page 47 ----
+Overfitting
+•More generally, what can you do?
+–Use a training set and a test set
+•Say, reserve 90% for training and 10% for testing
+–Use cross -validation
+•Repeatedly split your set into different training vs. test sets
+•E.g., Leave -one-out cross -validation
+–By not training on the data you’re testing, you’re 
+trying to ensure generality
+CS 380: Artificial Intelligence | 47
+
+---- Page 48 ----
+Random Forest
+CS 380: Artificial Intelligence | 48
+Decisiontrees
+One pos s iblerepre s e ntationforhypothe s e s
+E.g.,hereisthe“true”treeforde cidingwhethertowait:
+No  Yes
+No  Yes
+No  YesNo  Yes
+No  Yes
+No  YesNone Some Full
+>60 30−60 10−30 0−10
+No  YesAlternate?Hungry?
+Reservation?
+Bar? Raining?Alternate?Patrons?
+Fri/Sat?WaitEstimate? F T
+F T
+T
+T
+F TT F T
+T F
+Chapter18,Sections1–3 14
+Exa mplecont d.
+De cisiontreelearnedfromthe12example s :
+No  YesFri/Sat?None Some FullPatrons?
+No  YesHungry?
+Type?
+French Italian Thai BurgerF T
+T FF
+T
+F T
+Substantiallysimplerthan“true”tree—a morecomplexhypothe s isisn’tjus-
+tiﬁedbysmallamountofdata
+Chapter18,Sections1–3 27Test Vector <Patrons=Full, WaitEstimate ?=0-10, Hungry=No>
+
+---- Page 49 ----
+Random Forest
+CS 380: Artificial Intelligence | 49
+
+---- Page 50 ----
+Random Forest
+•Advantages
+–Reduces overfitting
+–Handles large datasets and high -dimensional spaces
+–Robust to noise and outliers
+•Disadvantages
+–Slower to predict than individual trees
+–Less interpretable than a single decision tree
+CS 380: Artificial Intelligence | 50
+
+---- Page 51 ----
+Random Forest
+•Where it’s used today
+–Email Spam Detection
+–Medical Diagnosis
+–Stock Price Predictions
+–Fraud Detection
+•Why use this over deep learning?
+–For structured data:
+•Less data -hungry, work well on small to medium datasets
+•Require less tuning
+•Can handle missing values and noisy inputs
+•Better interpretability
+CS 380: Artificial Intelligence | 51
+
+---- Page 52 ----
+Next time
+•We will focus on one specific type of
+Machine Learning called Reinforcement Learning
+CS 380: Artificial Intelligence | 52
+
